@@ -24,4 +24,17 @@ public abstract class Entity extends GameElement {
             GameLib.drawExplosion(X, Y, alpha);
     }
 
+    //Somente uma ideia de como vai ficar
+    public void collide(){
+
+    }
+
+    private void collideShot(){
+
+    }
+
+    private void  collideEnemy(){
+
+    }
+
 }
