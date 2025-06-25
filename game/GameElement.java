@@ -1,12 +1,16 @@
 package game;
 
+import game.gameObjects.entities.Enemy;
+
 import java.awt.Color;
+import java.util.ArrayList;
 
 
 public abstract class GameElement {
     public static final int INACTIVE = 0;
 	public static final int ACTIVE = 1;
 	public static final int EXPLODING = 2;
+    public static final int DESTROY = 3; //define se um objeto deve ser destruido
 
 	protected int state = ACTIVE;				    // estado
 	protected double X = 0;							// coordenada x
@@ -34,9 +38,18 @@ public abstract class GameElement {
         return dist < this.radius + collider.radius;
     }
 
+    public void destroy(ArrayList<GameElement> object, int i){
+        //futuras isntalaões do metodo que vai destruir um inimigo
+        object.remove(i);
+    }
+
 	public int getState() {
         return state;
     }
+    public double getY(){return Y; }
+    public double getX(){return X; }
+    public double getRadius(){return radius;}
+    public  double getAngle(){return angle;}
 
     public void setState(int state) {
         this.state = state;

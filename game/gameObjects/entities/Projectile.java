@@ -7,38 +7,21 @@ import game.gameObjects.Entity;
 public class Projectile  extends Entity{
     //disparo do player
 
-    public Projectile(double radius, Entity entity, double angle, double vx, double vy){
-        super(coiso)
-        vx
-    }
-    projectile1{
-        atirar()
-    }
+    public Projectile(double x, double y, double radius, double vx, double vy) {
+        super(x, y, radius);
+        //variações de super:
+            //Player: super(player.getX(), player.getY() - 2 * player.getRadius(), radius);
+            //Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
 
-    public  Projectile(double radius, Player player){
-        super(player.getX(), player.getY() - 2 * player.getRadius(),radius );
-        VX = 0.0;
-        VY = -1.0;
+        VX = vx;
+        VY = vy;
+
+        //variações de VX e VY
+            // Player: VX = vx; VY = vy;
+            // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);
+            // Inimigo2:  double a = angle + Math.random() * Math.PI/6 - Math.PI/12; VX = Math.cos(a) * 0.30; VY = Math.sin(a) * 0.30;
         setState(ACTIVE);
-    }
 
-    //disparo do inimigo1
-    public Projectile(double radius, Enemy enemy){
-        super(enemy.getX(), enemy.getY(), radius);
-        VX = Math.cos(enemy.getAngle()) * 0.45;
-        VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);
-        setState(ACTIVE);
-    }
-
-    //disparo do inimigo2
-    public Projectile(double radius, Enemy enemy, double angle){
-        super(enemy.getX(), enemy.getY(), radius);
-
-        double a = angle + Math.random() * Math.PI/6 - Math.PI/12;
-
-        VX = Math.cos(a) * 0.30;
-        VY = Math.sin(a) * 0.30;
-        setState(ACTIVE);
     }
 
     public void update(long delta) {

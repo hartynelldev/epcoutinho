@@ -37,4 +37,6 @@ public abstract class Entity extends GameElement {
 
     }
 
+    //talvez eu coloque o shot aqui
+
 }
