@@ -1,11 +1,12 @@
 package Entities;
 
-public class Enemy {
+// Entidade única de inimigo
+public class Enemy extends Entity {
     // Fields (attributes)
-    
+
     // Constructors
     public Enemy() {
-        // Initialization code
+        super();
     }
     
     // Methods

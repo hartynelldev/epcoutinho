@@ -1,4 +1,4 @@
-package game.gameObjects.entities;
+package Entities;
 import java.awt.Color;
 
 import game.GameLib;

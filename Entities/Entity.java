@@ -23,6 +23,11 @@ public class Entity extends Point2D{
     public Entity() {
         super(); // Posição inicial (0,0) e raio padrão de 12.0
     }
+
+    public Entity(double x, double y) {
+        super(x, y); // Posição inicial (x,y) e raio padrão de 12.0
+    }
+
     public Entity(double x, double y, double raio) {
 
         super(x, y, raio);
