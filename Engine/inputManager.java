@@ -2,8 +2,8 @@ package Engine;
 
 import Entities.Player;
 import utils.EntityState;
-
-public class inputManager {
+//Talvez não será usada
+/*public class inputManager {
     
     public static final int ACTIVE = 1;
     public static final int INACTIVE = 0;
@@ -41,4 +41,4 @@ public class inputManager {
     public boolean shouldExit() {
         return GameLib.iskeyPressed(GameLib.KEY_ESCAPE);
     }
-}
+}*/

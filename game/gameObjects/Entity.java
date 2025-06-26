@@ -1,7 +1,7 @@
 package game.gameObjects;
-
-import game.GameElement;
-import game.GameLib;
+/*
+import Entities.GameElement;
+import Engine.GameLib;
 
 public abstract class Entity extends GameElement {
 		protected double explosionStart;			// instante do início da explosão
@@ -40,3 +40,4 @@ public abstract class Entity extends GameElement {
     //talvez eu coloque o shot aqui
 
 }
+*/

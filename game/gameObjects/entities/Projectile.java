@@ -1,4 +1,4 @@
-package Entities;
+/*package Entities;
 import java.awt.Color;
 
 import game.GameLib;
@@ -27,7 +27,7 @@ public class Projectile  extends Entity{
     public void update(long delta) {
         if(state == ACTIVE){
 
-            /* verificando se projétil saiu da tela */
+            /* verificando se projétil saiu da tela
             if(Y < 0) {
 
                 //projectile_states[i] = INACTIVE;
@@ -43,5 +43,5 @@ public class Projectile  extends Entity{
 
     }
 }
-
+*/
 

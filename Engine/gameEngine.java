@@ -77,7 +77,7 @@ public class gameEngine {
 		long player_nextShot = currentTime;					// instante a partir do qual pode haver um próximo tiro
         
         // O Q FIZEMOS
-        Player player = new Player();
+        Player player = new Player(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90, 12);
 
 
 		/* variáveis dos projéteis disparados pelo player */

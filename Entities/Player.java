@@ -3,63 +3,50 @@ package Entities;
 import Engine.GameLib;
 import utils.EntityState;
 
-public class Player extends Entity {
-    // Fields (attributes)
-	double explosion_start = 0;					// instante do início da explosão
-	double explosion_end = 0;					// instante do final da explosão
-	long nextShot;					// instante a partir do qual pode haver um próximo tir
+import java.awt.*;
+import java.lang.annotation.ElementType;
 
-    long currentTime = System.currentTimeMillis();	// instante atual do sistema
+public class Player extends Entity{
 
-    // Constructors
-    public Player() {
-        super(
-            GameLib.WIDTH / 2,                // coordenada x inicial
-            GameLib.HEIGHT * 0.90,            // coordenada y inicial
-            12.0,                         // raio (tamanho aproximado do player)
-            EntityState.ACTIVE,            // estado inicial
-            0.25,                          // velocidade no eixo x
-            0.25,                          // velocidade no eixo y
-            0.0,                           // ângulo inicial
-            0.0                            // velocidade de rotação inicial
-        );
+    protected int playerShootingSpeed = 100;
 
-		this.nextShot = this.currentTime;					// instante a partir do qual pode haver um próximo tir
+    public Player(double x, double y, double radius){
+        super(x, y, radius);
+        VX = 0.25;						// velocidade no eixo x
+        VY = 0.25;						// velocidade no eixo y
+        color = Color.BLUE;
     }
-    
-    // Methods
-    public void moveUp(double delta) {
-        if (state == EntityState.ACTIVE) {
-            double newY = getY() - delta * getVy();
-            setY(newY);
-        }
+
+    public void setShootingSpeed(int shootingSpeed){
+        playerShootingSpeed = shootingSpeed;
     }
-    
-    public void moveDown(double delta) {
-        if (state == EntityState.ACTIVE) {
-            double newY = getY() + delta * getVy();
-            setY(newY);
-        }
-    }
-    
-    public void moveLeft(double delta) {
-        if (state == EntityState.ACTIVE) {
-            double newY = getX() - delta * getVx();
-            setX(newY);
-        }
-    }
-    
-    public void moveRight(double delta) {
-        if (state == EntityState.ACTIVE) {
-            double newY = getX() + delta * getVx();
-            setX(newY);
+
+    public void update(long delta) {
+        if (getState() != EntityState.EXPLODING) {
+            if (GameLib.iskeyPressed(GameLib.KEY_UP)) setY(getY() - delta * VY);
+            if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) setY(getY() + delta * VY);
+            if (GameLib.iskeyPressed(GameLib.KEY_LEFT)) setX(getX() - delta * VX);
+            if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) setX(getX()+- delta * VX);
+
+            if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+                if (now > nextShot) {
+                    // DAR TIRO
+                    nextShot = now + playerShootingSpeed;
+                }
+            }
+        } else {
+            if (now > explosionEnd) {
+                setState(EntityState.ACTIVE);
+            }
         }
     }
 
-    public void tryShoot(long currentTime) {
-    if (state == EntityState.ACTIVE && currentTime > nextShot) {
-        // implementar lógica de tiro
-        nextShot = currentTime + 100; // Cooldown de 100ms
-    }
+    public void draw() {
+        if (getState() == EntityState.EXPLODING) {
+            explode(2000);
+        } else {
+            GameLib.setColor(color);
+            GameLib.drawPlayer(getX(), getY(), radius);
+        }
     }
 }

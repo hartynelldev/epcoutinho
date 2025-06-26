@@ -1,4 +1,4 @@
-package game.gameObjects.entities;
+/*package game.gameObjects.entities;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -28,3 +28,4 @@ public abstract class Enemy extends Entity{
 
 
 }
+*/
