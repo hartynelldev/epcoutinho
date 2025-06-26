@@ -41,6 +41,17 @@ public class Player extends Entity{
         }
     }
 
+    public void collide(GameElement element, long currentTime){
+        if(getState() == EntityState.ACTIVE){
+            double dist = collideTo(element);
+            if(dist < (radius + element.radius)*0.8){
+                setState(EntityState.EXPLODING);
+                explosionStart = currentTime;
+                explosionEnd = currentTime + 2000;
+            }
+        }
+    }
+
     public void draw() {
         if (getState() == EntityState.EXPLODING) {
             explode(2000);

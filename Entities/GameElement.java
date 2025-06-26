@@ -26,12 +26,6 @@ public abstract class GameElement extends Point2D {
         super(x,y,radius);
     }
 
-	public boolean collidesWith(GameElement collider) {
-        double dx = this.getX() - collider.getX();
-        double dy = this.getY() - collider.getY();
-        double dist = Math.sqrt(dx * dx + dy * dy);
-        return dist < this.radius + collider.radius;
-    }
 
     public void destroy(ArrayList<GameElement> object, int i){
         //futuras isntalaões do metodo que vai destruir um inimigo

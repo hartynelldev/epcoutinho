@@ -24,6 +24,12 @@ public abstract class Entity extends GameElement {
         GameLib.drawExplosion(getX(), getY(), alpha);
     }
 
+    public double collideTo(GameElement collider) {
+        double dx = this.getX() - collider.getX();
+        double dy = this.getY() - collider.getY();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     //Somente uma ideia de como vai ficar
     public void collide(){
 

@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5622e1ec-7ae7-4c10-b4a0-b21d84b53e70" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="5622e1ec-7ae7-4c10-b4a0-b21d84b53e70" name="Changes" comment="gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Engine/gameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/Engine/gameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Engine/inputManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Engine/inputManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Bosses.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entities/EnemyModels/Enemy1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/EnemyModels/Enemy1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/GameElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/GameElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/gameObjects/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/game/gameObjects/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/gameObjects/entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/game/gameObjects/entities/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/gameObjects/entities/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/game/gameObjects/entities/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/EntityState.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/EntityState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +17,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Renan &lt;renan_moreira@usp.br&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -34,34 +29,34 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "RenanMoreir"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;RenanMoreir&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/hartynelldev/epcoutinho.git",
-    "accountId": "5494bfdd-b544-41ea-b9ca-3ffbc9f6d31c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hartynelldev/epcoutinho.git&quot;,
+    &quot;accountId&quot;: &quot;5494bfdd-b544-41ea-b9ca-3ffbc9f6d31c&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2z30TQvlzneBW2AYiv4zU1KiaZE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "reestrutura__Classes__IsaAlan"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;reestrutura__Classes__IsaAlan&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5622e1ec-7ae7-4c10-b4a0-b21d84b53e70" name="Changes" comment="" />
@@ -70,6 +65,15 @@
       <option name="presentableId" value="Default" />
       <updated>1750944458954</updated>
     </task>
+    <task id="LOCAL-00001" summary="gitignore">
+      <option name="closed" value="true" />
+      <created>1750955205362</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750955205362</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -82,5 +86,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
   </component>
 </project>

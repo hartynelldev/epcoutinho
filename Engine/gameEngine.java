@@ -67,7 +67,7 @@ public class gameEngine {
 		long currentTime = System.currentTimeMillis();
 
 		/* variáveis do player */
-		
+		//definida na classe player
 		int player_state = ACTIVE;						// estado
 		double player_X = GameLib.WIDTH / 2;					// coordenada x
 		double player_Y = GameLib.HEIGHT * 0.90;				// coordenada y
@@ -83,7 +83,7 @@ public class gameEngine {
 
 
 		/* variáveis dos projéteis disparados pelo player */
-		
+		//implementada na classe projetil
 		int [] projectile_states = new int[10];					// estados
 		double [] projectile_X = new double[10];				// coordenadas x
 		double [] projectile_Y = new double[10];				// coordenadas y
@@ -92,9 +92,8 @@ public class gameEngine {
 
 		ArrayList<Projectile> projectileList = new ArrayList<>(10);
 
-
 		/* variáveis dos inimigos tipo 1 */
-		
+		//implementado em Enemy1
 		int [] enemy1_states = new int[10];					// estados
 		double [] enemy1_X = new double[10];					// coordenadas x
 		double [] enemy1_Y = new double[10];					// coordenadas y
@@ -110,7 +109,7 @@ public class gameEngine {
 		ArrayList<Enemy1> enemy1List = new ArrayList<>(10);
 
 		/* variáveis dos inimigos tipo 2 */
-		
+
 		int [] enemy2_states = new int[10];					// estados
 		double [] enemy2_X = new double[10];					// coordenadas x
 		double [] enemy2_Y = new double[10];					// coordenadas y
@@ -150,7 +149,7 @@ public class gameEngine {
 		double background2_count = 0.0;
 		
 		/* inicializações */
-		
+		//Construtor já faz isso
 		for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
 		for(int i = 0; i < e_projectile_states.length; i++) e_projectile_states[i] = INACTIVE;
 		for(int i = 0; i < enemy1_states.length; i++) enemy1_states[i] = INACTIVE;
@@ -208,13 +207,15 @@ public class gameEngine {
 			/***************************/
 			/* Verificação de colisões */
 			/***************************/
-						
+
+
 			if(player_state == ACTIVE){
 				
-				/* colisões player - projeteis (inimigo) */
+				/* colisões player - projeteis (inimigo) */ //colide faz isso
 				
 				for(int i = 0; i < e_projectile_states.length; i++){
-					
+
+					//ColideWith faz isso
 					double dx = e_projectile_X[i] - player_X;
 					double dy = e_projectile_Y[i] - player_Y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
@@ -227,7 +228,7 @@ public class gameEngine {
 					}
 				}
 			
-				/* colisões player - inimigos */
+				/* colisões player - inimigos */ //colide faz isso
 							
 				for(int i = 0; i < enemy1_states.length; i++){
 					
@@ -258,14 +259,15 @@ public class gameEngine {
 				}
 			}
 			
-			/* colisões projeteis (player) - inimigos */
+			/* colisões projeteis (player) - inimigos */ /*collide faz isso*/
 			
 			for(int k = 0; k < projectile_states.length; k++){
 				
 				for(int i = 0; i < enemy1_states.length; i++){
 										
 					if(enemy1_states[i] == ACTIVE){
-					
+
+						//collideTo
 						double dx = enemy1_X[i] - projectile_X[k];
 						double dy = enemy1_Y[i] - projectile_Y[k];
 						double dist = Math.sqrt(dx * dx + dy * dy);
@@ -301,7 +303,7 @@ public class gameEngine {
 			/* Atualizações de estados */
 			/***************************/
 			
-			/* projeteis (player) */
+			/* projeteis (player) */ //update faz isso
 			
 			for(int i = 0; i < projectile_states.length; i++){
 				
@@ -461,19 +463,21 @@ public class gameEngine {
 			}
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
-			
+			//spaw() faz isso
 			if(currentTime > nextEnemy1){
 				
 				int free = findFreeIndex(enemy1_states);
 								
 				if(free < enemy1_states.length){
-					
+
+					enemy1List.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20.0) + 10.0,-10.0,10));
+					enemy1List.get(0).draw();
 					enemy1_X[free] = Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
 					enemy1_Y[free] = -10.0;
 					enemy1_V[free] = 0.20 + Math.random() * 0.15;
 					enemy1_angle[free] = (3 * Math.PI) / 2;
 					enemy1_RV[free] = 0.0;
-					enemy1_states[free] = ACTIVE;
+					enemy1_states[free] = ACTIVE; //unica operação que ele faz
 					enemy1_nextShoot[free] = currentTime + 500;
 					nextEnemy1 = currentTime + 500;
 				}

@@ -12,7 +12,6 @@ import Engine.gameEngine;
 
 public class Main {
 	// COPIAMOS TODO O CONTEUDO DA MAIN anterior PARA A CLASSE gameEngine
-	
 	public static void main(String [] args){
 		// Cria uma instância do jogo
 		gameEngine game = new gameEngine();
