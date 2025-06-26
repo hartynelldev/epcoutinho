@@ -2,7 +2,9 @@ package Engine;
 
 import java.awt.Color;
 
-import Entities.Player;
+import Entities.*;
+import Entities.EnemyModels.*;
+import java.util.ArrayList;
 
 public class gameEngine {
 
@@ -88,6 +90,9 @@ public class gameEngine {
 		double [] projectile_VX = new double[10];				// velocidades no eixo x
 		double [] projectile_VY = new double[10];				// velocidades no eixo y
 
+		ArrayList<Projectile> projectileList = new ArrayList<>(10);
+
+
 		/* variáveis dos inimigos tipo 1 */
 		
 		int [] enemy1_states = new int[10];					// estados
@@ -102,6 +107,8 @@ public class gameEngine {
 		double enemy1_radius = 9.0;						// raio (tamanho do inimigo 1)
 		long nextEnemy1 = currentTime + 2000;					// instante em que um novo inimigo 1 deve aparecer
 		
+		ArrayList<Enemy1> enemy1List = new ArrayList<>(10);
+
 		/* variáveis dos inimigos tipo 2 */
 		
 		int [] enemy2_states = new int[10];					// estados
@@ -117,6 +124,8 @@ public class gameEngine {
 		double enemy2_radius = 12.0;						// raio (tamanho aproximado do inimigo 2)
 		long nextEnemy2 = currentTime + 7000;					// instante em que um novo inimigo 2 deve aparecer
 		
+
+		ArrayList<Enemy2> enemy2List = new ArrayList<>(10);
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
 		int [] e_projectile_states = new int[200];				// estados
