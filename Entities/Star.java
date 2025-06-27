@@ -14,7 +14,7 @@ public class Star extends GameElement{
         color = cor;
     }
 
-    public void draw(){
+    public void draw(long currentTime){
         GameLib.fillRect(getX(), (getY() + count) % GameLib.HEIGHT, 2, 2);
     }
 }

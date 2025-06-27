@@ -28,7 +28,7 @@ public abstract class Point2D {
     }
 
     // Methods
-    public abstract void draw();
+    public abstract void draw(long currentTime);
 
     // Getters e Setters
 

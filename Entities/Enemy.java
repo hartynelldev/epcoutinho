@@ -20,6 +20,11 @@ public abstract class Enemy extends Entity{
         }
     }
 
+    //Sobreescrita do metodo canShoot de Entity
+    public boolean canShoot(long currentTime, GameElement ent){
+        return currentTime > nextShot && getY() < ent.getY() && getState() == EntityState.ACTIVE;
+    }
+
 
     public void collide(GameElement element, long currentTime){
         if(getState() == EntityState.ACTIVE){
@@ -32,9 +37,9 @@ public abstract class Enemy extends Entity{
         }
     }
 
-    public void draw(){
+    public void draw(long currentTime){
         if(getState() == EntityState.EXPLODING){
-            explode(10);
+            explode(10, currentTime);
         }
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);

@@ -8,7 +8,6 @@ import java.lang.annotation.ElementType;
 
 public class Player extends Entity{
 
-    protected int playerShootingSpeed = 100;
 
     public Player(double x, double y, double radius){
         super(x, y, radius);
@@ -18,10 +17,10 @@ public class Player extends Entity{
     }
 
     public void setShootingSpeed(int shootingSpeed){
-        playerShootingSpeed = shootingSpeed;
+        ShootingSpeed = shootingSpeed;
     }
 
-    public void update(long delta) {
+    public void update(long delta, long currentTime) {
         if (getState() != EntityState.EXPLODING) {
             if (GameLib.iskeyPressed(GameLib.KEY_UP)) setY(getY() - delta * VY);
             if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) setY(getY() + delta * VY);
@@ -29,16 +28,28 @@ public class Player extends Entity{
             if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) setX(getX()+- delta * VX);
 
             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
-                if (now > nextShot) {
+                if (currentTime > nextShot) {
                     // DAR TIRO
-                    nextShot = now + playerShootingSpeed;
+                    nextShot = currentTime + ShootingSpeed;
                 }
             }
         } else {
-            if (now > explosionEnd) {
+            if (currentTime > explosionEnd) {
                 setState(EntityState.ACTIVE);
             }
         }
+    }
+
+    public Projectile shoot(long currentTime){
+        if (GameLib.iskeyPressed(GameLib.KEY_CONTROL) && canShoot(currentTime)){
+            nextShot = currentTime + ShootingSpeed;
+            //não sei se esta certo os valores
+            return new ProjectilePlayer(getX(),getY() - 2 * radius, radius, VX, VY, Color.GREEN);
+        }
+        return null;
+
+        //Player: super(player.getX(), player.getY() - 2 * player.getRadius(), radius);
+        // Player: VX = vx; VY = vy;
     }
 
     public void collide(GameElement element, long currentTime){
@@ -52,9 +63,9 @@ public class Player extends Entity{
         }
     }
 
-    public void draw() {
+    public void draw(long currentTime) {
         if (getState() == EntityState.EXPLODING) {
-            explode(2000);
+            explode(2000, currentTime);
         } else {
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), radius);

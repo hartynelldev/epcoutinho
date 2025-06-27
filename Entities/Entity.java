@@ -6,6 +6,7 @@ import utils.*;
 public abstract class Entity extends GameElement {
     protected double explosionStart;			// instante do início da explosão
     protected double explosionEnd;				// instante do final da explosão
+    protected int ShootingSpeed = 100;
     protected long nextShot;             		// instante a partir do qual pode haver um próximo tiro
 
 
@@ -13,13 +14,12 @@ public abstract class Entity extends GameElement {
         super(x,y,radius);
         explosionStart = 0;
         explosionEnd = 0;
-        nextShot = now;
     }
 
-    public void explode(int explosionTime){
+    public void explode(int explosionTime, long currentTime){
         setState(EntityState.EXPLODING);
-        explosionStart = now;
-        explosionEnd = now + 2000;
+        explosionStart = currentTime;
+        explosionEnd = currentTime + 2000;
         double alpha = (System.currentTimeMillis() - explosionStart) / (explosionEnd - explosionStart);
         GameLib.drawExplosion(getX(), getY(), alpha);
     }
@@ -29,21 +29,11 @@ public abstract class Entity extends GameElement {
         double dy = this.getY() - collider.getY();
         return Math.sqrt(dx * dx + dy * dy);
     }
-    public abstract void update(long delta);
 
-    //Somente uma ideia de como vai ficar
-    public void collide(){
-
+    public boolean canShoot(long currentTime){
+        return currentTime > nextShot && getState() == EntityState.ACTIVE;
     }
 
-    private void collideShot(){
-
-    }
-
-    private void  collideEnemy(){
-
-    }
-
-    //talvez eu coloque o shot aqui
+    public abstract void update(long delta, long currentTime);
 
 }

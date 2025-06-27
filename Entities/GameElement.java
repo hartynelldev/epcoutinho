@@ -21,7 +21,7 @@ public abstract class GameElement extends Point2D {
     protected double angle;     				    // ângulos (indicam direção do movimento)
 	protected double RV;                            // velocidades de rotação
 
-    protected long now = System.currentTimeMillis();
+//    protected long now = System.currentTimeMillis();
     protected Color color;
 
     public GameElement(double x, double y, double radius){
@@ -49,5 +49,5 @@ public abstract class GameElement extends Point2D {
     }
     public Color getColor(){return color;}
 
-    public abstract void draw();
+    public abstract void draw(long currentTime);
 }

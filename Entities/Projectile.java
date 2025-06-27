@@ -1,13 +1,17 @@
 package Entities;
 import java.awt.Color;
+
+import Engine.GameLib;
 import Entities.Entity;
 import utils.EntityState;
 
 public class Projectile  extends Entity{
     //disparo do player
 
-    public Projectile(double x, double y, double radius, double vx, double vy) {
+    //Implementar
+    public Projectile(double x, double y, double radius, double vx, double vy, Color cor) {
         super(x, y, radius);
+        color = cor;
         //variações de super:
         //Player: super(player.getX(), player.getY() - 2 * player.getRadius(), radius);
         //Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
@@ -23,21 +27,23 @@ public class Projectile  extends Entity{
 
     }
 
-    public void update(long delta) {
+    public void update(long delta, long currentTime) {
         if(state == EntityState.ACTIVE){
 
             /* verificando se projétil saiu da tela */
             if(getY() < 0) {
-
-                //projectile_states[i] = INACTIVE;
+                setState(EntityState.DESTROY);
             }
             else {
                 setX(getX() + VX * delta);
                 setY(getY() + VY * delta);
             }
         }
-    } //tentantdo comitar/
-    public void draw() {
-
+    }
+    public void draw(long currentTime) {
+        if(getState() == EntityState.ACTIVE){
+            GameLib.setColor(color);
+            GameLib.drawCircle(getX(), getY(), radius);
+        }
     }
 }

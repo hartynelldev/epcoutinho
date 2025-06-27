@@ -110,8 +110,9 @@ public class gameEngine {
 		int NumEnemys = 10;
 		ArrayList<Enemy1> enemy1List = new ArrayList<>();
 		for(int i = 0; i < NumEnemys; i++){
-			enemy1List.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20.0) + 10.0, -10, 0));
+			enemy1List.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20.0) + 10.0, -10, 0, currentTime));
 		}
+		enemy1List.add(null);
 
 		/* variáveis dos inimigos tipo 2 */
 
@@ -131,7 +132,7 @@ public class gameEngine {
 
 		ArrayList<Enemy2> enemy2List = new ArrayList<>(10);
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
-		
+
 		int [] e_projectile_states = new int[200];				// estados
 		double [] e_projectile_X = new double[200];				// coordenadas x
 		double [] e_projectile_Y = new double[200];				// coordenadas y
@@ -483,8 +484,8 @@ public class gameEngine {
 								
 				if(free < enemy1_states.length){
 
-					enemy1List.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20.0) + 10.0,-10.0,10));
-					enemy1List.get(0).draw();
+					//enemy1List.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20.0) + 10.0,-10.0,10));
+					enemy1List.get(0).draw(0);
 					enemy1_X[free] = Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
 					enemy1_Y[free] = -10.0;
 					enemy1_V[free] = 0.20 + Math.random() * 0.15;
