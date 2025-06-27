@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a9810f-65d4-431e-9cdb-748ec5e1f32f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Entities/BackGround.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entities/Star.java" afterDir="false" />
+    <list default="true" id="67a9810f-65d4-431e-9cdb-748ec5e1f32f" name="Changes" comment="Criação de entidade Star e BackGround">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Engine/gameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/Engine/gameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/GameElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/GameElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/Point2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/Point2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/EnemyModels/Enemy1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/EnemyModels/Enemy1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Renan &lt;renan_moreira@usp.br&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -69,6 +70,15 @@
       <option name="presentableId" value="Default" />
       <updated>1751025906004</updated>
     </task>
+    <task id="LOCAL-00001" summary="Criação de entidade Star e BackGround">
+      <option name="closed" value="true" />
+      <created>1751036876834</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751036876834</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -81,5 +91,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Criação de entidade Star e BackGround" />
+    <option name="LAST_COMMIT_MESSAGE" value="Criação de entidade Star e BackGround" />
   </component>
 </project>

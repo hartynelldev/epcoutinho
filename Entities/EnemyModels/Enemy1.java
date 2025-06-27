@@ -17,7 +17,7 @@ public class Enemy1 extends Enemy {
         RV = 0;
         nextShot = now + 500;
         color= Color.CYAN;
-        setState(EntityState.INACTIVE);
+        setState(EntityState.ACTIVE);
     }
 
     public void update(long delta/*, Player player*/){
@@ -36,7 +36,7 @@ public class Enemy1 extends Enemy {
             }
             else {
                 setX(getX() + VX * Math.cos(angle) * delta);
-                setY(getY() + VX * Math.sin(angle) * delta * (-1.0) );
+                setY(getY() + VY * Math.sin(angle) * delta * (-1.0) );
                 angle += RV * delta;
 
                 if(now > nextShot/* && Y < player.getY()*/){

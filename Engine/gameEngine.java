@@ -105,8 +105,13 @@ public class gameEngine {
 		long [] enemy1_nextShoot = new long[10];				// instantes do próximo tiro
 		double enemy1_radius = 9.0;						// raio (tamanho do inimigo 1)
 		long nextEnemy1 = currentTime + 2000;					// instante em que um novo inimigo 1 deve aparecer
-		
-		ArrayList<Enemy1> enemy1List = new ArrayList<>(10);
+
+		//utiliza as clases criadas -- y está fora da tela ---tem que descomentar as outras partes para funcinar
+		int NumEnemys = 10;
+		ArrayList<Enemy1> enemy1List = new ArrayList<>();
+		for(int i = 0; i < NumEnemys; i++){
+			enemy1List.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20.0) + 10.0, -10, 0));
+		}
 
 		/* variáveis dos inimigos tipo 2 */
 
@@ -342,9 +347,15 @@ public class gameEngine {
 					}
 				}
 			}
-			
+
+
 			/* inimigos tipo 1 */
-			
+
+			//Utilizando as clases criadas
+			/*for (int i = 0; i < enemy1List.size(); i++){
+				enemy1List.get(i).update(delta);
+			}*/
+
 			for(int i = 0; i < enemy1_states.length; i++){
 				
 				if(enemy1_states[i] == EXPLODING){
@@ -357,7 +368,7 @@ public class gameEngine {
 				
 				if(enemy1_states[i] == ACTIVE){
 					
-					/* verificando se inimigo saiu da tela */
+					/* verificando se inimigo saiu da tela*/
 					if(enemy1_Y[i] > GameLib.HEIGHT + 10) {
 						
 						enemy1_states[i] = INACTIVE;
@@ -571,11 +582,13 @@ public class gameEngine {
 			
 			/* desenhando plano fundo distante */
 
+			backGround.draw(delta); //função que desenha o plano de fundo
+
 			//GameLib.setColor(Color.DARK_GRAY);
 			//background2_count +=  background2_speed* delta;
 			
 			//for(int i = 0; i < background2_X.length; i++){
-				backGround.draw(delta);
+
 				//GameLib.fillRect(background2_X[i], (background2_Y[i] + background2_count) % GameLib.HEIGHT, 2, 2);
 			//}
 			
@@ -627,7 +640,13 @@ public class gameEngine {
 			}
 			
 			/* desenhando inimigos (tipo 1) */
-			
+
+			/*utiliza as classes criadas
+			for(int i = 0; i < enemy1List.size(); i++){
+				enemy1List.get(i).draw();
+			}*/
+
+
 			for(int i = 0; i < enemy1_states.length; i++){
 				
 				if(enemy1_states[i] == EXPLODING){
