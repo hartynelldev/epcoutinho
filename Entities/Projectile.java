@@ -1,9 +1,11 @@
 package Entities;
 import java.awt.Color;
+
+import Engine.GameLib;
 import Entities.Entity;
 import utils.EntityState;
 
-public class Projectile  extends Entity{
+public class Projectile extends Entity{
     //disparos (player ou inimigos)
 
     public Projectile(double x, double y, double radius, double vx, double vy) {
@@ -27,9 +29,9 @@ public class Projectile  extends Entity{
         if(state == EntityState.ACTIVE){
 
             /* verificando se projétil saiu da tela */
-            if(getY() < 0) {
+            if(getY() < 0 || getY() > GameLib.HEIGHT) {
 
-                //projectile_states[i] = INACTIVE;
+                setState(EntityState.INACTIVE);
             }
             else {
                 setX(getX() + VX * delta);

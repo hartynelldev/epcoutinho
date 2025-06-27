@@ -2,6 +2,7 @@ package Entities.EnemyModels;
 
 import Engine.GameLib;
 import Entities.Enemy;
+import Entities.Player;
 import Entities.Projectile;
 import utils.EntityState;
 
@@ -20,43 +21,67 @@ public class Enemy2 extends Enemy {
         setState(EntityState.INACTIVE);
     }
 
-    public void update(long delta/*, Player player*/){
-        if(getState() == EntityState.EXPLODING){
+    public void update(long delta, Player player){
 
-            if(now > explosionEnd){
-                setState(EntityState.DESTROY);
+        // checar se esta explodindo
+        if(getState() == EntityState.EXPLODING){
+					
+            if(now > super.explosionEnd){
+                
+                super.setState(EntityState.INACTIVE);
             }
         }
 
-        if(getState() == EntityState.ACTIVE){
+        if(!super.isActive()) return;
 
             /* verificando se inimigo saiu da tela */
-            if(getY() > GameLib.HEIGHT + 10) {
-                setState(EntityState.DESTROY);
+            if(getY() > GameLib.HEIGHT + 10 || getY() < -10) {
+                
+                setState(EntityState.INACTIVE);
+                return;
             }
-            else {
-                setX(getX() + VX * Math.cos(angle) * delta);
-                setY(getY() + VX * Math.sin(angle) * delta * (-1.0) );
-                angle += RV * delta;
 
-                if(now > nextShot/* && Y < player.getY()*/){
+        // Atualiza posição e angulo
+        double x_ant = getX();
+        setX(x_ant + (VX * Math.cos(angle) * delta));
 
+        double y_ant = getY();
+        super.setY(y_ant + (VY * Math.sin(angle) * delta * (-1.0)));
 
-                    //efetua o proximo disparo
-                    /*int free = findFreeIndex(e_projectile_states);
+        angle += RV * delta;
+        
 
-                    if(free < e_projectile_states.length){
+        // "IA" de disparo do inimigo
+        boolean shootNow = false;
 
-                        e_projectile_X[free] = enemy1_X[i];
-                        e_projectile_Y[free] = enemy1_Y[i];
-                        e_projectile_VX[free] = Math.cos(enemy1_angle[i]) * 0.45;
-                        e_projectile_VY[free] = Math.sin(enemy1_angle[i]) * 0.45 * (-1.0);
-                        e_projectile_states[free] = ACTIVE;
+        if(RV > 0 && Math.abs(angle - 3 * Math.PI) < 0.05){
+            
+            setRV(0.0);
+            setAngle(3 * Math.PI);
+            shootNow = true;
+        }
+        
+        if(RV < 0 && Math.abs(angle) < 0.05){
+            
+            setRV(0.0);
+            setAngle(0.0);;
+            shootNow = true;
+        }
+                                                        
+        if (shootNow) {
+            // ATAQUE EM LEQUE
+            java.util.ArrayList<Double> angles = new java.util.ArrayList<>();
+            angles.add(Math.PI/2 + Math.PI/8);
+            angles.add(Math.PI/2);
+            angles.add(Math.PI/2 - Math.PI/8);
 
-                        enemy1_nextShoot[i] = (long) (currentTime + 200 + Math.random() * 500);
-                    }
-                     */
-                }
+            for(int k = 0; k < angles.size(); k++){
+                double a = angles.get(k) + Math.random() * Math.PI/6 - Math.PI/12;
+                double vx = Math.cos(a);
+                double vy = Math.sin(a);
+                Projectile proj = new Projectile(getX(), getY(), radius, vx * 0.30, vy * 0.30);
+                
+                proj.setState(EntityState.ACTIVE);
             }
         }
     }

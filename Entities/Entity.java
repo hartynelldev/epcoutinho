@@ -6,45 +6,41 @@ import utils.*;
 public abstract class Entity extends GameElement {
     protected double explosionStart;			// instante do início da explosão
     protected double explosionEnd;				// instante do final da explosão
-    protected long nextShot;             		// instante a partir do qual pode haver um próximo tiro
+    protected double explosionTime = 500;         	// tempo de explosão (padrão, player tem 2000 e muda no construtor)
 
 
     public Entity(double x, double y, double radius) {
         super(x,y,radius);
-        explosionStart = 0;
-        explosionEnd = 0;
-        nextShot = now;
     }
 
-    public void explode(int explosionTime){
+
+    public void explode(){
         setState(EntityState.EXPLODING);
         explosionStart = now;
-        explosionEnd = now + 2000;
+        double explosionEnd = now + explosionTime;
         double alpha = (System.currentTimeMillis() - explosionStart) / (explosionEnd - explosionStart);
         GameLib.drawExplosion(getX(), getY(), alpha);
     }
 
-    // Checa se há colisão com outro elemento do jogo
-    public double collideTo(GameElement collider) {
-        double dx = this.getX() - collider.getX();
-        double dy = this.getY() - collider.getY();
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-    public abstract void update(long delta);
-
-    //Somente uma ideia de como vai ficar
-    public void collide(){
-
-    }
-
-    private void collideShot(){
-
-    }
-
-    private void  collideEnemy(){
-
-    }
-
     //talvez eu coloque o shot aqui
+
+    // getters e setters
+
+
+    public double getExplosionStart() {
+        return this.explosionStart;
+    }
+
+    public void setExplosionStart(double explosionStart) {
+        this.explosionStart = explosionStart;
+    }
+
+    public double getExplosionEnd() {
+        return this.explosionEnd;
+    } 
+
+    public void setExplosionEnd(double explosionEnd) {
+        this.explosionEnd = explosionEnd;
+    }
 
 }

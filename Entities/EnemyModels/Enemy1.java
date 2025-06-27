@@ -2,6 +2,7 @@ package Entities.EnemyModels;
 
 import Engine.GameLib;
 import Entities.Enemy;
+import Entities.Player;
 import Entities.Projectile;
 import utils.EntityState;
 
@@ -20,45 +21,49 @@ public class Enemy1 extends Enemy {
         setState(EntityState.INACTIVE);
     }
 
-    public void update(long delta/*, Player player*/){
-        if(getState() == EntityState.EXPLODING){
+    public void update(long delta, Player player){
 
-            if(now > explosionEnd){
-                setState(EntityState.DESTROY);
+        // checar se esta explodindo
+        if(getState() == EntityState.EXPLODING){
+					
+            if(now > super.explosionEnd){
+                
+                super.setState(EntityState.INACTIVE);
             }
         }
 
-        if(getState() == EntityState.ACTIVE){
-
+        if(super.isActive()){
+    
             /* verificando se inimigo saiu da tela */
             if(getY() > GameLib.HEIGHT + 10) {
-                setState(EntityState.DESTROY);
+                
+                setState(EntityState.INACTIVE);
             }
             else {
-                setX(getX() + VX * Math.cos(angle) * delta);
-                setY(getY() + VX * Math.sin(angle) * delta * (-1.0) );
+                // Atualiza posição
+                double x_ant = getX();
+                setX(x_ant + (VX * Math.cos(angle) * delta));
+
+                double y_ant = getY();
+                super.setY(y_ant + (VY * Math.sin(angle) * delta * (-1.0)));
+
+                // Atualiza ângulo
                 angle += RV * delta;
-
-                if(now > nextShot/* && Y < player.getY()*/){
-
-
-                    //efetua o proximo disparo
-                    /*int free = findFreeIndex(e_projectile_states);
-
-                    if(free < e_projectile_states.length){
-
-                        e_projectile_X[free] = enemy1_X[i];
-                        e_projectile_Y[free] = enemy1_Y[i];
-                        e_projectile_VX[free] = Math.cos(enemy1_angle[i]) * 0.45;
-                        e_projectile_VY[free] = Math.sin(enemy1_angle[i]) * 0.45 * (-1.0);
-                        e_projectile_states[free] = ACTIVE;
-
-                        enemy1_nextShoot[i] = (long) (currentTime + 200 + Math.random() * 500);
-                    }
-                     */
+                
+                // "IA" de disparo do inimigo
+                if(now > nextShot && getY() < player.getY()){
+                    
+                    // criar um novo projetil
+                    //Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
+                    // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);
+                    Projectile proj = new Projectile(getX(), getY(), radius, Math.cos(angle) * 0.45, Math.sin(angle) * 0.45 * (-1.0));
+                    proj.setState(EntityState.ACTIVE);
+                    
+                    this.nextShot = (long) (now + 200 + Math.random() * 500);
                 }
             }
         }
+        
     }
 
     //Provavlemente esse metodo retornara alguma coisa

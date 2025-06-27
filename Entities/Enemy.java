@@ -8,6 +8,7 @@ public abstract class Enemy extends Entity{
 
     //talvez seja em outro lugar
     protected long nextSpawn;
+    protected long nextShot;             		// instante a partir do qual pode haver um próximo tiro
 
     public Enemy(double x, double y, long when, double radius){
         super(x, y, radius);
@@ -20,21 +21,9 @@ public abstract class Enemy extends Entity{
         }
     }
 
-
-    public void collide(GameElement element, long currentTime){
-        if(getState() == EntityState.ACTIVE){
-            double dist = collideTo(element);
-            if(dist < radius){
-                setState(EntityState.EXPLODING);
-                explosionStart = currentTime;
-                explosionEnd = currentTime + 2000;
-            }
-        }
-    }
-
     public void draw(){
         if(getState() == EntityState.EXPLODING){
-            explode(10);
+            explode();
         }
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);
@@ -42,5 +31,12 @@ public abstract class Enemy extends Entity{
         }
     }
 
+    // getter para o próximo tiro
+    public long getNextShot() {
+        return nextShot;
+    }
+    public void setNextShot(long newS) {
+        this.nextShot = newS;
+    }
 
 }
