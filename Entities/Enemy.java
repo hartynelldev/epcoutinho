@@ -7,15 +7,15 @@ import utils.EntityState;
 public abstract class Enemy extends Entity{
 
     //talvez seja em outro lugar
-    protected long spawTime;
+    protected long nextSpawn;
 
     public Enemy(double x, double y, long when, double radius){
         super(x, y, radius);
-        spawTime = when;
+        nextSpawn = when;
     }
 
-    public void spaw(long currentTime){
-        if(currentTime > this.spawTime){
+    public void spawn(long currentTime){
+        if(currentTime > this.nextSpawn){
             setState(EntityState.ACTIVE);
         }
     }

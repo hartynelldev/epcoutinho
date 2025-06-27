@@ -68,7 +68,10 @@ public class Enemy1 extends Enemy {
 
         //Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
         // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);
-        // o tiro vai ser parte do inimigo, mas o inimigo vai chamar/criar uma classe de projétil c o construtor de projetil. Se vc quiser, pode criar 2 subclasses de projetil, uma o projetil base e uma outra q quando chega em um pedaco da tela (o fim se pa) explode em outros projeteis (pro boss e pros powerup w vo usa). mas ai e opcional sepa, tu escolhe, so acho q vale a pena ter mais q 1 tipo de projetil
+        // o tiro vai ser parte do inimigo, mas o inimigo vai chamar/criar uma classe de projétil c o construtor de projetil.
+        // Se vc quiser, pode criar 2 subclasses de projetil, uma o projetil base e uma outra q quando chega em um pedaco da tela 
+        // (o fim se pa) explode em outros projeteis (pro boss e pros powerup w vo usa). mas ai e opcional sepa, tu escolhe, 
+        //so acho q vale a pena ter mais q 1 tipo de projetil
         //teoricamente quem vai controlar porjetil seria GameEnge
         //mas a arrayList ficaria aonde ?
         //no codigo original ele não controla isso, pra ele todos os projeteis são a mesma coisa

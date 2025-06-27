@@ -4,7 +4,7 @@ import Entities.Entity;
 import utils.EntityState;
 
 public class Projectile  extends Entity{
-    //disparo do player
+    //disparos (player ou inimigos)
 
     public Projectile(double x, double y, double radius, double vx, double vy) {
         super(x, y, radius);
@@ -19,7 +19,7 @@ public class Projectile  extends Entity{
         // Player: VX = vx; VY = vy;
         // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);
         // Inimigo2:  double a = angle + Math.random() * Math.PI/6 - Math.PI/12; VX = Math.cos(a) * 0.30; VY = Math.sin(a) * 0.30;
-        setState(EntityState.ACTIVE);
+        setState(EntityState.INACTIVE);
 
     }
 

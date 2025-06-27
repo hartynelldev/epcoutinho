@@ -13,7 +13,7 @@ import Engine.GameLib;
 
 public abstract class GameElement extends Point2D {
 
-	protected EntityState state = EntityState.ACTIVE;				    // estado
+	protected EntityState state = EntityState.INACTIVE;				    // estado
 	protected double VX = 0.25;						// velocidade no eixo x
 	protected double VY = 0.25;						// velocidade no eixo y
 	protected double radius = 12.0;					// raio (tamanho aproximado)
@@ -25,6 +25,7 @@ public abstract class GameElement extends Point2D {
     protected Color color;
 
     public GameElement(double x, double y, double radius){
+        // contrutor deixará elemento INATIVO!
         super(x,y,radius);
     }
 
@@ -34,15 +35,22 @@ public abstract class GameElement extends Point2D {
         object.remove(i);
     }
 
+    public boolean isActive() {
+        if(state == EntityState.ACTIVE) {
+            return true;
+        }
+        return false;
+    }
+
 	public EntityState getState() {
         return state;
     }
-    public double getRadius(){return radius;}
-    public  double getAngle(){return angle;}
-
-    public void setState(EntityState state) {
+        public void setState(EntityState state) {
         this.state = state;
     }
+
+    public double getRadius(){return radius;}
+    public  double getAngle(){return angle;}
     
     public void setColor(Color color){
         this.color = color;

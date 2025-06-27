@@ -10,11 +10,14 @@ public class Player extends Entity{
 
     protected int playerShootingSpeed = 100;
 
-    public Player(double x, double y, double radius){
-        super(x, y, radius);
+    public Player(){
+        super(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90, 12);
         VX = 0.25;						// velocidade no eixo x
         VY = 0.25;						// velocidade no eixo y
         color = Color.BLUE;
+
+        // update para setar nextShot
+        update(0);
     }
 
     public void setShootingSpeed(int shootingSpeed){
@@ -41,6 +44,7 @@ public class Player extends Entity{
         }
     }
 
+    /* colisões player - projeteis (inimigo). Checa se o projetil existe e se há colisões, depois explode */
     public void collide(GameElement element, long currentTime){
         if(getState() == EntityState.ACTIVE){
             double dist = collideTo(element);

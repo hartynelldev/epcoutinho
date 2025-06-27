@@ -24,6 +24,7 @@ public abstract class Entity extends GameElement {
         GameLib.drawExplosion(getX(), getY(), alpha);
     }
 
+    // Checa se há colisão com outro elemento do jogo
     public double collideTo(GameElement collider) {
         double dx = this.getX() - collider.getX();
         double dy = this.getY() - collider.getY();

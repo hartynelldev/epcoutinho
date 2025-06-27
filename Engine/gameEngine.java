@@ -64,11 +64,12 @@ public class gameEngine {
 		/* variáveis usadas no controle de tempo efetuado no main loop */
 		
 		long delta;
-		long currentTime = System.currentTimeMillis();
+		// as definições utilizam o currentTime, mas apenas quando inicia o jogo. Para não confundir, troquei o nome inicial
+		long startTime = System.currentTimeMillis(); 
 
 		/* variáveis do player */
 		//definida na classe player
-		int player_state = ACTIVE;						// estado
+/* 		int player_state = ACTIVE;						// estado
 		double player_X = GameLib.WIDTH / 2;					// coordenada x
 		double player_Y = GameLib.HEIGHT * 0.90;				// coordenada y
 		double player_VX = 0.25;						// velocidade no eixo x
@@ -76,25 +77,25 @@ public class gameEngine {
 		double player_radius = 12.0;						// raio (tamanho aproximado do player)
 		double player_explosion_start = 0;					// instante do início da explosão
 		double player_explosion_end = 0;					// instante do final da explosão
-		long player_nextShot = currentTime;					// instante a partir do qual pode haver um próximo tiro
+		long player_nextShot = startTime;					// instante a partir do qual pode haver um próximo tiro */
         
         // O Q FIZEMOS
-        Player player = new Player(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90, 12);
+        Player player = new Player();
 
 
 		/* variáveis dos projéteis disparados pelo player */
 		//implementada na classe projetil
-		int [] projectile_states = new int[10];					// estados
+/* 		int [] projectile_states = new int[10];					// estados
 		double [] projectile_X = new double[10];				// coordenadas x
 		double [] projectile_Y = new double[10];				// coordenadas y
 		double [] projectile_VX = new double[10];				// velocidades no eixo x
-		double [] projectile_VY = new double[10];				// velocidades no eixo y
+		double [] projectile_VY = new double[10];				// velocidades no eixo y */
 
-		ArrayList<Projectile> projectileList = new ArrayList<>(10);
+		ArrayList<Projectile> playerProjectiles = new ArrayList<>(10);
 
 		/* variáveis dos inimigos tipo 1 */
 		//implementado em Enemy1
-		int [] enemy1_states = new int[10];					// estados
+/* 		int [] enemy1_states = new int[10];					// estados
 		double [] enemy1_X = new double[10];					// coordenadas x
 		double [] enemy1_Y = new double[10];					// coordenadas y
 		double [] enemy1_V = new double[10];					// velocidades
@@ -104,13 +105,14 @@ public class gameEngine {
 		double [] enemy1_explosion_end = new double[10];			// instantes dos finais da explosões
 		long [] enemy1_nextShoot = new long[10];				// instantes do próximo tiro
 		double enemy1_radius = 9.0;						// raio (tamanho do inimigo 1)
-		long nextEnemy1 = currentTime + 2000;					// instante em que um novo inimigo 1 deve aparecer
+		long nextEnemy1 = startTime + 2000;					// instante em que um novo inimigo 1 deve aparecer */
 		
-		ArrayList<Enemy1> enemy1List = new ArrayList<>(10);
+		ArrayList<Enemy1> enemy1List = new ArrayList<>(10); // a classe Enemy1 contem os atributos acima, menos o when.
+		long firstEnemy1 = startTime + 2000; // primeiro Spawn
 
 		/* variáveis dos inimigos tipo 2 */
 
-		int [] enemy2_states = new int[10];					// estados
+/* 		int [] enemy2_states = new int[10];					// estados
 		double [] enemy2_X = new double[10];					// coordenadas x
 		double [] enemy2_Y = new double[10];					// coordenadas y
 		double [] enemy2_V = new double[10];					// velocidades
@@ -121,18 +123,24 @@ public class gameEngine {
 		double enemy2_spawnX = GameLib.WIDTH * 0.20;				// coordenada x do próximo inimigo tipo 2 a aparecer
 		int enemy2_count = 5;							// contagem de inimigos tipo 2 (usada na "formação de voo")
 		double enemy2_radius = 12.0;						// raio (tamanho aproximado do inimigo 2)
-		long nextEnemy2 = currentTime + 7000;					// instante em que um novo inimigo 2 deve aparecer
+		long nextEnemy2 = startTime + 7000;					// instante em que um novo inimigo 2 deve aparecer */
 		
-
 		ArrayList<Enemy2> enemy2List = new ArrayList<>(10);
+		long firstEnemy2 = startTime + 7000; // primeiro spawn
+		double enemy2_spawnX = GameLib.WIDTH * 0.20;
+		int enemy2_count = 5;
+
+
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
-		int [] e_projectile_states = new int[200];				// estados
+/* 		int [] e_projectile_states = new int[200];				// estados
 		double [] e_projectile_X = new double[200];				// coordenadas x
 		double [] e_projectile_Y = new double[200];				// coordenadas y
 		double [] e_projectile_VX = new double[200];				// velocidade no eixo x
 		double [] e_projectile_VY = new double[200];				// velocidade no eixo y
-		double e_projectile_radius = 2.0;					// raio (tamanho dos projéteis inimigos)
+		double e_projectile_radius = 2.0;					// raio (tamanho dos projéteis inimigos) */
+
+		ArrayList<Projectile> enemy_Projectiles = new ArrayList<>(200); // lembrar de setar raio 2.0
 		
 		/* estrelas que formam o fundo de primeiro plano */
 		
@@ -151,12 +159,18 @@ public class gameEngine {
 		BackGround backGround = new BackGround(20,50);
 		
 		/* inicializações */
-		//Construtor já faz isso
-		for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
-		for(int i = 0; i < e_projectile_states.length; i++) e_projectile_states[i] = INACTIVE;
-		for(int i = 0; i < enemy1_states.length; i++) enemy1_states[i] = INACTIVE;
-		for(int i = 0; i < enemy2_states.length; i++) enemy2_states[i] = INACTIVE;
 		
+		// for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
+		// for(int i = 0; i < e_projectile_states.length; i++) e_projectile_states[i] = INACTIVE;
+		// for(int i = 0; i < enemy1_states.length; i++) enemy1_states[i] = INACTIVE;
+		// for(int i = 0; i < enemy2_states.length; i++) enemy2_states[i] = INACTIVE;
+		
+		//Construtor já faz isso: ele cria e deixa como inativo
+		for(int i = 0; i < playerProjectiles.size(); i++) playerProjectiles.add(new Projectile(0,0,0,0,0));
+		for(int i = 0; i < enemy_Projectiles.size(); i++) enemy_Projectiles.add(new Projectile(0,0,0,0,0));
+		for(int i = 0; i < enemy1List.size(); i++) enemy1List.add(new Enemy1(0,0,firstEnemy1));
+		for(int i = 0; i < enemy2List.size(); i++) enemy2List.add(new Enemy2(enemy2_spawnX,0,firstEnemy2));
+
 		/*for(int i = 0; i < background1_X.length; i++){
 
 			background1_X[i] = Math.random() * GameLib.WIDTH;
@@ -194,6 +208,8 @@ public class gameEngine {
 		/*                                                                                               */
 		/*************************************************************************************************/
 		
+		long currentTime = startTime; // o timestamp atual, usado para calcular o delta
+
 		while(running){
 		
 			/* Usada para atualizar o estado dos elementos do jogo    */
@@ -211,24 +227,25 @@ public class gameEngine {
 			/***************************/
 
 
-			if(player_state == ACTIVE){
+			if(player.isActive()){
 				
-				/* colisões player - projeteis (inimigo) */ //colide faz isso
-				
-				for(int i = 0; i < e_projectile_states.length; i++){
+				/* colisões player - projeteis (inimigo) */
 
-					//ColideWith faz isso
+				for(int i = 0; i < enemy_Projectiles.size(); i++){
+					
+					// checar se há colisão: colideTo de Entity faz isso
 					double dx = e_projectile_X[i] - player_X;
 					double dy = e_projectile_Y[i] - player_Y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					
 					if(dist < (player_radius + e_projectile_radius) * 0.8){
-						
 						player_state = EXPLODING;
 						player_explosion_start = currentTime;
 						player_explosion_end = currentTime + 2000;
-					}
+					} 
 				}
+				// NOSSO CODIGO
+				//player.collide();
 			
 				/* colisões player - inimigos */ //colide faz isso
 							
