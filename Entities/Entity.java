@@ -29,6 +29,7 @@ public abstract class Entity extends GameElement {
         double dy = this.getY() - collider.getY();
         return Math.sqrt(dx * dx + dy * dy);
     }
+    public abstract void update(long delta);
 
     //Somente uma ideia de como vai ficar
     public void collide(){

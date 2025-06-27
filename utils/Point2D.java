@@ -1,6 +1,7 @@
 package utils;
 import java.awt.Color;
 
+
 // Elementos do jogo (não se preocupar com interações)
 public abstract class Point2D {
     // Coordenadas x e y
@@ -27,7 +28,6 @@ public abstract class Point2D {
     }
 
     // Methods
-    public abstract void update(long delta);
     public abstract void draw();
 
     // Getters e Setters

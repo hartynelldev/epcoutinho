@@ -136,17 +136,19 @@ public class gameEngine {
 		
 		/* estrelas que formam o fundo de primeiro plano */
 		
-		double [] background1_X = new double[20];
+		/*double [] background1_X = new double[20];
 		double [] background1_Y = new double[20];
 		double background1_speed = 0.070;
-		double background1_count = 0.0;
+		double background1_count = 0.0;*/
 		
 		/* estrelas que formam o fundo de segundo plano */
 		
-		double [] background2_X = new double[50];
+		/*double [] background2_X = new double[50];
 		double [] background2_Y = new double[50];
 		double background2_speed = 0.045;
-		double background2_count = 0.0;
+		double background2_count = 0.0;*/
+
+		BackGround backGround = new BackGround(20,50);
 		
 		/* inicializações */
 		//Construtor já faz isso
@@ -155,17 +157,17 @@ public class gameEngine {
 		for(int i = 0; i < enemy1_states.length; i++) enemy1_states[i] = INACTIVE;
 		for(int i = 0; i < enemy2_states.length; i++) enemy2_states[i] = INACTIVE;
 		
-		for(int i = 0; i < background1_X.length; i++){
-			
+		/*for(int i = 0; i < background1_X.length; i++){
+
 			background1_X[i] = Math.random() * GameLib.WIDTH;
 			background1_Y[i] = Math.random() * GameLib.HEIGHT;
 		}
-		
+
 		for(int i = 0; i < background2_X.length; i++){
-			
+
 			background2_X[i] = Math.random() * GameLib.WIDTH;
 			background2_Y[i] = Math.random() * GameLib.HEIGHT;
-		}
+		}*/
 						
 		/* iniciado interface gráfica */
 		
@@ -568,24 +570,24 @@ public class gameEngine {
 			/*******************/
 			
 			/* desenhando plano fundo distante */
+
+			//GameLib.setColor(Color.DARK_GRAY);
+			//background2_count +=  background2_speed* delta;
 			
-			GameLib.setColor(Color.DARK_GRAY);
-			background2_count += background2_speed * delta;
-			
-			for(int i = 0; i < background2_X.length; i++){
-				
-				GameLib.fillRect(background2_X[i], (background2_Y[i] + background2_count) % GameLib.HEIGHT, 2, 2);
-			}
+			//for(int i = 0; i < background2_X.length; i++){
+				backGround.draw(delta);
+				//GameLib.fillRect(background2_X[i], (background2_Y[i] + background2_count) % GameLib.HEIGHT, 2, 2);
+			//}
 			
 			/* desenhando plano de fundo próximo */
 			
-			GameLib.setColor(Color.GRAY);
+			/*GameLib.setColor(Color.GRAY);
 			background1_count += background1_speed * delta;
 			
 			for(int i = 0; i < background1_X.length; i++){
 				
 				GameLib.fillRect(background1_X[i], (background1_Y[i] + background1_count) % GameLib.HEIGHT, 3, 3);
-			}
+			}*/
 						
 			/* desenhando player */
 			

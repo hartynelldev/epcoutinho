@@ -1,4 +1,6 @@
 package Entities;
+import Engine.GameLib;
+
 
 import utils.EntityState;
 import utils.Point2D;
@@ -45,7 +47,7 @@ public abstract class GameElement extends Point2D {
     public void setColor(Color color){
         this.color = color;
     }
+    public Color getColor(){return color;}
 
-    public abstract void update(long delta);
     public abstract void draw();
 }
