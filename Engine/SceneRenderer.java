@@ -16,10 +16,7 @@ public class SceneRenderer {
     public static void render(
         BackGround backGround,
         Player player,
-        List<ProjectilePlayer> playerProjectiles,
-        List<ProjectileEnemy> enemy_Projectiles,
-        List<Enemy1> enemy1List,
-        List<Enemy2> enemy2List,
+        List<List<? extends Entity>> entityLists,
         long currentTime,
         long delta
     ) {
@@ -29,30 +26,10 @@ public class SceneRenderer {
         // Desenhar player
         player.draw(currentTime);
 
-        // Desenhar projéteis do player
-        for(ProjectilePlayer proj : playerProjectiles){
-            proj.draw(currentTime);
-        }
-
-        // Desenhar projéteis dos inimigos
-        for(ProjectileEnemy proj : enemy_Projectiles){
-            proj.draw(currentTime);
-        }
-
-        // Desenhar inimigos tipo 1
-        for(Enemy1 e1 : enemy1List){
-            e1.draw(currentTime);
-        }
-
-        // Desenhar inimigos tipo 2
-        for(Enemy2 e2 : enemy2List){
-            if(e2.getState() == EntityState.EXPLODING){
-                double alpha = (currentTime - e2.getExplosionStart()) / (double)(e2.getExplosionEnd() - e2.getExplosionStart());
-                GameLib.drawExplosion(e2.getX(), e2.getY(), alpha);
-            }
-            if(e2.getState() == EntityState.ACTIVE){
-                GameLib.setColor(Color.MAGENTA);
-                GameLib.drawDiamond(e2.getX(), e2.getY(), e2.getRadius());
+        // Desenhar todas as entidades das listas
+        for (List<? extends Entity> list : entityLists) {
+            for (Entity e : list) {
+                e.draw(currentTime);
             }
         }
     }

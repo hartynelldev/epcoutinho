@@ -20,6 +20,11 @@ public abstract class Entity extends GameElement {
         this.explosionEnd = now + explosionTime;
     }
 
+    public boolean handleExploding(long now){
+        return false;
+        //not implemented
+    }
+
 
     abstract public void draw(long now);
 

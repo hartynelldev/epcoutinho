@@ -12,6 +12,8 @@ import static Engine.SceneRenderer.render;
 import Manager.EntityManager;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 public class gameEngine {
 
@@ -129,6 +131,14 @@ public class gameEngine {
 		// as definições utilizam o currentTime, mas apenas quando inicia o jogo. Para não confundir, troquei o nome inicial
 
 		inicializate();
+		
+		List<List<? extends Entity>> entities = Arrays.asList(
+            playerProjectiles,
+            enemy_Projectiles,
+            enemy1List,
+            enemy2List
+        );
+
 						
 		/* iniciado interface gráfica */
 		
@@ -237,10 +247,7 @@ public class gameEngine {
 			render(
                 backGround,
                 player,
-                playerProjectiles,
-                enemy_Projectiles,
-                enemy1List,
-                enemy2List,
+                entities,
                 currentTime,
                 delta
             );

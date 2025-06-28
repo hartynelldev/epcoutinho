@@ -1,5 +1,5 @@
 package Entities.EnemyModels.Bosses;
-import Entities.Enemy;
+import Entities.Boss;
 
-public class Boss2 extends Enemy{
+public class Boss2 {
 }

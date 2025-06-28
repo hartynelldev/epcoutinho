@@ -5,40 +5,13 @@ import Engine.GameLib;
 import Entities.Entity;
 import Manager.EntityState;
 
-public class ProjectilePlayer extends Entity{
+public class ProjectilePlayer extends Projectile{
     //disparos (player ou inimigos)
 
     public ProjectilePlayer(double x, double y, double radius, double vx, double vy) {
-        super(x, y, radius);
-        //variações de super:
-        //Player: super(player.getX(), player.getY() - 2 * player.getRadius(), radius);
-        //Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
-
-        VX = vx;
-        VY = vy;
-
-        //variações de VX e VY
-        // Player: VX = vx; VY = vy;
-        // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);
-        // Inimigo2:  double a = angle + Math.random() * Math.PI/6 - Math.PI/12; VX = Math.cos(a) * 0.30; VY = Math.sin(a) * 0.30;
-        setState(EntityState.INACTIVE);
-
+        super(x, y, radius, vx, vy);
     }
-
-    public void update(long delta, long now) {
-        if(state == EntityState.ACTIVE){
-
-            /* verificando se projétil saiu da tela */
-            if(getY() < 0 || getY() > GameLib.HEIGHT) {
-
-                setState(EntityState.INACTIVE);
-            }
-            else {
-                setX(getX() + VX * delta);
-                setY(getY() + VY * delta);
-            }
-        }
-    }
+    
     public void draw(long now) {
         if (isActive()) {
             GameLib.setColor(Color.GREEN);
