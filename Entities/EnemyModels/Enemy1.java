@@ -11,8 +11,6 @@ import java.awt.*;
 
 public class Enemy1 extends Enemy {
 
-
-
     public Enemy1(double x, double y, long when, long currentTime){
         super(x, y, when, 9.0);
         VX = 0;
