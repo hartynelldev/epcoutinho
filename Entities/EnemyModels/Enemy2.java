@@ -23,7 +23,12 @@ public class Enemy2 extends Enemy {
 
 
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
-    
+
+        hasLife(currentTime);
+        if(hitTimeEnd(currentTime)){
+            color = Color.BLUE;
+        }
+
         // checar se ainda esta explodindo
 
         if(handleExploding(currentTime)) return;

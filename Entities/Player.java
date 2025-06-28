@@ -19,12 +19,12 @@ public class Player extends Entity{
     private final double initialX = GameLib.WIDTH / 2;
     private final double initialY = GameLib.HEIGHT * 0.90;
 
-    public Player() {
+    public Player(int life) {
         super(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90, 12);
         VX = 0.25;						// velocidade no eixo x
         VY = 0.25;						// velocidade no eixo y
         color = Color.BLUE;
-
+        HP = life;
         super.setState(EntityState.ACTIVE);
         super.explosionTime = 2000; // tempo especifico para player
 
@@ -37,6 +37,11 @@ public class Player extends Entity{
     }
 
     public boolean update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
+        hasLife(now);
+        if(hitTimeEnd(now)){
+            color = Color.BLUE;
+        }
+
         if(powerUpEnd >= 0 && now > powerUpEnd){
             powerUpEnd = -1;
             VX = 0.25;
@@ -74,7 +79,7 @@ public class Player extends Entity{
         }
         else {
             if (now > explosionEnd) {
-                setState(EntityState.ACTIVE);
+                setState(EntityState.INACTIVE);
                 setX(initialX);
                 setY(initialY);
             }

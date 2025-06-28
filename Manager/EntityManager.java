@@ -5,6 +5,7 @@ import Entities.Entity;
 
 import Entities.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import Entities.GameElement;
 import Entities.Player;
@@ -40,7 +41,9 @@ public class EntityManager {
 			Boss enemy = (ent1 instanceof Boss) ? (Boss) ent1 : (Boss) ent2;
 
 			if (dist < (player.getRadius() + (enemy.getRadius())) * 0.8) {
-				player.explode(currentTime);
+				player.hit(1, currentTime);
+				enemy.hit(1, currentTime);
+				// player.explode(currentTime);
 				return true;
 			}
 			return false;
@@ -52,8 +55,10 @@ public class EntityManager {
 			Enemy enemy = (ent1 instanceof Enemy) ? (Enemy) ent1 : (Enemy) ent2;
 	
 			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8) {
-				player.explode(currentTime);
-				enemy.explode(currentTime);
+				player.hit(1, currentTime);
+				enemy.hit(1, currentTime);
+				//player.explode(currentTime);
+				//enemy.explode(currentTime);
 				return true;
 			}
 			return false;
@@ -71,8 +76,11 @@ public class EntityManager {
 			ProjectileEnemy projec = (ent1 instanceof ProjectileEnemy) ? (ProjectileEnemy) ent1 : (ProjectileEnemy) ent2;
 	
 			if (dist < (player.getRadius() + projec.getRadius()) * 0.8) {
-				player.explode(currentTime);
+				player.hit(1, currentTime);
+
+				//player.explode(currentTime);
 				projec.setState(EntityState.INACTIVE);
+
 				return true;
 			}
 			return false;
@@ -84,7 +92,8 @@ public class EntityManager {
 			Enemy enemy = (ent1 instanceof Enemy) ? (Enemy) ent1 : (Enemy) ent2;
 	
 			if (dist < enemy.getRadius()) {
-				enemy.explode(currentTime);
+				enemy.hit(1, currentTime);
+				//enemy.explode(currentTime);
 				projec.setState(EntityState.INACTIVE);
 				return true;
 			}
@@ -108,7 +117,7 @@ public class EntityManager {
 			// se quiser, implementamos
 			return false;
 		}
-	
+
 		return false;
 	}
     

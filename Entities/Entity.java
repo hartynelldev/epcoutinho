@@ -8,7 +8,8 @@ public abstract class Entity extends GameElement {
     protected double explosionStart;			// instante do início da explosão
     protected double explosionEnd;				// instante do final da explosão
     protected double explosionTime = 500;         	// tempo de explosão (padrão, player tem 2000 e muda no construtor)
-
+    protected int HP = 1;
+    protected long hitTime;
     protected boolean isIvulnerable = false;
 
     public Entity(double x, double y, double radius) {
@@ -26,6 +27,28 @@ public abstract class Entity extends GameElement {
     public boolean handleExploding(long now){
         return false;
         //not implemented
+    }
+
+    public void hit(int damage, long currentTime){
+        if(!isIvulnerable){
+            HP = HP -1;
+            setColor(Color.RED);
+            hitTime = currentTime + 100;
+        }
+    }
+
+    public boolean hitTimeEnd(long currentTime){
+        if(hitTime < currentTime){
+            return true;
+        } return false;
+    }
+
+    public boolean hasLife(long currentTime){
+        if(HP <= 0 && getState() == EntityState.ACTIVE){
+            explode(currentTime);
+            return false;
+        }
+        return true;
     }
 
 

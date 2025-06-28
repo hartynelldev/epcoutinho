@@ -30,6 +30,10 @@ public class Boss1 extends Boss {
     }
 
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
+        hasLife(currentTime);
+        if(hitTimeEnd(currentTime)){
+            color = Color.BLUE;
+        }
 
         if(handleExploding(currentTime)) return;
 

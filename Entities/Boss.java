@@ -18,7 +18,6 @@ package Entities;
 
 public abstract class Boss extends Enemy{
 
-    private int HP;
     private long nextSuperAtack;
 
     public Boss(double x, double y, long when, long now, int hp){
@@ -27,9 +26,6 @@ public abstract class Boss extends Enemy{
          this.HP = hp;
     }
 
-    public void hit(int i){
-        HP = HP - i;
-    }
 
     // public abstract update
 }
