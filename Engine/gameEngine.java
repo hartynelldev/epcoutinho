@@ -6,6 +6,7 @@ import Entities.*;
 import Entities.EnemyModels.*;
 import Entities.PowerUps.Powerup1;
 import Entities.PowerUps.Powerup2;
+import Entities.EnemyModels.Bosses.Boss1;
 import Entities.ProjectileModels.ProjectileEnemy;
 import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
@@ -27,7 +28,10 @@ public class gameEngine {
     private ArrayList<ProjectileEnemy> enemy_Projectiles;
 	private ArrayList<Powerup1> powerups1;
 	private ArrayList<Powerup2> powerups2;
+	private ArrayList<ProjectileEnemy> enemy_ProjectilesBoss;
     private BackGround backGround;
+	//teste de boss
+	private Boss1 boss1;
 
     // Variáveis auxiliares
     private long firstEnemy1;
@@ -87,6 +91,10 @@ public class gameEngine {
 			p.update(delta, currentTime);
 		}
 
+		for (ProjectileEnemy p : enemy_ProjectilesBoss) {
+			p.update(delta, currentTime);
+		}
+
 		// Atualiza inimigos tipo 1
 		for (Enemy1 e1 : enemy1List) {
 			e1.update(delta, player, enemy_Projectiles, currentTime);
@@ -105,6 +113,9 @@ public class gameEngine {
 		for (Powerup2 p2 : powerups2) {
 			p2.update(delta, player, currentTime);
 		}
+
+		//Atualiza Boss1
+		boss1.update(delta, player, enemy_ProjectilesBoss, currentTime);
 	}
 
 	void inicializate(){
@@ -119,11 +130,11 @@ public class gameEngine {
 
         /* variáveis dos inimigos tipo 1 */
         enemy1List = new ArrayList<>(10);
-        firstEnemy1 = startTime + 2000; // Use o tempo atual aqui
+        firstEnemy1 = startTime + 2000; // Use o tempo atual aqui --Lembre que no arquivo os tempos de spaw são fixos  (definido em cada entrada)
 
         /* variáveis dos inimigos tipo 2 */
         enemy2List = new ArrayList<>(10);
-        firstEnemy2 = startTime + 7000;
+        firstEnemy2 = startTime + 7000; //--Lembre que no arquivo os tempos de spaw são fixos
         enemy2_spawnX = GameLib.WIDTH * 0.20;
         enemy2_count = 5;
 
@@ -135,13 +146,18 @@ public class gameEngine {
 		firstPowerup1 = startTime + 4000;
 		powerups2 = new ArrayList<>(2);
 		firstPowerup2 = startTime + 8000;
+		enemy_ProjectilesBoss = new ArrayList<>(200);
 
         /* estrelas que formam o fundo de primeiro plano */
         backGround = new BackGround(20,50);
 
+		/*Tesste de boss*/
+		boss1 = new Boss1(GameLib.WIDTH/2,0,firstEnemy1, startTime, 50);
+
         // Inicializações
         for(int i = 0; i < 10; i++) playerProjectiles.add(new ProjectilePlayer(0,0,0,0,0));
         for(int i = 0; i < 200; i++) enemy_Projectiles.add(new ProjectileEnemy(0,0,0,0,0));
+		for(int i = 0; i < 200; i++) enemy_ProjectilesBoss.add(new ProjectileEnemy(0,0,0,0,0));
         for(int i = 0; i < 10; i++) enemy1List.add(new Enemy1(0,0,firstEnemy1, startTime));
         for(int i = 0; i < 10; i++) enemy2List.add(new Enemy2(enemy2_spawnX,0,firstEnemy2, startTime));
         for(int i = 0; i < 2; i++) powerups1.add(new Powerup1((Math.random()*GameLib.WIDTH-20)+10,0,firstPowerup1, startTime));
@@ -161,10 +177,11 @@ public class gameEngine {
 		// as definições utilizam o currentTime, mas apenas quando inicia o jogo. Para não confundir, troquei o nome inicial
 
 		inicializate();
-		
+
 		List<List<? extends Entity>> entities = Arrays.asList(
             playerProjectiles,
             enemy_Projectiles,
+			enemy_ProjectilesBoss,
             enemy1List,
             enemy2List,
 			powerups1,
@@ -312,6 +329,7 @@ public class gameEngine {
 			render(
                 backGround,
                 player,
+				boss1,
                 entities,
                 currentTime,
                 delta

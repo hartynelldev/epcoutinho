@@ -16,14 +16,15 @@ package Entities;
     chefe implica no avanço para a próxima fase (ver mais detalhes sobre as fases adiante)
     */
 
-public class Boss extends Enemy{
+public abstract class Boss extends Enemy{
 
-    int HP;
+    private int HP;
+    private long nextSuperAtack;
 
-    public Boss(double x, double y, long when, double radius, int hp){
-        // super(x, y, when, ...)
-
-        this.HP = hp;
+    public Boss(double x, double y, long when, long now, int hp){
+         super(x, y, when, now, 20.0 );
+         this.nextSuperAtack = now + 600;
+         this.HP = hp;
     }
 
     // public abstract update
