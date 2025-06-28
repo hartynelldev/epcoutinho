@@ -111,9 +111,9 @@ public class Player extends Entity{
         }
     }
 
-    public void explode(long now){
-        super.explode(now);
+    public void hit(int damage, long currentTime){
         if(shieldState==0){
+            super.hit(damage, currentTime);
             isIvulnerable = false;
         }
         if(shieldState>0){
