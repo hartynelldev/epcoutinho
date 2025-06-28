@@ -272,7 +272,7 @@ public class gameEngine {
 				for (Powerup1 e1 : powerups1) {
 					if (e1.getState() == EntityState.INACTIVE) {
 						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
-						e1.setY(40.0);
+						e1.setY(-10.0);
 						e1.setVX(0.0); // Set as needed
 						e1.setVY(0.10 + Math.random() * 0.15);
 						e1.setAngle((3 * Math.PI) / 2);
@@ -288,7 +288,7 @@ public class gameEngine {
 				for (Powerup2 e1 : powerups2) {
 					if (e1.getState() == EntityState.INACTIVE) {
 						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
-						e1.setY(40.0);
+						e1.setY(-10.0);
 						e1.setVX(0.0); // Set as needed
 						e1.setVY(0.05 + Math.random() * 0.10);
 						e1.setAngle((3 * Math.PI) / 2);

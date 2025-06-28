@@ -34,7 +34,7 @@ public class EntityManager {
 			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
 			Enemy enemy = (ent1 instanceof Enemy) ? (Enemy) ent1 : (Enemy) ent2;
 	
-			if (dist < enemy.getRadius()) {
+			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8) {
 				player.explode(currentTime);
 				enemy.explode(currentTime);
 				return true;
@@ -78,8 +78,9 @@ public class EntityManager {
 			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
 			Powerup powerup = (ent1 instanceof Powerup) ? (Powerup) ent1 : (Powerup) ent2;
 	
-			if (dist < powerup.getRadius()) {
+			if (dist < (player.getRadius() + powerup.getRadius()) * 0.8) {
 				powerup.setState(EntityState.INACTIVE);
+				powerup.runPowerUp(player, currentTime);
 				return true;
 			}
 			return false;

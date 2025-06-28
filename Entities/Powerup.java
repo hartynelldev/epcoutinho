@@ -14,6 +14,8 @@ public abstract class Powerup extends Entity {
     protected int currentColorStep;
     protected boolean forwardColorSteps = true;
 
+    protected long duration = 500;
+
     public Powerup(double x, double y, long nextSpawn, Color initialColor, Color finalColor, int colorSteps) {
         super(x,y,15);
         if (colorSteps < 2) {
@@ -24,7 +26,6 @@ public abstract class Powerup extends Entity {
         this.nextSpawn = nextSpawn;
         this.colorSteps = colorSteps;
         this.currentColorStep = 0;
-
         VX = 0;
         VY = 0.10 + Math.random() * 0.15;
         angle = (3 * Math.PI) / 2;
@@ -62,4 +63,11 @@ public abstract class Powerup extends Entity {
             setState(EntityState.ACTIVE);
         }
     }
+
+    public final void runPowerUp(Player player, long now){
+        player.setPowerUpDuration(now, powerUpFunctionality(player));
+    }
+
+    // Returns its duration
+    protected abstract long powerUpFunctionality(Player player);
 }
