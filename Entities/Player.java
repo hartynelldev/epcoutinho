@@ -39,7 +39,8 @@ public class Player extends Entity{
     public boolean update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
         hasLife(now);
         if(hitTimeEnd(now)){
-            color = Color.BLUE;
+            if(powerUpEnd == -1) color = Color.BLUE;
+            else color = Color.GREEN;
         }
 
         if(powerUpEnd >= 0 && now > powerUpEnd){
@@ -58,7 +59,7 @@ public class Player extends Entity{
             if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) setX(getX() + delta * VX);
 
             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
-                if (now > nextShot) {
+                if (now > nextShot && getState() != EntityState.INACTIVE) {
                     for (ProjectilePlayer proj : playerProjectiles) {
                         if (!proj.isActive()) {
                             proj.setX(getX());
@@ -110,6 +111,7 @@ public class Player extends Entity{
             GameLib.drawPlayer(getX(), getY(), radius-5*shieldState);
         }
     }
+
 
     public void explode(long now){
         super.explode(now);
