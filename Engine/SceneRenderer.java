@@ -1,12 +1,7 @@
 package Engine;
 
-import java.awt.Color;
 import java.util.List;
 import Entities.*;
-import Entities.EnemyModels.*;
-import Entities.ProjectileModels.ProjectileEnemy;
-import Entities.ProjectileModels.ProjectilePlayer;
-import Manager.EntityState;
 
 public class SceneRenderer {
 

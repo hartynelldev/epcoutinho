@@ -39,7 +39,6 @@ public abstract class Enemy extends Entity{
 
         // Atualiza posição e angulo
         setX(getX() + getVX() * Math.cos(getAngle()) * delta);
-        double previousY = getY();
         setY(getY() + getVY() * Math.sin(getAngle()) * delta * (-1.0));
         setAngle(getAngle() + getRV() * delta);
     }

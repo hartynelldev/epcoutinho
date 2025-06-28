@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import Entities.*;
 import Entities.EnemyModels.*;
+import Entities.ProjectileModels.Projectile;
 import Entities.ProjectileModels.ProjectileEnemy;
 import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
@@ -30,6 +31,8 @@ public class gameEngine {
     private long firstEnemy2;
     private double enemy2_spawnX;
     private int enemy2_count;
+
+	boolean running;
 
 	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
 	/* maior ou igual ao instante especificado no parâmetro "time.    */
@@ -60,28 +63,6 @@ public class gameEngine {
 			for(Enemy e2: enemy2List){
 				EntityManager.checkThenCollide(p, e2, currentTime);
 			}
-		}
-	}
-
-	private void updateEntities(long delta, long currentTime) {
-    // Atualiza projéteis do player
-		for (ProjectilePlayer p : playerProjectiles) {
-			p.update(delta, currentTime);
-		}
-
-		// Atualiza projéteis dos inimigos
-		for (ProjectileEnemy p : enemy_Projectiles) {
-			p.update(delta, currentTime);
-		}
-
-		// Atualiza inimigos tipo 1
-		for (Enemy1 e1 : enemy1List) {
-			e1.update(delta, player, enemy_Projectiles, currentTime);
-		}
-
-		// Atualiza inimigos tipo 2
-		for (Enemy2 e2 : enemy2List) {
-			e2.update(delta, player, enemy_Projectiles, currentTime);
 		}
 	}
 
@@ -123,7 +104,7 @@ public class gameEngine {
 
 		/* Indica que o jogo está em execução */
 
-		boolean running = true;
+		running = true;
 
 		/* variáveis usadas no controle de tempo efetuado no main loop */
 		
@@ -176,9 +157,6 @@ public class gameEngine {
 			
 			/* Já a variável "currentTime" nos dá o timestamp atual.  */
 			currentTime = System.currentTimeMillis();
-			
-			
-			//
 				
 			/***************************/
 			/* Atualizações de estados */
@@ -186,7 +164,11 @@ public class gameEngine {
 			
 			processCollisions(currentTime);
 
-			updateEntities(delta, currentTime);
+			ArrayList<Enemy> enemies = new ArrayList<>();
+			enemies.addAll(enemy1List);
+			enemies.addAll(enemy2List);
+
+			EntityManager.updateEntities(delta, currentTime, player,playerProjectiles,enemies, enemy_Projectiles);
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 			//spaw() faz isso

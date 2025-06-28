@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Entities.GameElement;
 import Entities.Player;
+import Entities.ProjectileModels.Projectile;
 import Entities.ProjectileModels.ProjectileEnemy;
 import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
@@ -81,4 +82,31 @@ public class EntityManager {
 		return false;
 	}
     
+	public static boolean updateEntities(long delta, long currentTime, 
+								Player player, 
+								ArrayList<ProjectilePlayer> playerProjectiles,
+								ArrayList<Enemy> enemies, 
+								ArrayList<ProjectileEnemy> enemyProjectiles) {
+
+		//player
+		boolean running = true;
+		if(player.update(delta, currentTime,playerProjectiles)) running = false;
+
+    	// Atualiza projéteis do player
+		for (Projectile p : playerProjectiles) {
+			p.update(delta, currentTime);
+		}
+
+		// Atualiza projéteis dos inimigos
+		for (Projectile p : enemyProjectiles) {
+			p.update(delta, currentTime);
+		}
+
+		// Atualiza inimigos tipo 1
+		for (Enemy e : enemies) {
+			e.update(delta, player, enemyProjectiles, currentTime);
+		}
+
+		return running;
+	}
 }
