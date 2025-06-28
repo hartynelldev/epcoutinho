@@ -2,14 +2,15 @@ package Manager;
 
 import Entities.Enemy;
 import Entities.Entity;
+
 import java.util.ArrayList;
-import java.util.List;
 import Entities.GameElement;
 import Entities.Player;
 import Entities.ProjectileModels.Projectile;
+import Entities.Powerup;
 import Entities.ProjectileModels.ProjectileEnemy;
 import Entities.ProjectileModels.ProjectilePlayer;
-import Manager.EntityState;
+import Entities.EnemyModels.Bosses.Boss1;
 
 public class EntityManager {
 
@@ -33,7 +34,7 @@ public class EntityManager {
 			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
 			Enemy enemy = (ent1 instanceof Enemy) ? (Enemy) ent1 : (Enemy) ent2;
 	
-			if (dist < enemy.getRadius()) {
+			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8) {
 				player.explode(currentTime);
 				enemy.explode(currentTime);
 				return true;
@@ -72,6 +73,18 @@ public class EntityManager {
 			}
 			return false;
 		}
+
+		if ((ent1 instanceof Player && ent2 instanceof Powerup) || (ent2 instanceof Player && ent1 instanceof Powerup)) {
+			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
+			Powerup powerup = (ent1 instanceof Powerup) ? (Powerup) ent1 : (Powerup) ent2;
+	
+			if (dist < (player.getRadius() + powerup.getRadius()) * 0.8) {
+				powerup.setState(EntityState.INACTIVE);
+				powerup.runPowerUp(player, currentTime);
+				return true;
+			}
+			return false;
+		}
 	
 		// colisões projeteis (player) - projeteis (inimigos)
 		if ((ent1 instanceof ProjectilePlayer && ent2 instanceof ProjectileEnemy) || (ent2 instanceof ProjectilePlayer && ent1 instanceof ProjectileEnemy)) {
@@ -83,10 +96,18 @@ public class EntityManager {
 	}
     
 	public static boolean updateEntities(long delta, long currentTime, 
-								Player player, 
-								ArrayList<ProjectilePlayer> playerProjectiles,
-								ArrayList<Enemy> enemies, 
-								ArrayList<ProjectileEnemy> enemyProjectiles) {
+										 Player player, 
+										 ArrayList<ProjectilePlayer> playerProjectiles,
+										 ArrayList<Enemy> enemies,
+										 Boss1 boss1, 
+										 ArrayList<ProjectileEnemy> enemyProjectiles,
+										 ArrayList<ProjectileEnemy> enemy_ProjectilesBoss,
+										 ArrayList<Powerup> powerups
+										 ) {
+
+
+		// Verifica colisões
+		processCollisions(currentTime, player, playerProjectiles, enemies, enemyProjectiles, enemy_ProjectilesBoss, powerups);
 
 		//player
 		boolean running = true;
@@ -102,11 +123,52 @@ public class EntityManager {
 			p.update(delta, currentTime);
 		}
 
-		// Atualiza inimigos tipo 1
+		// Atualiza inimigos
 		for (Enemy e : enemies) {
 			e.update(delta, player, enemyProjectiles, currentTime);
 		}
 
+		// Atualiza powerups
+		for (Powerup p : powerups) {
+			p.update(delta, player, currentTime);
+		}
+
+
+		//Atualiza Boss1
+		boss1.update(delta, player, enemy_ProjectilesBoss, currentTime);
+		
 		return running;
+	}
+
+	public static void processCollisions(long currentTime, Player player, 
+										 ArrayList<ProjectilePlayer> playerProjectiles,
+										 ArrayList<Enemy> enemies,
+										 ArrayList<ProjectileEnemy> enemy_Projectiles,
+										 ArrayList<ProjectileEnemy> enemy_ProjectilesBoss,
+										 ArrayList<Powerup> powerups) {
+
+		if(player.isActive()){
+			// Colisões player - projéteis (inimigo)
+			for(ProjectileEnemy p : enemy_Projectiles){
+				EntityManager.checkThenCollide(p, player, currentTime);
+			}
+
+			// Colisões player - inimigos
+			for(Enemy e : enemies){
+				EntityManager.checkThenCollide(e, player, currentTime);
+			}
+
+			// Colisões player - powerups
+			for(Powerup e : powerups){
+				checkThenCollide(e, player, currentTime);
+			}
+		}
+
+		// Colisões projéteis (player) - inimigos
+		for(ProjectilePlayer p : playerProjectiles){
+			for(Enemy e1 : enemies){
+				EntityManager.checkThenCollide(p, e1, currentTime);
+			}
+		}
 	}
 }

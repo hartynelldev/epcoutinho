@@ -2,6 +2,8 @@ package Engine;
 
 import java.util.List;
 import Entities.*;
+import Entities.EnemyModels.Bosses.Boss1;
+
 
 public class SceneRenderer {
 
@@ -11,6 +13,7 @@ public class SceneRenderer {
     public static void render(
         BackGround backGround,
         Player player,
+        Boss1 boss,
         List<List<? extends Entity>> entityLists,
         long currentTime,
         long delta
@@ -20,6 +23,8 @@ public class SceneRenderer {
 
         // Desenhar player
         player.draw(currentTime);
+
+        boss.draw(currentTime);
 
         // Desenhar todas as entidades das listas
         for (List<? extends Entity> list : entityLists) {

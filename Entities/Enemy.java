@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Engine.GameLib;
 import Entities.ProjectileModels.ProjectileEnemy;
-import Entities.ProjectileModels.Projectile;
 import Manager.EntityState;
 
 // Entidade única de inimigo
@@ -55,17 +54,6 @@ public abstract class Enemy extends Entity{
         }
         return false;
     }
-
-    // verificando se inimigo saiu da tela, se sim desativa
-    public boolean handleSaiuDaTela(){
-        
-        if(getY() > GameLib.HEIGHT + 10 || getY() < -10) {
-            setState(EntityState.INACTIVE);
-            return true;
-        }
-        return false;
-    }
-
     public void draw(long now){
         if(getState() == EntityState.EXPLODING){
             double alpha = (now - explosionStart) / (explosionEnd - explosionStart);

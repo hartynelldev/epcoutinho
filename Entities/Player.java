@@ -6,12 +6,15 @@ import Manager.EntityState;
 import java.util.ArrayList;
 
 import java.awt.*;
-import java.lang.annotation.ElementType;
 
 public class Player extends Entity{
 
     protected int playerShootingSpeed = 100;
-    protected long nextShot; 
+    protected long nextShot;
+    protected long powerUpEnd = -1;
+
+    protected int shieldState = 0;
+    protected double baseRadius = radius;
 
     private final double initialX = GameLib.WIDTH / 2;
     private final double initialY = GameLib.HEIGHT * 0.90;
@@ -34,7 +37,15 @@ public class Player extends Entity{
     }
 
     public boolean update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
-
+        if(powerUpEnd >= 0 && now > powerUpEnd){
+            powerUpEnd = -1;
+            VX = 0.25;
+            VY = 0.25;
+            color = Color.BLUE;
+            isIvulnerable = false;
+            shieldState = 0;
+            radius = baseRadius;
+        }
         if (getState() != EntityState.EXPLODING) {
             if (GameLib.iskeyPressed(GameLib.KEY_UP)) setY(getY() - delta * VY);
             if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) setY(getY() + delta * VY);
@@ -85,8 +96,24 @@ public class Player extends Entity{
             GameLib.drawExplosion(getX(), getY(), alpha);
         }
         if(getState() == EntityState.ACTIVE){
+            if(shieldState>0){
+                for(int i = shieldState; i>= 0; i--){
+                    GameLib.drawPlayer(getX(), getY(), radius-5*(i));
+                }
+            }
             GameLib.setColor(color);
-            GameLib.drawPlayer(getX(), getY(), radius);
+            GameLib.drawPlayer(getX(), getY(), radius-5*shieldState);
+        }
+    }
+
+    public void explode(long now){
+        super.explode(now);
+        if(shieldState==0){
+            isIvulnerable = false;
+        }
+        if(shieldState>0){
+            shieldState--;
+            radius -= 6;
         }
     }
 
@@ -95,5 +122,16 @@ public class Player extends Entity{
     }
     public void setNextShot(long nextShot) {
         this.nextShot = nextShot;
+    }
+
+    public void setPowerUpDuration(long now, long duration){
+        powerUpEnd = now + duration;
+    }
+
+    public void setShield(){
+        if(shieldState<4){
+            shieldState++;
+            radius +=6;
+        }
     }
 }

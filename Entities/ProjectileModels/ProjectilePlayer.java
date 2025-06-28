@@ -2,8 +2,6 @@ package Entities.ProjectileModels;
 import java.awt.Color;
 
 import Engine.GameLib;
-import Entities.Entity;
-import Manager.EntityState;
 
 public class ProjectilePlayer extends Projectile{
     //disparos (player ou inimigos)

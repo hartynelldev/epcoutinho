@@ -4,7 +4,6 @@ import Engine.GameLib;
 import Entities.Enemy;
 import Entities.Player;
 import Entities.ProjectileModels.ProjectileEnemy;
-import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
 import java.util.ArrayList;
 import java.awt.*;
