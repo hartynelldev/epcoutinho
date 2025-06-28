@@ -3,11 +3,10 @@ package Entities.EnemyModels;
 import Engine.GameLib;
 import Entities.Enemy;
 import Entities.Player;
-import Entities.ProjectilePlayer;
-import utils.EntityState;
+import Entities.ProjectileModels.ProjectileEnemy;
+import Entities.ProjectileModels.ProjectilePlayer;
+import Manager.EntityState;
 import java.util.ArrayList;
-import Entities.ProjectileEnemy;
-
 import java.awt.*;
 
 public class Enemy2 extends Enemy {

@@ -1,14 +1,14 @@
-package Entities;
+package Entities.ProjectileModels;
 import java.awt.Color;
 
 import Engine.GameLib;
 import Entities.Entity;
-import utils.EntityState;
+import Manager.EntityState;
 
-public class ProjectileEnemy extends Entity{
+public class ProjectilePlayer extends Entity{
     //disparos (player ou inimigos)
 
-    public ProjectileEnemy(double x, double y, double radius, double vx, double vy) {
+    public ProjectilePlayer(double x, double y, double radius, double vx, double vy) {
         super(x, y, radius);
         //variações de super:
         //Player: super(player.getX(), player.getY() - 2 * player.getRadius(), radius);
@@ -39,10 +39,12 @@ public class ProjectileEnemy extends Entity{
             }
         }
     }
-    public void draw() {
-        if (this.isActive()) {
-            GameLib.setColor(Color.RED);
-            GameLib.drawCircle(getX(), getY(), 2); // Use o raio correto se necessário
+    public void draw(long now) {
+        if (isActive()) {
+            GameLib.setColor(Color.GREEN);
+            GameLib.drawLine(getX(), getY() - 5, getX(), getY() + 5);
+            GameLib.drawLine(getX() - 1, getY() - 3, getX() - 1, getY() + 3);
+            GameLib.drawLine(getX() + 1, getY() - 3, getX() + 1, getY() + 3);
         }
     }
 }

@@ -3,8 +3,8 @@ package Entities.EnemyModels;
 import Engine.GameLib;
 import Entities.Enemy;
 import Entities.Player;
-import Entities.ProjectileEnemy;
-import utils.EntityState;
+import Entities.ProjectileModels.ProjectileEnemy;
+import Manager.EntityState;
 import java.util.ArrayList;
 
 import java.awt.*;
@@ -76,6 +76,8 @@ public class Enemy1 extends Enemy {
 
 
     }
+
+
 
 }
 

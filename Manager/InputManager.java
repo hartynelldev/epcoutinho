@@ -1,7 +1,7 @@
-package Engine;
+package Manager;
 
 import Entities.Player;
-import utils.EntityState;
+import Manager.EntityState;
 //Talvez não será usada
 /*public class inputManager {
     

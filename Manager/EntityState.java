@@ -1,4 +1,4 @@
-package utils;
+package Manager;
 
 //Possiveis estados de uma entidade
 public enum EntityState {

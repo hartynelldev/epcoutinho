@@ -1,7 +1,7 @@
 package Entities;
 
 import Engine.GameLib;
-import utils.EntityState;
+import Manager.EntityState;
 
 // Entidade única de inimigo
 public abstract class Enemy extends Entity{
@@ -27,7 +27,8 @@ public abstract class Enemy extends Entity{
 
     public void draw(long now){
         if(getState() == EntityState.EXPLODING){
-            explode(now);
+            double alpha = (now - explosionStart) / (explosionEnd - explosionStart);
+            GameLib.drawExplosion(getX(), getY(), alpha);
         }
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);

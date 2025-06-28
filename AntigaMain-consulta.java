@@ -438,7 +438,7 @@ final class AntigaMain {
 						}
 																		
 						if(shootNow){
-							// ATAQUE EM LEQUE
+							// ATAQUE EM
 							double [] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
 							int [] freeArray = findFreeIndex(e_projectile_states, angles.length);
 

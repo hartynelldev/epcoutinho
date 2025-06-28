@@ -1,7 +1,8 @@
 package Entities;
 
 import Engine.GameLib;
-import utils.EntityState;
+import Entities.ProjectileModels.ProjectilePlayer;
+import Manager.EntityState;
 import java.util.ArrayList;
 
 import java.awt.*;
@@ -32,9 +33,7 @@ public class Player extends Entity{
         playerShootingSpeed = shootingSpeed;
     }
 
-    public void update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
-
-        EntityState estado = getState();
+    public boolean update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
 
         if (getState() != EntityState.EXPLODING) {
             if (GameLib.iskeyPressed(GameLib.KEY_UP)) setY(getY() - delta * VY);
@@ -42,7 +41,7 @@ public class Player extends Entity{
             if (GameLib.iskeyPressed(GameLib.KEY_LEFT)) setX(getX() - delta * VX);
             if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) setX(getX() + delta * VX);
 
-             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+            if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
                 if (now > nextShot) {
                     for (ProjectilePlayer proj : playerProjectiles) {
                         if (!proj.isActive()) {
@@ -56,7 +55,11 @@ public class Player extends Entity{
                         }
                     }
                 }
-        }
+            }
+
+            if (GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) {
+            return true;
+            }   
         }
         else {
             if (now > explosionEnd) {
@@ -65,18 +68,28 @@ public class Player extends Entity{
                 setY(initialY);
             }
         }
-    }
 
-    public void draw(long now) {
-        if (getState() == EntityState.EXPLODING) {
-            double alpha = (now - getExplosionStart()) / (double)(getExplosionEnd() - getExplosionStart());
+        /* Verificando se coordenadas do player ainda estão dentro */
+        /* da tela de jogo após processar entrada do usuário.      */
+
+        if(getX() < 0.0) setX(0.0);
+        if(getX() >= GameLib.WIDTH) setX(GameLib.WIDTH - 1);
+        if(getY() < 25.0) setY(25.0);
+        if(getY() >= GameLib.HEIGHT) setY(GameLib.HEIGHT - 1);
+
+        return false;
+    }
+    public void draw(long now){
+        if(getState() == EntityState.EXPLODING){
+            double alpha = (now - explosionStart) / (explosionEnd - explosionStart);
             GameLib.drawExplosion(getX(), getY(), alpha);
         }
-        else {
+        if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), radius);
         }
     }
+
     public long getNextShot() {
         return nextShot;
     }

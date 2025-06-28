@@ -4,15 +4,16 @@ import java.awt.Color;
 
 import Entities.*;
 import Entities.EnemyModels.*;
-import utils.EntityState;
+import Entities.ProjectileModels.ProjectileEnemy;
+import Entities.ProjectileModels.ProjectilePlayer;
+import Manager.EntityState;
+
+import static Engine.SceneRenderer.render;
+import Manager.EntityManager;
 
 import java.util.ArrayList;
 
 public class gameEngine {
-
-    public static final int INACTIVE = 0;
-	public static final int ACTIVE = 1;
-	public static final int EXPLODING = 2;
 
 	// Variáveis do player e entidades do jogo (agora como atributos da classe)
     private Player player;
@@ -35,85 +36,27 @@ public class gameEngine {
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}
 
-
-	// retorna distancia entre dois elementos
-    private double distance(GameElement e1, GameElement e2) {
-        double dx = e1.getX() - e2.getX();
-        double dy = e1.getY() - e2.getY();
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-	private boolean checkThenCollide(Entity ent1, Entity ent2, long currentTime) {
-
-		// checar se os elementos estão ativos
-		if(!(ent1.isActive() && ent2.isActive())) {
-			return false;
-		}
-
-		// pegar distancia
-		double dist = distance(ent1, ent2);
-
-		/* colisões player - projeteis (inimigo). Checa se o projetil existe e se há colisões, depois explode */
-		if(ent2 instanceof Player && ent1 instanceof ProjectileEnemy) {
-			Player player = (Player) ent2;
-			ProjectileEnemy projec = (ProjectileEnemy) ent1;
-
-			if (dist < (player.getRadius() + projec.getRadius()) * 0.8) {
-				player.explode(currentTime);
-				projec.setState(EntityState.INACTIVE); // projétil é inativado após a colisão instantaneamente
-				return true;
-			}
-		}
-
-		/* colisões player - inimigos. */
-		if(ent2 instanceof Player && ent1 instanceof Enemy) {
-			Player player = (Player) ent2;
-			Enemy enemy = (Enemy) ent1;
-
-			if (dist < enemy.getRadius()) {
-				player.explode(currentTime);
-				enemy.explode(currentTime);
-				return true;
-			}
-		}
-
-		/* colisões projeteis (player) - inimigos */
-		if(ent1 instanceof ProjectilePlayer && ent2 instanceof Enemy) {
-			ProjectilePlayer projec = (ProjectilePlayer) ent1;
-			Enemy enemy = (Enemy) ent2;
-
-			if(dist < enemy.getRadius()) {
-				enemy.explode(currentTime);
-				projec.setState(EntityState.INACTIVE); // projétil é inativado após a colisão instantaneamente
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
 	private void processCollisions(long currentTime) {
 		if(player.isActive()){
 			// Colisões player - projéteis (inimigo)
 			for(ProjectileEnemy p : enemy_Projectiles){
-				checkThenCollide(p, player, currentTime);
+				EntityManager.checkThenCollide(p, player, currentTime);
 			}
 			// Colisões player - inimigos
 			for(Enemy e : enemy1List){
-				checkThenCollide(e, player, currentTime);
+				EntityManager.checkThenCollide(e, player, currentTime);
 			}
 			for(Enemy e : enemy2List){
-				checkThenCollide(e, player, currentTime);
+				EntityManager.checkThenCollide(e, player, currentTime);
 			}
 		}
 		// Colisões projéteis (player) - inimigos
 		for(ProjectilePlayer p : playerProjectiles){
 			for(Enemy e1 : enemy1List){
-				checkThenCollide(p, e1, currentTime);
+				EntityManager.checkThenCollide(p, e1, currentTime);
 			}
 			for(Enemy e2: enemy2List){
-				checkThenCollide(p, e2, currentTime);
+				EntityManager.checkThenCollide(p, e2, currentTime);
 			}
 		}
 	}
@@ -216,8 +159,6 @@ public class gameEngine {
 
 		while(running){
 		
-
-
 			/* Usada para atualizar o estado dos elementos do jogo    */
 			/* (player, projéteis e inimigos) "delta" indica quantos  */
 			/* ms se passaram desde a última atualização.             */
@@ -233,7 +174,6 @@ public class gameEngine {
 			/* Atualizações de estados */
 			/***************************/
 			
-			// processar possiveis colisoes
 			processCollisions(currentTime);
 
 			updateEntities(delta, currentTime);
@@ -284,67 +224,31 @@ public class gameEngine {
 				}
 			}
 			
-			/* Verificando se a explosão do player já acabou.         */
-			/* Ao final da explosão, o player volta a ser controlável */
-			
+	
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */
 			/********************************************/
-			
-			player.update(delta, currentTime,playerProjectiles);
+			if(player.update(delta, currentTime,playerProjectiles)) running = false;
 
-			// SAIR DO JOGO :3 
-			if(GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) running = false;
-
-			/* Verificando se coordenadas do player ainda estão dentro */
-			/* da tela de jogo após processar entrada do usuário.      */
-
-			if(player.getX() < 0.0) player.setX(0.0);
-			if(player.getX() >= GameLib.WIDTH) player.setX(GameLib.WIDTH - 1);
-			if(player.getY() < 25.0) player.setY(25.0);
-			if(player.getY() >= GameLib.HEIGHT) player.setY(GameLib.HEIGHT - 1);
 
 			/*******************/
 			/* Desenho da cena */
 			/*******************/
-			backGround.draw(delta);
-
-			/* desenhando player */
-			player.draw(currentTime);
-
-			// Desenhar projéteis do player
-			for(ProjectilePlayer proj : playerProjectiles){
-				proj.draw();
-			}
-
-			// Desenhar projéteis dos inimigos
-			for(ProjectileEnemy proj : enemy_Projectiles){
-				proj.draw();
-			}
-
-			// Desenhar inimigos tipo 1
-			for(Enemy1 e1 : enemy1List){
-				e1.draw(currentTime);
-			}
-
-			// Desenhar inimigos tipo 2
-			for(Enemy2 e2 : enemy2List){
-				if(e2.getState() == EntityState.EXPLODING){
-					double alpha = (currentTime - e2.getExplosionStart()) / (double)(e2.getExplosionEnd() - e2.getExplosionStart());
-					GameLib.drawExplosion(e2.getX(), e2.getY(), alpha);
-				}
-				if(e2.getState() == EntityState.ACTIVE){
-					GameLib.setColor(Color.MAGENTA);
-					GameLib.drawDiamond(e2.getX(), e2.getY(), e2.getRadius());
-				}
-			}
+			render(
+                backGround,
+                player,
+                playerProjectiles,
+                enemy_Projectiles,
+                enemy1List,
+                enemy2List,
+                currentTime,
+                delta
+            );
 			
 			/* chamada a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
-			
 			GameLib.display();
 			
 			/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 3 ms. */
-			
 			busyWait(currentTime + 3);
 		}
 		

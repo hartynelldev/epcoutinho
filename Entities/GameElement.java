@@ -1,7 +1,7 @@
 package Entities;
 
 
-import utils.EntityState;
+import Manager.EntityState;
 
 import java.awt.Color;
 import java.util.ArrayList;
