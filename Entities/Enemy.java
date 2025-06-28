@@ -33,17 +33,6 @@ public abstract class Enemy extends Entity{
     // HANDLERS dos updates
     public abstract void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime);
 
-    // atualiza a posição (é padrão)
-    public void updatePosition(long delta, long now){
-        if(!isActive()) return;
-
-        // Atualiza posição e angulo
-        setX(getX() + getVX() * Math.cos(getAngle()) * delta);
-        double previousY = getY();
-        setY(getY() + getVY() * Math.sin(getAngle()) * delta * (-1.0));
-        setAngle(getAngle() + getRV() * delta);
-    }
-
     // checa se ainda esta explodindo(retorna), se sim desativa
     @Override
     public boolean handleExploding(long currentTime){
@@ -56,17 +45,6 @@ public abstract class Enemy extends Entity{
         }
         return false;
     }
-
-    // verificando se inimigo saiu da tela, se sim desativa
-    public boolean handleSaiuDaTela(){
-        
-        if(getY() > GameLib.HEIGHT + 10 || getY() < -10) {
-            setState(EntityState.INACTIVE);
-            return true;
-        }
-        return false;
-    }
-
     public void draw(long now){
         if(getState() == EntityState.EXPLODING){
             double alpha = (now - explosionStart) / (explosionEnd - explosionStart);
@@ -84,6 +62,12 @@ public abstract class Enemy extends Entity{
     }
     public void setNextShot(long newS) {
         this.nextShot = newS;
+    }
+
+    public void updatePosition(long delta, long now){
+        double previousY = getY();
+        super.updatePosition(delta, now);
+                
     }
 
 }

@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import Entities.*;
 import Entities.EnemyModels.*;
+import Entities.PowerUps.Powerup1;
+import Entities.PowerUps.Powerup2;
 import Entities.ProjectileModels.ProjectileEnemy;
 import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
@@ -23,11 +25,15 @@ public class gameEngine {
     private ArrayList<Enemy1> enemy1List;
     private ArrayList<Enemy2> enemy2List;
     private ArrayList<ProjectileEnemy> enemy_Projectiles;
+	private ArrayList<Powerup1> powerups1;
+	private ArrayList<Powerup2> powerups2;
     private BackGround backGround;
 
     // Variáveis auxiliares
     private long firstEnemy1;
     private long firstEnemy2;
+	private long firstPowerup1;
+	private long firstPowerup2;
     private double enemy2_spawnX;
     private int enemy2_count;
 
@@ -49,6 +55,13 @@ public class gameEngine {
 				EntityManager.checkThenCollide(e, player, currentTime);
 			}
 			for(Enemy e : enemy2List){
+				EntityManager.checkThenCollide(e, player, currentTime);
+			}
+			// Colisões player - powerups
+			for(Powerup1 e : powerups1){
+				EntityManager.checkThenCollide(e, player, currentTime);
+			}
+			for(Powerup2 e : powerups2){
 				EntityManager.checkThenCollide(e, player, currentTime);
 			}
 		}
@@ -83,6 +96,15 @@ public class gameEngine {
 		for (Enemy2 e2 : enemy2List) {
 			e2.update(delta, player, enemy_Projectiles, currentTime);
 		}
+
+		// Atualiza powerups tipo 1
+		for (Powerup1 p1 : powerups1) {
+			p1.update(delta, player, currentTime);
+		}
+		// Atualiza powerups tipo 2
+		for (Powerup2 p2 : powerups2) {
+			p2.update(delta, player, currentTime);
+		}
 	}
 
 	void inicializate(){
@@ -108,6 +130,12 @@ public class gameEngine {
         /* variáveis dos projéteis lançados pelos inimigos */
         enemy_Projectiles = new ArrayList<>(200);
 
+		/* variáveis dos powerups */
+		powerups1 = new ArrayList<>(2);
+		firstPowerup1 = startTime + 4000;
+		powerups2 = new ArrayList<>(2);
+		firstPowerup2 = startTime + 8000;
+
         /* estrelas que formam o fundo de primeiro plano */
         backGround = new BackGround(20,50);
 
@@ -116,6 +144,8 @@ public class gameEngine {
         for(int i = 0; i < 200; i++) enemy_Projectiles.add(new ProjectileEnemy(0,0,0,0,0));
         for(int i = 0; i < 10; i++) enemy1List.add(new Enemy1(0,0,firstEnemy1, startTime));
         for(int i = 0; i < 10; i++) enemy2List.add(new Enemy2(enemy2_spawnX,0,firstEnemy2, startTime));
+        for(int i = 0; i < 2; i++) powerups1.add(new Powerup1((Math.random()*GameLib.WIDTH-20)+10,0,firstPowerup1, startTime));
+        for(int i = 0; i < 2; i++) powerups2.add(new Powerup2((Math.random()*GameLib.WIDTH-20)+10,0,firstPowerup1, startTime));
     }
 
 
@@ -136,7 +166,9 @@ public class gameEngine {
             playerProjectiles,
             enemy_Projectiles,
             enemy1List,
-            enemy2List
+            enemy2List,
+			powerups1,
+			powerups2
         );
 
 						
@@ -233,7 +265,40 @@ public class gameEngine {
 					}
 				}
 			}
+
+			/* verificando se novos powerups devem ser lançados */
 			
+			if (currentTime > firstPowerup1) {
+				for (Powerup1 e1 : powerups1) {
+					if (e1.getState() == EntityState.INACTIVE) {
+						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
+						e1.setY(40.0);
+						e1.setVX(0.0); // Set as needed
+						e1.setVY(0.10 + Math.random() * 0.15);
+						e1.setAngle((3 * Math.PI) / 2);
+						e1.setRV(0.0);
+						e1.spawn(currentTime+500, currentTime);
+						firstPowerup1 = currentTime + 500;
+						break; // Only activate one per tick
+					}
+				}
+			}
+
+			if (currentTime > firstPowerup2) {
+				for (Powerup2 e1 : powerups2) {
+					if (e1.getState() == EntityState.INACTIVE) {
+						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
+						e1.setY(40.0);
+						e1.setVX(0.0); // Set as needed
+						e1.setVY(0.05 + Math.random() * 0.10);
+						e1.setAngle((3 * Math.PI) / 2);
+						e1.setRV(0.0);
+						e1.spawn(currentTime+500, currentTime);
+						firstPowerup1 = currentTime + 500;
+						break; // Only activate one per tick
+					}
+				}
+			}
 	
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */

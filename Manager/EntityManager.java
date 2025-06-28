@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Entities.GameElement;
 import Entities.Player;
+import Entities.Powerup;
+import Entities.PowerUps.Powerup1;
 import Entities.ProjectileModels.ProjectileEnemy;
 import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
@@ -67,6 +69,17 @@ public class EntityManager {
 			if (dist < enemy.getRadius()) {
 				enemy.explode(currentTime);
 				projec.setState(EntityState.INACTIVE);
+				return true;
+			}
+			return false;
+		}
+
+		if ((ent1 instanceof Player && ent2 instanceof Powerup) || (ent2 instanceof Player && ent1 instanceof Powerup)) {
+			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
+			Powerup powerup = (ent1 instanceof Powerup) ? (Powerup) ent1 : (Powerup) ent2;
+	
+			if (dist < powerup.getRadius()) {
+				powerup.setState(EntityState.INACTIVE);
 				return true;
 			}
 			return false;
