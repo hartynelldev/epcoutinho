@@ -6,7 +6,6 @@ import utils.EntityState;
 // Entidade única de inimigo
 public abstract class Enemy extends Entity{
 
-    //talvez seja em outro lugar
     protected long nextSpawn;
     protected long nextShot;             		// instante a partir do qual pode haver um próximo tiro
 
@@ -15,15 +14,20 @@ public abstract class Enemy extends Entity{
         nextSpawn = when;
     }
 
+    public boolean canShoot(long currentTime, GameElement ent){
+        return currentTime > nextShot && getY() < ent.getY() && getState() == EntityState.ACTIVE;
+    }
+
+
     public void spawn(long currentTime){
         if(currentTime > this.nextSpawn){
             setState(EntityState.ACTIVE);
         }
     }
 
-    public void draw(){
+    public void draw(long now){
         if(getState() == EntityState.EXPLODING){
-            explode();
+            explode(now);
         }
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);

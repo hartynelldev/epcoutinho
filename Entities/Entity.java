@@ -1,5 +1,6 @@
 package Entities;
 import Engine.GameLib;
+import java.awt.Color;
 import utils.*;
 
 // Entidades que interagem no jogo
@@ -14,18 +15,27 @@ public abstract class Entity extends GameElement {
     }
 
 
-    public void explode(){
+public void explode(long now){
         setState(EntityState.EXPLODING);
         explosionStart = now;
-        double explosionEnd = now + explosionTime;
-        double alpha = (System.currentTimeMillis() - explosionStart) / (explosionEnd - explosionStart);
-        GameLib.drawExplosion(getX(), getY(), alpha);
+        this.explosionEnd = now + explosionTime;
+        double alpha = (now - explosionStart) / (explosionEnd - explosionStart);
     }
 
     //talvez eu coloque o shot aqui
 
     // getters e setters
 
+
+public void draw(long now) {
+    if (getState() == EntityState.EXPLODING) {
+        double alpha = (now - getExplosionStart()) / (getExplosionEnd() - getExplosionStart());
+        GameLib.drawExplosion(getX(), getY(), alpha);
+    } else {
+        GameLib.setColor(color);
+        GameLib.drawPlayer(getX(), getY(), radius);
+    }
+}
 
     public double getExplosionStart() {
         return this.explosionStart;

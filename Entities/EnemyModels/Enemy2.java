@@ -3,17 +3,19 @@ package Entities.EnemyModels;
 import Engine.GameLib;
 import Entities.Enemy;
 import Entities.Player;
-import Entities.Projectile;
+import Entities.ProjectilePlayer;
 import utils.EntityState;
+import java.util.ArrayList;
+import Entities.ProjectileEnemy;
 
 import java.awt.*;
 
 public class Enemy2 extends Enemy {
 
-    public Enemy2(double x, double y, long when){
+    public Enemy2(double x, double y, long when, long now){
         super(x, y, when, 12.0);
-        VX = 0;
-        VY = 0.20 + Math.random() * 0.15;
+        VX = 0.42;
+        VY = 0.42;
         angle = (3 * Math.PI) / 2;
         RV = 0;
         nextShot = now + 500;
@@ -21,75 +23,78 @@ public class Enemy2 extends Enemy {
         setState(EntityState.INACTIVE);
     }
 
-    public void update(long delta, Player player){
 
+
+    public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
+    
         // checar se esta explodindo
         if(getState() == EntityState.EXPLODING){
-					
-            if(now > super.explosionEnd){
-                
-                super.setState(EntityState.INACTIVE);
-            }
-        }
-
-        if(!super.isActive()) return;
-
-            /* verificando se inimigo saiu da tela */
-            if(getY() > GameLib.HEIGHT + 10 || getY() < -10) {
-                
+            if(currentTime > getExplosionEnd()){
                 setState(EntityState.INACTIVE);
-                return;
             }
-
+            return;
+        }
+    
+        if(!isActive()) return;
+    
+        // verificando se inimigo saiu da tela
+        if(getY() > GameLib.HEIGHT + 10 || getY() < -10) {
+            setState(EntityState.INACTIVE);
+            return;
+        }
+    
         // Atualiza posição e angulo
-        double x_ant = getX();
-        setX(x_ant + (VX * Math.cos(angle) * delta));
+        setX(getX() + getVX() * Math.cos(getAngle()) * delta);
+        double previousY = getY();
+        setY(getY() + getVY() * Math.sin(getAngle()) * delta * (-1.0));
+        setAngle(getAngle() + getRV() * delta);
 
-        double y_ant = getY();
-        super.setY(y_ant + (VY * Math.sin(angle) * delta * (-1.0)));
-
-        angle += RV * delta;
+        double threshold = GameLib.HEIGHT * 0.30;
         
-
+        if(previousY < threshold && getY() >= threshold) {
+            
+            if(getX() < GameLib.WIDTH / 2) setRV(0.003);
+            else setRV(-0.003);
+        }
+    
         // "IA" de disparo do inimigo
         boolean shootNow = false;
-
-        if(RV > 0 && Math.abs(angle - 3 * Math.PI) < 0.05){
-            
+    
+        if(getRV() > 0 && Math.abs(getAngle() - 3 * Math.PI) < 0.05){
             setRV(0.0);
             setAngle(3 * Math.PI);
             shootNow = true;
         }
-        
-        if(RV < 0 && Math.abs(angle) < 0.05){
-            
+    
+        if(getRV() < 0 && Math.abs(getAngle()) < 0.05){
             setRV(0.0);
-            setAngle(0.0);;
+            setAngle(0.0);
             shootNow = true;
         }
-                                                        
+    
         if (shootNow) {
-            // ATAQUE EM LEQUE
-            java.util.ArrayList<Double> angles = new java.util.ArrayList<>();
-            angles.add(Math.PI/2 + Math.PI/8);
-            angles.add(Math.PI/2);
-            angles.add(Math.PI/2 - Math.PI/8);
-
-            for(int k = 0; k < angles.size(); k++){
-                double a = angles.get(k) + Math.random() * Math.PI/6 - Math.PI/12;
-                double vx = Math.cos(a);
-                double vy = Math.sin(a);
-                Projectile proj = new Projectile(getX(), getY(), radius, vx * 0.30, vy * 0.30);
-                
-                proj.setState(EntityState.ACTIVE);
+            double[] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
+            int shots = 0;
+            for (ProjectileEnemy proj : enemy_Projectiles) {
+                if (!proj.isActive() && shots < angles.length) {
+                    double a = angles[shots] + Math.random() * Math.PI/6 - Math.PI/12;
+                    double vx = Math.cos(a);
+                    double vy = Math.sin(a);
+    
+                    proj.setX(getX());
+                    proj.setY(getY());
+                    proj.setVX(vx * 0.30);
+                    proj.setVY(vy * 0.30);
+                    proj.setState(EntityState.ACTIVE);
+                    shots++;
+                }
             }
         }
     }
-
     //Provavlemente esse metodo retornara alguma coisa
     public void shot(){
 
-        Projectile project = new Projectile(getX(),getY(), radius, Math.cos(angle) * 0.45,Math.sin(angle) * 0.45 * (-1.0) );
+        ProjectilePlayer project = new ProjectilePlayer(getX(),getY(), radius, Math.cos(angle) * 0.45,Math.sin(angle) * 0.45 * (-1.0) );
 
         //Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
         // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);

@@ -2,6 +2,7 @@ package Entities;
 
 import Engine.GameLib;
 import utils.EntityState;
+import java.util.ArrayList;
 
 import java.awt.*;
 import java.lang.annotation.ElementType;
@@ -11,12 +12,16 @@ public class Player extends Entity{
     protected int playerShootingSpeed = 100;
     protected long nextShot; 
 
-    public Player(){
+    private final double initialX = GameLib.WIDTH / 2;
+    private final double initialY = GameLib.HEIGHT * 0.90;
+
+    public Player() {
         super(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90, 12);
         VX = 0.25;						// velocidade no eixo x
         VY = 0.25;						// velocidade no eixo y
         color = Color.BLUE;
 
+        super.setState(EntityState.ACTIVE);
         super.explosionTime = 2000; // tempo especifico para player
 
         // update para setar nextShot
@@ -27,30 +32,47 @@ public class Player extends Entity{
         playerShootingSpeed = shootingSpeed;
     }
 
-    public void update(long delta) {
-        if (getState() != EntityState.EXPLODING) {
-            //if (GameLib.iskeyPressed(GameLib.KEY_UP)) setY(getY() - delta * VY);
-            //if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) setY(getY() + delta * VY);
-            //if (GameLib.iskeyPressed(GameLib.KEY_LEFT)) setX(getX() - delta * VX);
-            //if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) setX(getX()+- delta * VX);
+    public void update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
 
-/*             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+        EntityState estado = getState();
+
+        if (getState() != EntityState.EXPLODING) {
+            if (GameLib.iskeyPressed(GameLib.KEY_UP)) setY(getY() - delta * VY);
+            if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) setY(getY() + delta * VY);
+            if (GameLib.iskeyPressed(GameLib.KEY_LEFT)) setX(getX() - delta * VX);
+            if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) setX(getX() + delta * VX);
+
+             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
                 if (now > nextShot) {
-                    // DAR TIRO
-                    nextShot = now + playerShootingSpeed;
+                    for (ProjectilePlayer proj : playerProjectiles) {
+                        if (!proj.isActive()) {
+                            proj.setX(getX());
+                            proj.setY(getY() - 2 * getRadius());
+                            proj.setVX(0.0);
+                            proj.setVY(-1.0);
+                            proj.setState(EntityState.ACTIVE);
+                            nextShot = now + playerShootingSpeed;
+                            break;
+                        }
+                    }
                 }
-            } */
-        } else {
+        }
+        }
+        else {
             if (now > explosionEnd) {
                 setState(EntityState.ACTIVE);
+                setX(initialX);
+                setY(initialY);
             }
         }
     }
 
-    public void draw() {
+    public void draw(long now) {
         if (getState() == EntityState.EXPLODING) {
-            super.explode();
-        } else {
+            double alpha = (now - getExplosionStart()) / (double)(getExplosionEnd() - getExplosionStart());
+            GameLib.drawExplosion(getX(), getY(), alpha);
+        }
+        else {
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), radius);
         }

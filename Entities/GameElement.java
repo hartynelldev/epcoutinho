@@ -22,8 +22,6 @@ public abstract class GameElement {
     protected double VX = 0.25;						// velocidade no eixo x
 	protected double VY = 0.25;						// velocidade no eixo y
 
-
-    protected long now = System.currentTimeMillis();
     protected Color color;
 
     public GameElement(double x, double y, double radius){
@@ -108,6 +106,4 @@ public abstract class GameElement {
     public void setRV(double rV) {
         this.RV = rV;
     }
-
-    public abstract void draw();
 }

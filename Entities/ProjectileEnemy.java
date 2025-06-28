@@ -5,10 +5,10 @@ import Engine.GameLib;
 import Entities.Entity;
 import utils.EntityState;
 
-public class Projectile extends Entity{
+public class ProjectileEnemy extends Entity{
     //disparos (player ou inimigos)
 
-    public Projectile(double x, double y, double radius, double vx, double vy) {
+    public ProjectileEnemy(double x, double y, double radius, double vx, double vy) {
         super(x, y, radius);
         //variações de super:
         //Player: super(player.getX(), player.getY() - 2 * player.getRadius(), radius);
@@ -25,7 +25,7 @@ public class Projectile extends Entity{
 
     }
 
-    public void update(long delta) {
+    public void update(long delta, long now) {
         if(state == EntityState.ACTIVE){
 
             /* verificando se projétil saiu da tela */
@@ -38,8 +38,11 @@ public class Projectile extends Entity{
                 setY(getY() + VY * delta);
             }
         }
-    } //tentantdo comitar/
+    }
     public void draw() {
-
+        if (this.isActive()) {
+            GameLib.setColor(Color.RED);
+            GameLib.drawCircle(getX(), getY(), 2); // Use o raio correto se necessário
+        }
     }
 }
