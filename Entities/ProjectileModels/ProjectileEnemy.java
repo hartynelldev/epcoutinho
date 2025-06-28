@@ -15,7 +15,7 @@ public class ProjectileEnemy extends Projectile{
     public void draw(long now) {
         if (this.isActive()) {
             GameLib.setColor(Color.RED);
-            GameLib.drawCircle(getX(), getY(), 2); // Use o raio correto se necessário
+            GameLib.drawCircle(getX(), getY(), radius); // Use o raio correto se necessário
         }
     }
 }

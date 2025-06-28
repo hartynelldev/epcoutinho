@@ -93,6 +93,7 @@ public abstract class GameElement {
         return VX;
     }
 
+
     public double getVY() {
         return this.VY;
     }
@@ -106,4 +107,6 @@ public abstract class GameElement {
     public void setRV(double rV) {
         this.RV = rV;
     }
+
+    public void setRadius(double radius){this.radius = radius;}
 }
