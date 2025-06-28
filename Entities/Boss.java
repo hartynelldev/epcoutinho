@@ -27,5 +27,9 @@ public abstract class Boss extends Enemy{
          this.HP = hp;
     }
 
+    public void hit(int i){
+        HP = HP - i;
+    }
+
     // public abstract update
 }

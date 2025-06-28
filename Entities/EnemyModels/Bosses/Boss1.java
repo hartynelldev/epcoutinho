@@ -26,7 +26,7 @@ public class Boss1 extends Boss {
 
         setState(EntityState.ACTIVE);
 
-        radius = -50;
+        radius = 50;
     }
 
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
@@ -95,7 +95,7 @@ public class Boss1 extends Boss {
         }
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);
-            GameLib.drawPlayer(getX(), getY(), radius );
+            GameLib.drawPlayer(getX(), getY(), (-1) * radius );
         }
     }
 }

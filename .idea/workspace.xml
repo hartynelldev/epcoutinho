@@ -4,28 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a9810f-65d4-431e-9cdb-748ec5e1f32f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Entities/BackGround.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entities/Star.java" afterDir="false" />
+    <list default="true" id="ecafafb6-aded-4853-be51-055838be0ca4" name="Changes" comment="Boss1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Engine/gameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/Engine/gameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/GameElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/GameElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/Point2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/Point2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Boss.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Boss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/EnemyModels/Bosses/Boss1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/EnemyModels/Bosses/Boss1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/EntityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/EntityManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Class" />
+        <option value="Renan &lt;renan_moreira@usp.br&gt;" />
       </list>
     </option>
-  </component>
-  <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -33,42 +29,52 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "RenanMoreir"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;RenanMoreir&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/hartynelldev/epcoutinho.git",
-    "accountId": "82a65683-b5af-4d84-b34f-43e0e21d6d49"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hartynelldev/epcoutinho.git&quot;,
+    &quot;accountId&quot;: &quot;82a65683-b5af-4d84-b34f-43e0e21d6d49&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
-  <component name="ProjectId" id="2z5fYrTyHowZth4m3dfzxgNKupV" />
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2z8nu92I624gQez5PTvh911KL5J" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "reestrutura__Classes__IsaAlan"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;avisaQuandoCodaToChorando&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="67a9810f-65d4-431e-9cdb-748ec5e1f32f" name="Changes" comment="" />
-      <created>1751025906004</created>
+      <changelist id="ecafafb6-aded-4853-be51-055838be0ca4" name="Changes" comment="" />
+      <created>1751121788969</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1751025906004</updated>
+      <updated>1751121788969</updated>
     </task>
+    <task id="LOCAL-00001" summary="Boss1">
+      <option name="closed" value="true" />
+      <created>1751132354205</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751132354205</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -76,10 +82,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="avisaQuandoCodaToChorando" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Boss1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Boss1" />
   </component>
 </project>

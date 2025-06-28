@@ -43,7 +43,7 @@ public class gameEngine {
 
 	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
 	/* maior ou igual ao instante especificado no parâmetro "time.    */
-	
+
 	void inicializate(){
 
 		long startTime = System.currentTimeMillis(); 
@@ -84,8 +84,8 @@ public class gameEngine {
         for(int i = 0; i < 10; i++) playerProjectiles.add(new ProjectilePlayer(0,0,0,0,0));
         for(int i = 0; i < 200; i++) enemy_Projectiles.add(new ProjectileEnemy(0,0,0,0,0));
 		for(int i = 0; i < 200; i++) enemy_ProjectilesBoss.add(new ProjectileEnemy(0,0,0,0,0));
-        for(int i = 0; i < 10; i++) enemy1List.add(new Enemy1(0,0,firstEnemy1, startTime));
-        for(int i = 0; i < 10; i++) enemy2List.add(new Enemy2(enemy2_spawnX,0,firstEnemy2, startTime));
+//      for(int i = 0; i < 10; i++) enemy1List.add(new Enemy1(0,0,firstEnemy1, startTime));
+//		for(int i = 0; i < 10; i++) enemy2List.add(new Enemy2(enemy2_spawnX,0,firstEnemy2, startTime));
         for(int i = 0; i < 2; i++) powerups1.add(new Powerup1((Math.random()*GameLib.WIDTH-20)+10,0,firstPowerup1, startTime));
         for(int i = 0; i < 2; i++) powerups2.add(new Powerup2((Math.random()*GameLib.WIDTH-20)+10,0,firstPowerup1, startTime));
     }
@@ -161,7 +161,7 @@ public class gameEngine {
 			enemies.addAll(enemy2List);
 
 			ArrayList<Powerup> powerups = new ArrayList<>();
-			powerups.addAll(powerups1);			
+			powerups.addAll(powerups1);
 			powerups.addAll(powerups2);
 
 			running = EntityManager.updateEntities(delta, currentTime, player,playerProjectiles,enemies, boss1, enemy_Projectiles, enemy_ProjectilesBoss, powerups);
