@@ -23,7 +23,7 @@ public class Boss1 extends Boss {
         color = Color.ORANGE;
         VY = 0.05;
         VX = 0.25;
-
+        setNextShot(1000000);
         setState(EntityState.ACTIVE);
 
         radius = 50;
@@ -33,7 +33,9 @@ public class Boss1 extends Boss {
 
         hasLife(currentTime);
         if(hitTimeEnd(currentTime)){
-            color = Color.ORANGE;
+            if(isSuperAttack(currentTime)){
+                setColor(Color.CYAN);
+            } else setColor(Color.ORANGE);
         }
 
         if(handleExploding(currentTime)) return;
@@ -76,11 +78,45 @@ public class Boss1 extends Boss {
         return false;
     }
 
+    public boolean isSuperAttack(long now){
+        return now >= nextSuperAtack && now <= (nextSuperAtack + superAtackDuration);
+    }
+
     public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles, Player player, long delta, long now) {
-            if (now > getNextShot() && getY() < player.getY()) {
-                if((VX != 0.25 && VX != -0.25) || VY != 0.05){
-                    VX = 0.25;
-                    VY = 0.05;
+        // Se o super ataque anterior terminou, agenda o próximo
+        if (now > nextSuperAtack + superAtackDuration) {
+            // Próximo super ataque entre 5 e 10 segundos a partir de agora
+            long intervalo = 8000 + (long)(Math.random() * 5000); // 5000ms a 10000ms
+            nextSuperAtack = now + intervalo;
+        }
+
+        // Só dispara se for o momento certo e o Boss estiver acima do jogador
+        if (now > getNextShot() && getY() < player.getY()) {
+            // Corrige movimentação se estiver parada ou errada
+
+            if (isSuperAttack(now)) {
+                // SUPER DISPARO: múltiplos projéteis em leque
+                if(VX == 0.25 || VX == -0.25){
+                    VX = VX * 2;
+                }
+
+                    for (ProjectileEnemy proj : enemy_Projectiles) {
+                        if (!proj.isActive()) {
+                            proj.setX(getX());
+                            proj.setY(getY());
+                            proj.setVX(Math.cos(getAngle()) * 0.8);
+                            proj.setVY(Math.sin(getAngle()) * 0.8 * (-1.0));
+                            proj.setRadius(20);
+                            proj.setState(EntityState.ACTIVE);
+                            break;
+                        }
+                    }
+
+                setNextShot(now + 300); // cooldown do super disparo
+            } else {
+                // DISPARO NORMAL
+                if ((VX != 0.25 && VX != -0.25)) {
+                    VX = VX/2;
                 }
                 for (ProjectileEnemy proj : enemy_Projectiles) {
                     if (!proj.isActive()) {
@@ -88,14 +124,17 @@ public class Boss1 extends Boss {
                         proj.setY(getY());
                         proj.setVX(Math.cos(getAngle()) * 0.45);
                         proj.setVY(Math.sin(getAngle()) * 0.70 * (-1.0));
-                        proj.setState(EntityState.ACTIVE);
-                        setNextShot((long) (now + 250 + Math.random()*10));
                         proj.setRadius(5);
+                        proj.setState(EntityState.ACTIVE);
+                        setNextShot((long) (now + 250 + Math.random() * 10));
                         break;
                     }
                 }
             }
         }
+    }
+
+
     //O Boss1 se movera no Eixo X e não no Y;
     public boolean handleSaiuDaTela(){
 
@@ -117,6 +156,7 @@ public class Boss1 extends Boss {
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), (-1) * radius );
+            if(isSuperAttack(now) && hitTimeEnd(now)) GameLib.setColor(Color.ORANGE);
             GameLib.fillRect(240, getY() - 120, 5000*HP/GameLib.WIDTH, 40);
             if(isIvulnerable){
                 GameLib.setColor(Color.WHITE);

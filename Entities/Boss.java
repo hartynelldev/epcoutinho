@@ -19,11 +19,11 @@ package Entities;
 public abstract class Boss extends Enemy{
 
     protected long nextSuperAtack;
-    protected long superAtackDuration = 0;
+    protected long superAtackDuration = 6000;
 
     public Boss(double x, double y, long when, long now, int hp){
          super(x, y, when, now, 20.0 );
-         nextSuperAtack = now + 10;
+         nextSuperAtack = now + 8000;
          this.HP = 5;
     }
 
