@@ -20,11 +20,13 @@ public abstract class Boss extends Enemy{
 
     protected long nextSuperAtack;
     protected long superAtackDuration = 6000;
+    protected LifeBar lifeBar;
 
     public Boss(double x, double y, long when, long now, int hp){
          super(x, y, when, now, 20.0 );
          nextSuperAtack = now + 8000;
          this.HP = 5;
+         lifeBar = new LifeBar(hp);
     }
 
 

@@ -2,6 +2,7 @@ package Engine;
 
 import Entities.*;
 import Entities.EnemyModels.*;
+import Entities.EnemyModels.Bosses.Boss2;
 import Entities.PowerUps.Powerup1;
 import Entities.PowerUps.Powerup2;
 import Entities.EnemyModels.Bosses.Boss1;
@@ -29,7 +30,7 @@ public class gameEngine {
 	private ArrayList<ProjectileEnemy> enemy_ProjectilesBoss;
     private BackGround backGround;
 	//teste de boss
-	private Boss1 boss1;
+	private Boss2 boss2;
 
     // Variáveis auxiliares
     private long firstEnemy1;
@@ -78,7 +79,7 @@ public class gameEngine {
         backGround = new BackGround(20,50);
 
 		/*Tesste de boss*/
-		boss1 = new Boss1(GameLib.WIDTH/2,0,firstEnemy1, startTime, 10);
+		boss2 = new Boss2(GameLib.WIDTH/2,0,firstEnemy1, startTime, 10);
 
         // Inicializações
         for(int i = 0; i < 10; i++) playerProjectiles.add(new ProjectilePlayer(0,0,0,0,0));
@@ -164,7 +165,7 @@ public class gameEngine {
 			powerups.addAll(powerups1);
 			powerups.addAll(powerups2);
 
-			running = EntityManager.updateEntities(delta, currentTime, player,playerProjectiles,enemies, boss1, enemy_Projectiles, enemy_ProjectilesBoss, powerups);
+			running = EntityManager.updateEntities(delta, currentTime, player,playerProjectiles,enemies, boss2, enemy_Projectiles, enemy_ProjectilesBoss, powerups);
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 			//spaw() faz isso
@@ -257,7 +258,7 @@ public class gameEngine {
 			render(
                 backGround,
                 player,
-				boss1,
+				boss2,
                 entities,
                 currentTime,
                 delta

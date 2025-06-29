@@ -142,7 +142,7 @@ public class EntityManager {
 										 Player player,
 										 ArrayList<ProjectilePlayer> playerProjectiles,
 										 ArrayList<Enemy> enemies,
-										 Boss1 boss1,
+										 Boss boss1,
 										 ArrayList<ProjectileEnemy> enemyProjectiles,
 										 ArrayList<ProjectileEnemy> enemy_ProjectilesBoss,
 										 ArrayList<Powerup> powerups
@@ -186,7 +186,7 @@ public class EntityManager {
 		return running;
 	}
 
-	public static void processCollisions(long currentTime, Player player, Boss1 boss1,
+	public static void processCollisions(long currentTime, Player player, Boss boss1,
 										 ArrayList<ProjectilePlayer> playerProjectiles,
 										 ArrayList<Enemy> enemies,
 										 ArrayList<ProjectileEnemy> enemy_Projectiles,

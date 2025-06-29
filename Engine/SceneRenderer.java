@@ -13,7 +13,7 @@ public class SceneRenderer {
     public static void render(
         BackGround backGround,
         Player player,
-        Boss1 boss,
+        Boss boss,
         List<List<? extends Entity>> entityLists,
         long currentTime,
         long delta

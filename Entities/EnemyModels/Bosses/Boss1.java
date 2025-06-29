@@ -46,6 +46,7 @@ public class Boss1 extends Boss {
         }
 
         shild(currentTime);
+        lifeBar.update(delta,currentTime,HP);
         shoot(enemy_Projectiles, player, delta, currentTime);
         updatePosition(delta, currentTime);
     }
@@ -154,7 +155,7 @@ public class Boss1 extends Boss {
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), (-1) * radius );
             if(isSuperAttack(now) && hitTimeEnd(now)) GameLib.setColor(Color.ORANGE);
-            GameLib.fillRect(240, getY() - 120, 5000*HP/GameLib.WIDTH, 40);
+            lifeBar.draw();
             if(isIvulnerable){
                 GameLib.setColor(Color.WHITE);
                 GameLib.drawPlayer(getX(), getY(),  (-1.5) * radius );
