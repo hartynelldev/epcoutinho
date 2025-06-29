@@ -33,7 +33,7 @@ public class Boss1 extends Boss {
 
         hasLife(currentTime);
         if(hitTimeEnd(currentTime)){
-            //color = Color.ORANGE;
+            color = Color.ORANGE;
         }
 
         if(handleExploding(currentTime)) return;
@@ -72,16 +72,11 @@ public class Boss1 extends Boss {
     }
 
     public boolean handlePocicionado(){
-        if(getY() > 150) return true;
+        if(getY() > 170) return true;
         return false;
     }
 
     public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles, Player player, long delta, long now) {
-        /*if(nextSuperAtack < now && superAtackDuration < now){
-            nextSuperAtack = now + 200;
-            superAtackDuration = now + 100;
-            setColor(Color.CYAN);
-        } else if(nextSuperAtack > now && superAtackDuration < now) {*/
             if (now > getNextShot() && getY() < player.getY()) {
                 if((VX != 0.25 && VX != -0.25) || VY != 0.05){
                     VX = 0.25;
@@ -100,12 +95,7 @@ public class Boss1 extends Boss {
                     }
                 }
             }
-        /*} else if(superAtackDuration > now){
-            setColor(Color.RED);
-        }*/
-
-    }
-
+        }
     //O Boss1 se movera no Eixo X e não no Y;
     public boolean handleSaiuDaTela(){
 
@@ -127,7 +117,7 @@ public class Boss1 extends Boss {
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), (-1) * radius );
-
+            GameLib.fillRect(240, getY() - 120, 5000*HP/GameLib.WIDTH, 40);
             if(isIvulnerable){
                 GameLib.setColor(Color.WHITE);
                 GameLib.drawPlayer(getX(), getY(),  (-1.5) * radius );

@@ -24,7 +24,7 @@ public abstract class Boss extends Enemy{
     public Boss(double x, double y, long when, long now, int hp){
          super(x, y, when, now, 20.0 );
          nextSuperAtack = now + 10;
-         this.HP = hp;
+         this.HP = 5;
     }
 
 
