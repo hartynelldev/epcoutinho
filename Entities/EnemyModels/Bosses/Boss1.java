@@ -19,11 +19,9 @@ public class Boss1 extends Boss {
         super(x, y, when, now, hp);
         shildTime = now + 10000;
         angle = (3 * Math.PI) / 2;
-        setNextShot(now + 10);
         color = Color.ORANGE;
         VY = 0.05;
         VX = 0.25;
-        setNextShot(1000000);
         setState(EntityState.ACTIVE);
 
         radius = 50;
@@ -69,7 +67,6 @@ public class Boss1 extends Boss {
             setX(getX() + getVX() * Math.cos(0) * delta);
         } else {
             setY(getY() + delta * VY);
-            setNextShot(now + 10);
         }
     }
 
@@ -91,7 +88,7 @@ public class Boss1 extends Boss {
         }
 
         // Só dispara se for o momento certo e o Boss estiver acima do jogador
-        if (now > getNextShot() && getY() < player.getY()) {
+        if (now > getNextShot() && getY() < player.getY() && handlePocicionado()) {
             // Corrige movimentação se estiver parada ou errada
 
             if (isSuperAttack(now)) {
