@@ -26,7 +26,7 @@ public class Enemy1 extends Enemy {
 
         hasLife(currentTime);
         if(hitTimeEnd(currentTime)){
-            color = Color.BLUE;
+            color = Color.GREEN;
         }
 
         if(handleExploding(currentTime)) return;

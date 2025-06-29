@@ -42,7 +42,7 @@ public class EntityManager {
 
 			if (dist < (player.getRadius() + (enemy.getRadius())) * 0.8) {
 				player.hit(1, currentTime);
-				enemy.hit(1, currentTime);
+				//enemy.hit(1, currentTime);
 				// player.explode(currentTime);
 				return true;
 			}
@@ -69,13 +69,28 @@ public class EntityManager {
 			// se quiser, implementamos
 			return false;
 		}
+
+		// colisões projeteis (player) - Boss
+		if ((ent1 instanceof ProjectilePlayer && ent2 instanceof Boss) || (ent2 instanceof ProjectilePlayer && ent1 instanceof Boss)) {
+			ProjectilePlayer projec = (ent1 instanceof ProjectilePlayer) ? (ProjectilePlayer) ent1 : (ProjectilePlayer) ent2;
+			Boss enemy = (ent1 instanceof Boss) ? (Boss) ent1 : (Boss) ent2;
+
+			if (dist < (enemy.getRadius() + projec.getRadius())) {
+				enemy.hit(1, currentTime);
+				//enemy.explode(currentTime);
+				projec.explode(currentTime);
+				projec.setState(EntityState.INACTIVE);
+				return true;
+			}
+			return false;
+		}
 	
 		// colisões player - projeteis (inimigo)
 		if ((ent1 instanceof Player && ent2 instanceof ProjectileEnemy) || (ent2 instanceof Player && ent1 instanceof ProjectileEnemy)) {
 			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
 			ProjectileEnemy projec = (ent1 instanceof ProjectileEnemy) ? (ProjectileEnemy) ent1 : (ProjectileEnemy) ent2;
-	
-			if (dist < (player.getRadius() + projec.getRadius()) * 0.8) {
+
+			if (dist < (player.getRadius() + projec.getRadius())) {
 				player.hit(1, currentTime);
 
 				//player.explode(currentTime);
@@ -99,6 +114,8 @@ public class EntityManager {
 			}
 			return false;
 		}
+
+
 
 		if ((ent1 instanceof Player && ent2 instanceof Powerup) || (ent2 instanceof Player && ent1 instanceof Powerup)) {
 			Player player = (ent1 instanceof Player) ? (Player) ent1 : (Player) ent2;
@@ -202,6 +219,7 @@ public class EntityManager {
 			for(Enemy e1 : enemies){
 				EntityManager.checkThenCollide(p, e1, currentTime);
 			}
+			EntityManager.checkThenCollide(p,boss1,currentTime);
 		}
 	}
 }

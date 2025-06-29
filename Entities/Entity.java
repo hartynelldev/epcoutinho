@@ -31,7 +31,7 @@ public abstract class Entity extends GameElement {
 
     public void hit(int damage, long currentTime){
         if(!isIvulnerable){
-            HP = HP -1;
+            HP = HP - 1;
             setColor(Color.RED);
             hitTime = currentTime + 100;
         }

@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecafafb6-aded-4853-be51-055838be0ca4" name="Changes" comment="HP (não foi completamente testado)">
+    <list default="true" id="ecafafb6-aded-4853-be51-055838be0ca4" name="Changes" comment="HP Atualizado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Engine/gameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/Engine/gameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Boss.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Boss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/EnemyModels/Bosses/Boss1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/EnemyModels/Bosses/Boss1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/EnemyModels/Enemy1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/EnemyModels/Enemy1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/EntityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/EntityManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,14 +52,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;avisaQuandoCodaToChorando&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "avisaQuandoCodaToChorando"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="EP - COO" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ecafafb6-aded-4853-be51-055838be0ca4" name="Changes" comment="" />
@@ -87,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751142637814</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="HP Atualizado">
+      <option name="closed" value="true" />
+      <created>1751144376506</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1751144376506</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,6 +140,7 @@
     <MESSAGE value="Boss1" />
     <MESSAGE value="junta" />
     <MESSAGE value="HP (não foi completamente testado)" />
-    <option name="LAST_COMMIT_MESSAGE" value="HP (não foi completamente testado)" />
+    <MESSAGE value="HP Atualizado" />
+    <option name="LAST_COMMIT_MESSAGE" value="HP Atualizado" />
   </component>
 </project>
