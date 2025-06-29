@@ -26,13 +26,13 @@ public class BackGround{
         //star2 = new Star(0.045);
     }
     public void draw(long delta){
-        GameLib.setColor(star2.getFirst().getColor());
-        star2.getFirst().count += star2.getFirst().VY * delta;
+        GameLib.setColor(star2.get(0).getColor());
+        star2.get(0).count += star2.get(0).VY * delta;
         for(int i = 0; i < star2.size(); i++){
             star2.get(i).count += star2.get(i).VY * delta;
             star2.get(i).draw();
         }
-        GameLib.setColor(star1.getFirst().getColor());
+        GameLib.setColor(star1.get(0).getColor());
         for(int i = 0; i < star1.size(); i++){
             star1.get(i).count += star1.get(i).VY * delta;
             star1.get(i).draw();
