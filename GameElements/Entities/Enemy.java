@@ -3,21 +3,32 @@ package GameElements.Entities;
 import java.util.ArrayList;
 
 import Engine.GameLib;
+import Exceptions.SpawExcption;
 import GameElements.Entity;
 import GameElements.GameElement;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
+import Exceptions.*;
+
 
 // Entidade única de inimigo
 public abstract class Enemy extends Entity{
 
-    private long nextSpawn;
+    private long spawn;
     private long nextShot;             		// instante a partir do qual pode haver um próximo tiro
 
-    public Enemy(double x, double y, long nextSpawn, long nextShot, double radius){
+    public Enemy(double x, double y, long spawn, long nextShot, double radius){
         super(x, y, radius);
-        this.nextSpawn = nextSpawn;
-        this.nextShot = nextShot;
+        try{
+            if(spawn < 0 ) throw new SpawExcption();
+            this.spawn = spawn;
+            this.nextShot = nextShot;
+        }
+        catch(Exception e){
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+
     }
 
     public boolean canShoot(long currentTime, GameElement ent){
@@ -26,7 +37,7 @@ public abstract class Enemy extends Entity{
 
 
     public void spawn(long currentTime){
-        if(currentTime > this.nextSpawn){
+        if(currentTime > this.spawn){
             setState(EntityState.ACTIVE);
         }
     }

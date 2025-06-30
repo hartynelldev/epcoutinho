@@ -19,6 +19,8 @@ import GameElements.Entities.Enemy;
     chefe implica no avanço para a próxima fase (ver mais detalhes sobre as fases adiante)
     */
 
+import Exceptions.HpExcption;
+
 public abstract class Boss extends Enemy{
 
     protected long nextSuperAtack;
@@ -26,10 +28,19 @@ public abstract class Boss extends Enemy{
     protected LifeBar lifeBar;
 
     public Boss(double x, double y, long when, long now, int hp){
-         super(x, y, when, now, 20.0 );
-         nextSuperAtack = now + 8000;
-         this.HP = 5;
-         lifeBar = new LifeBar(hp);
+        super(x, y, when, now, 20.0 );
+        try{
+            if(hp <= 0) throw new HpExcption();
+            nextSuperAtack = now + 8000;
+            this.HP = hp;
+            lifeBar = new LifeBar(hp);
+        }
+        catch(Exception e){
+           // System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+
     }
 
 

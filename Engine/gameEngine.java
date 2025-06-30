@@ -82,7 +82,7 @@ public class gameEngine {
         backGround = new BackGround(20,50);
 
 		/*Tesste de boss*/
-		boss2 = new Boss2(GameLib.WIDTH/2,0,firstEnemy1, startTime, 10);
+		boss2 = new Boss2(GameLib.WIDTH/2,0,firstEnemy1, startTime, 5);
 
         // Inicializações
         for(int i = 0; i < 10; i++) playerProjectiles.add(new ProjectilePlayer(0,0,0,0,0));
