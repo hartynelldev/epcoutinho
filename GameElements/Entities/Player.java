@@ -1,7 +1,8 @@
-package Entities;
+package GameElements.Entities;
 
 import Engine.GameLib;
-import Entities.ProjectileModels.ProjectilePlayer;
+import GameElements.Entity;
+import GameElements.Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
 import java.util.ArrayList;
 

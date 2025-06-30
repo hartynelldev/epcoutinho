@@ -1,4 +1,4 @@
-package Entities;
+package GameElements;
 import Engine.GameLib;
 
 import java.awt.*;
@@ -16,6 +16,13 @@ public class Star extends GameElement{
 
     public void draw(){
         GameLib.fillRect(getX(), (getY() + count) % GameLib.HEIGHT, 2, 2);
+    }
+
+    public void setCount(double value){
+        count = value;
+    }
+    public double getCount(){
+        return count;
     }
 }
 

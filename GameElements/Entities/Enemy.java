@@ -1,9 +1,11 @@
-package Entities;
+package GameElements.Entities;
 
 import java.util.ArrayList;
 
 import Engine.GameLib;
-import Entities.ProjectileModels.ProjectileEnemy;
+import GameElements.Entity;
+import GameElements.GameElement;
+import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
 
 // Entidade única de inimigo

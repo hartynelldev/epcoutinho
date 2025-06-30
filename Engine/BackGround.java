@@ -1,8 +1,8 @@
-package Entities;
-import Engine.GameLib;
-
+package Engine;
 import java.awt.*;
 import java.util.ArrayList;
+
+import GameElements.Star;
 
 //ArrayList<Projectile> projectileList = new ArrayList<>(10);
 
@@ -27,14 +27,17 @@ public class BackGround{
     }
     public void draw(long delta){
         GameLib.setColor(star2.get(0).getColor());
-        star2.get(0).count += star2.get(0).VY * delta;
+        star2.get(0).setCount(star2.get(0).getCount() + star2.get(0).getVY() * delta);
+        //star2.get(0).count += star2.get(0).getVY() * delta;
         for(int i = 0; i < star2.size(); i++){
-            star2.get(i).count += star2.get(i).VY * delta;
+            star2.get(i).setCount(star2.get(i).getCount() + star2.get(i).getVY() * delta);
+            //star2.get(i).count += star2.get(i).getVY() * delta;
             star2.get(i).draw();
         }
         GameLib.setColor(star1.get(0).getColor());
         for(int i = 0; i < star1.size(); i++){
-            star1.get(i).count += star1.get(i).VY * delta;
+            star1.get(i).setCount(star1.get(i).getCount() + star1.get(i).getVY() * delta);
+            //star1.get(i).count += star1.get(i).getVY() * delta;
             star1.get(i).draw();
         }
     }

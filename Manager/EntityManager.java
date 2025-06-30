@@ -1,22 +1,17 @@
 package Manager;
 
-import Entities.Enemy;
-import Entities.Entity;
-
-import Entities.*;
-
 import java.awt.*;
 import java.util.ArrayList;
-import Entities.GameElement;
-import Entities.Player;
-import Entities.ProjectileModels.Projectile;
-import Entities.Powerup;
 import java.util.List;
 
-import Entities.PowerUps.Powerup1;
-import Entities.ProjectileModels.ProjectileEnemy;
-import Entities.ProjectileModels.ProjectilePlayer;
-import Entities.EnemyModels.Bosses.Boss1;
+import GameElements.Entity;
+import GameElements.GameElement;
+import GameElements.Entities.*;
+import GameElements.Entities.EnemyModels.Boss;
+import GameElements.Entities.EnemyModels.Bosses.Boss1;
+import GameElements.Entities.PowerUps.Powerup1;
+import GameElements.Entities.ProjectileModels.ProjectileEnemy;
+import GameElements.Entities.ProjectileModels.ProjectilePlayer;
 
 public class EntityManager {
 

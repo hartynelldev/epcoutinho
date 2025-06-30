@@ -1,7 +1,8 @@
-package Entities.ProjectileModels;
+package GameElements.Entities.ProjectileModels;
 import java.awt.Color;
 
 import Engine.GameLib;
+import GameElements.Entities.Projectile;
 
 public class ProjectileEnemy extends Projectile{
     //disparos (player ou inimigos)

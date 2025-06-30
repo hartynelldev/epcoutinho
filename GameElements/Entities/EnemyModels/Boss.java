@@ -1,4 +1,7 @@
-package Entities;
+package GameElements.Entities.EnemyModels;
+
+import GameElements.LifeBar;
+import GameElements.Entities.Enemy;
 
 // do enunciado:
     /* 

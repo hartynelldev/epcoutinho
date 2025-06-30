@@ -1,7 +1,7 @@
-package Entities.ProjectileModels;
+package GameElements.Entities;
 
 import Engine.GameLib;
-import Entities.Entity;
+import GameElements.Entity;
 import Manager.EntityState;
 
 public abstract class Projectile extends Entity{

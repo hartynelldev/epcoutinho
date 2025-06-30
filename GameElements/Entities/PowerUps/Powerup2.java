@@ -1,18 +1,19 @@
-package Entities.PowerUps;
+package GameElements.Entities.PowerUps;
 
 import Engine.GameLib;
-import Entities.Player;
-import Entities.Powerup;
+import GameElements.Entities.Player;
+import GameElements.Entities.Powerup;
 import Manager.EntityState;
 
 import java.awt.*;
 
-public class Powerup1 extends Powerup {
+public class Powerup2 extends Powerup {
 
-    public Powerup1(double x, double y, long when, long now){
-        super(x, y, when, Color.GREEN, Color.YELLOW, 10);
+    public Powerup2(double x, double y, long when, long now){
+        super(x, y, when, Color.YELLOW, Color.MAGENTA, 10);
         setState(EntityState.INACTIVE);
-        duration = 3000;
+        VY = (0.05 + Math.random() * 0.10);
+        duration = 10000;
     }
 
     public void update(long delta, Player player, long currentTime) {
@@ -31,16 +32,15 @@ public class Powerup1 extends Powerup {
         if(getState() == EntityState.ACTIVE){
             GameLib.setColor(getNextColor());
             GameLib.drawDiamond(getX(), getY(), radius );
-            GameLib.drawCircle(getX(), getY(), radius-7 );
+            GameLib.drawCircle(getX(), getY(), radius );
         }
     }
 
     protected long powerUpFunctionality(Player player){
-        player.setColor(Color.GREEN);
-        player.setVY(VY+0.2);
+        player.setIvulnerability(true);
+        player.setShield();
+        if(player.getVX()>0.4) player.setVX(VX-0.2);
         return duration;
     }
-
-    
 }
 

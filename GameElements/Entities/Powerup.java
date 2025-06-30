@@ -1,5 +1,7 @@
-package Entities;
+package GameElements.Entities;
 import java.awt.Color;
+
+import GameElements.Entity;
 import Manager.EntityState;
 
 // Entidades que interagem no jogo

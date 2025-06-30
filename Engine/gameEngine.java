@@ -1,13 +1,5 @@
 package Engine;
 
-import Entities.*;
-import Entities.EnemyModels.*;
-import Entities.EnemyModels.Bosses.Boss2;
-import Entities.PowerUps.Powerup1;
-import Entities.PowerUps.Powerup2;
-import Entities.EnemyModels.Bosses.Boss1;
-import Entities.ProjectileModels.ProjectileEnemy;
-import Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
 
 import static Engine.SceneRenderer.render;
@@ -15,6 +7,17 @@ import Manager.EntityManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import GameElements.Entity;
+import GameElements.Entities.*;
+import GameElements.Entities.EnemyModels.*;
+import GameElements.Entities.EnemyModels.Bosses.Boss1;
+import GameElements.Entities.EnemyModels.Bosses.Boss2;
+import GameElements.Entities.PowerUps.Powerup1;
+import GameElements.Entities.PowerUps.Powerup2;
+import GameElements.Entities.ProjectileModels.ProjectileEnemy;
+import GameElements.Entities.ProjectileModels.ProjectilePlayer;
+
 import java.util.Arrays;
 
 public class gameEngine {

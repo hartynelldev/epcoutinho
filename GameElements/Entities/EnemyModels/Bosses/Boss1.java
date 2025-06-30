@@ -1,9 +1,9 @@
-package Entities.EnemyModels.Bosses;
+package GameElements.Entities.EnemyModels.Bosses;
 
 import Engine.GameLib;
-import Entities.Boss;
-import Entities.Player;
-import Entities.ProjectileModels.ProjectileEnemy;
+import GameElements.Entities.Player;
+import GameElements.Entities.EnemyModels.Boss;
+import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
 
 import java.awt.*;

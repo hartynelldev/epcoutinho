@@ -1,8 +1,11 @@
 package Engine;
 
 import java.util.List;
-import Entities.*;
-import Entities.EnemyModels.Bosses.Boss1;
+
+import GameElements.Entity;
+import GameElements.Entities.*;
+import GameElements.Entities.EnemyModels.Boss;
+import GameElements.Entities.EnemyModels.Bosses.Boss1;
 
 
 public class SceneRenderer {

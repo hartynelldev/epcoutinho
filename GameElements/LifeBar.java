@@ -1,4 +1,4 @@
-package Entities;
+package GameElements;
 
 import Engine.GameLib;
 

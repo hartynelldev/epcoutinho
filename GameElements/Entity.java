@@ -1,5 +1,6 @@
-package Entities;
+package GameElements;
 import Engine.GameLib;
+
 import java.awt.Color;
 import Manager.EntityState;
 
