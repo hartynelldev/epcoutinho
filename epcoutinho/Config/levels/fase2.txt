@@ -1,0 +1,26 @@
+# ===== FASE 2 - NÍVEL INTERMEDIÁRIO =====
+# Formato: TIPO ID X Y TEMPO_MS
+# TIPOS: INIMIGO (1=Enemy1, 2=Enemy2), CHEFE (1=Boss1, 2=Boss2), POWERUP (1=Powerup1, 2=Powerup2)
+
+# Onda inicial de Enemy2 (mais difíceis)
+INIMIGO 2 100 50 1000
+INIMIGO 2 200 50 1200
+INIMIGO 2 300 50 1400
+
+# Powerup para sobreviver
+POWERUP 1 240 200 2000
+
+# Mais Enemy2
+INIMIGO 2 150 50 3000
+INIMIGO 2 250 50 3200
+INIMIGO 1 100 50 3500
+INIMIGO 1 200 50 3700
+
+# Powerup de velocidade
+POWERUP 2 240 200 4000
+
+# Boss mais difícil
+CHEFE 2 240 150 6000
+
+# Powerup final
+POWERUP 1 240 200 8000

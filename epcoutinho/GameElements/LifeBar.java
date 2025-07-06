@@ -1,37 +1,39 @@
 package GameElements;
 
 import Engine.GameLib;
+import Config.GameConfig;
 
-public class LifeBar extends GameElement{
+public class LifeBar extends GameElement {
 
-    public LifeBar(int hp){
-        super(GameLib.WIDTH/2,0,hp);
-        VY = 0.05;
-        angle = (3 * Math.PI) / 2;
+    //  CONSTRUTOR 
+    
+    public LifeBar(int hp) {
+        super(GameLib.WIDTH / 2, 0, hp);
+        VY = GameConfig.getLifeBarVY();
+        angle = GameConfig.getLifeBarAngle();
     }
 
-    public void update(long delta, long currentTime, int hp){
+    //  MÉTODOS PÚBLICOS 
+    
+    public void update(long delta, long currentTime, int hp) {
         radius = hp;
-        if(!handlePocionado()){
+        if (!handlePocionado()) {
             updatePosition(delta, currentTime);
         }
-        //updatePosition(delta, currentTime);
-
     }
 
-    public boolean handlePocionado(){
-        return getY() > 80;
+    public boolean handlePocionado() {
+        return getY() > GameConfig.getLifeBarMaxY();
     }
 
-    public void updatePosition(long delta, long now){
-
+    public void updatePosition(long delta, long now) {
         // Atualiza posição e angulo
-        //(getX() + getVX() * Math.cos(getAngle()) * delta);
+        // (getX() + getVX() * Math.cos(getAngle()) * delta);
         setY(getY() + getVY() * Math.sin(getAngle()) * delta * (-1.0));
-        //setAngle(getAngle() + getRV() * delta);
+        // setAngle(getAngle() + getRV() * delta);
     }
 
-    public void draw(){
-        GameLib.fillRect(getX(), getY(), 5000*getRadius()/GameLib.WIDTH, 40);
+    public void draw() {
+        GameLib.fillRect(getX(), getY(), GameConfig.getLifeBarWidth() * getRadius() / GameLib.WIDTH, GameConfig.getLifeBarHeight());
     }
 }

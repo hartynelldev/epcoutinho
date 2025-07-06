@@ -5,86 +5,62 @@ import GameElements.Entities.Player;
 import GameElements.Entities.EnemyModels.Boss;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
-
+import Config.GameConfig;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Boss1 extends Boss {
-    //protected boolean shild = false;
+    
+    //  ATRIBUTOS 
+    
+    // protected boolean shild = false;
     protected long shildRecall;
     protected long shildTime;
     protected long shildDuration;
 
+    //  CONSTRUTOR 
+    
     public Boss1(double x, double y, long when, long now, int hp) {
         super(x, y, when, now, hp);
-        shildTime = now + 10000;
-        angle = (3 * Math.PI) / 2;
-        color = Color.ORANGE;
-        VY = 0.05;
-        VX = 0.25;
+        shildTime = now + GameConfig.getBoss1ShieldTime();
+        angle = GameConfig.getBoss1Angle();
+        color = GameConfig.getColorBoss1();
+        VY = GameConfig.getBoss1VY();
+        VX = GameConfig.getBoss1VX();
         setState(EntityState.ACTIVE);
-
-        radius = 50;
+        radius = GameConfig.getBoss1Radius();
     }
 
+    //  MÉTODOS PÚBLICOS 
+    
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
-
         hasLife(currentTime);
-        if(hitTimeEnd(currentTime)){
-            if(isSuperAttack(currentTime)){
-                setColor(Color.CYAN);
-            } else setColor(Color.ORANGE);
+        if (hitTimeEnd(currentTime)) {
+            if (isSuperAttack(currentTime)) {
+                setColor(GameConfig.getColorBoss1Super());
+            } else setColor(GameConfig.getColorBoss1());
         }
 
-        if(handleExploding(currentTime)) return;
+        if (handleExploding(currentTime)) return;
 
-        if(!isActive()) return;
+        if (!isActive()) return;
 
         // Verifica se saiu da tela
-        if(handleSaiuDaTela()){
+        if (handleSaiuDaTela()) {
             VX = VX * (-1);
         }
 
         shild(currentTime);
-        lifeBar.update(delta,currentTime,HP);
+        lifeBar.update(delta, currentTime, HP);
         shoot(enemy_Projectiles, player, delta, currentTime);
         updatePosition(delta, currentTime);
-    }
-
-    public void shild(long currentTime){
-       if(shildTime < currentTime && !isIvulnerable){
-           //shild = true;
-           shildDuration = currentTime + 10000;
-           shildTime = currentTime + 20000;
-           isIvulnerable = true;
-       }
-       if(isIvulnerable && shildDuration < currentTime){
-           isIvulnerable = false;
-       }
-    }
-
-    public void updatePosition(long delta, long now){
-        if(handlePocicionado()){
-            setX(getX() + getVX() * Math.cos(0) * delta);
-        } else {
-            setY(getY() + delta * VY);
-        }
-    }
-
-    public boolean handlePocicionado(){
-        if(getY() > 170) return true;
-        return false;
-    }
-
-    public boolean isSuperAttack(long now){
-        return now >= nextSuperAtack && now <= (nextSuperAtack + superAtackDuration);
     }
 
     public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles, Player player, long delta, long now) {
         // Se o super ataque anterior terminou, agenda o próximo
         if (now > nextSuperAtack + superAtackDuration) {
             // Próximo super ataque entre 5 e 10 segundos a partir de agora
-            long intervalo = 8000 + (long)(Math.random() * 5000); // 5000ms a 10000ms
+            long intervalo = GameConfig.getBoss1SuperAttackInterval() + (long) (Math.random() * GameConfig.getBoss1SuperAttackRandom());
             nextSuperAtack = now + intervalo;
         }
 
@@ -94,37 +70,37 @@ public class Boss1 extends Boss {
 
             if (isSuperAttack(now)) {
                 // SUPER DISPARO: múltiplos projéteis em leque
-                if(VX == 0.25 || VX == -0.25){
+                if (VX == GameConfig.getBoss1VX() || VX == -GameConfig.getBoss1VX()) {
                     VX = VX * 2;
                 }
 
-                    for (ProjectileEnemy proj : enemy_Projectiles) {
-                        if (!proj.isActive()) {
-                            proj.setX(getX());
-                            proj.setY(getY());
-                            proj.setVX(Math.cos(getAngle()) * 0.8);
-                            proj.setVY(Math.sin(getAngle()) * 0.8 * (-1.0));
-                            proj.setRadius(20);
-                            proj.setState(EntityState.ACTIVE);
-                            break;
-                        }
+                for (ProjectileEnemy proj : enemy_Projectiles) {
+                    if (!proj.isActive()) {
+                        proj.setX(getX());
+                        proj.setY(getY());
+                        proj.setVX(Math.cos(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed());
+                        proj.setVY(Math.sin(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed() * (-1.0));
+                        proj.setRadius(GameConfig.getBoss1SuperProjectileRadius());
+                        proj.setState(EntityState.ACTIVE);
+                        break;
                     }
+                }
 
-                setNextShot(now + 300); // cooldown do super disparo
+                setNextShot(now + GameConfig.getBoss1SuperAttackCooldown()); // cooldown do super disparo
             } else {
                 // DISPARO NORMAL
-                if ((VX != 0.25 && VX != -0.25)) {
-                    VX = VX/2;
+                if ((VX != GameConfig.getBoss1VX() && VX != -GameConfig.getBoss1VX())) {
+                    VX = VX / 2;
                 }
                 for (ProjectileEnemy proj : enemy_Projectiles) {
                     if (!proj.isActive()) {
                         proj.setX(getX());
                         proj.setY(getY());
-                        proj.setVX(Math.cos(getAngle()) * 0.45);
-                        proj.setVY(Math.sin(getAngle()) * 0.70 * (-1.0));
-                        proj.setRadius(5);
+                        proj.setVX(Math.cos(getAngle()) * GameConfig.getBoss1NormalProjectileSpeed());
+                        proj.setVY(Math.sin(getAngle()) * GameConfig.getBoss1NormalProjectileVY() * (-1.0));
+                        proj.setRadius(GameConfig.getBoss1NormalProjectileRadius());
                         proj.setState(EntityState.ACTIVE);
-                        setNextShot((long) (now + 250 + Math.random() * 10));
+                        setNextShot((long) (now + GameConfig.getBoss1NormalShotCooldown() + Math.random() * GameConfig.getBoss1NormalShotRandom()));
                         break;
                     }
                 }
@@ -132,35 +108,63 @@ public class Boss1 extends Boss {
         }
     }
 
-
-    //O Boss1 se movera no Eixo X e não no Y;
-    public boolean handleSaiuDaTela(){
-
-        if(getX() > GameLib.WIDTH + 10) {
-            //setState(EntityState.INACTIVE);
-            return true;
-        }
-        if(getX() < 10){
-            return true;
-        }
-        return false;
-    }
-
-    public void draw(long now){
-        if(getState() == EntityState.EXPLODING){
+    public void draw(long now) {
+        if (getState() == EntityState.EXPLODING) {
             double alpha = (now - explosionStart) / (explosionEnd - explosionStart);
             GameLib.drawExplosion(getX(), getY(), alpha);
         }
-        if(getState() == EntityState.ACTIVE){
+        if (getState() == EntityState.ACTIVE) {
             GameLib.setColor(color);
-            GameLib.drawPlayer(getX(), getY(), (-1) * radius );
-            if(isSuperAttack(now) && hitTimeEnd(now)) GameLib.setColor(Color.ORANGE);
+            GameLib.drawPlayer(getX(), getY(), (-1) * radius);
+            if (isSuperAttack(now) && hitTimeEnd(now)) GameLib.setColor(GameConfig.getColorBoss1());
             lifeBar.draw();
-            if(isIvulnerable){
-                GameLib.setColor(Color.WHITE);
-                GameLib.drawPlayer(getX(), getY(),  (-1.5) * radius );
+            if (isIvulnerable) {
+                GameLib.setColor(GameConfig.getColorBoss1Shield());
+                GameLib.drawPlayer(getX(), getY(), (-1.5) * radius);
             }
-
         }
+    }
+
+    //  MÉTODOS PRIVADOS 
+    
+    public void shild(long currentTime) {
+        if (shildTime < currentTime && !isIvulnerable) {
+            // shild = true;
+            shildDuration = currentTime + GameConfig.getBoss1ShieldDuration();
+            shildTime = currentTime + GameConfig.getBoss1ShieldInterval();
+            isIvulnerable = true;
+        }
+        if (isIvulnerable && shildDuration < currentTime) {
+            isIvulnerable = false;
+        }
+    }
+
+    public void updatePosition(long delta, long now) {
+        if (handlePocicionado()) {
+            setX(getX() + getVX() * Math.cos(0) * delta);
+        } else {
+            setY(getY() + delta * VY);
+        }
+    }
+
+    public boolean handlePocicionado() {
+        if (getY() > GameConfig.getBoss1PositionY()) return true;
+        return false;
+    }
+
+    public boolean isSuperAttack(long now) {
+        return now >= nextSuperAtack && now <= (nextSuperAtack + superAtackDuration);
+    }
+
+    // O Boss1 se movera no Eixo X e não no Y;
+    public boolean handleSaiuDaTela() {
+        if (getX() > GameConfig.getBoss1BorderWidth() + GameConfig.getBoss1BorderX()) {
+            // setState(EntityState.INACTIVE);
+            return true;
+        }
+        if (getX() < GameConfig.getBoss1BorderX()) {
+            return true;
+        }
+        return false;
     }
 }

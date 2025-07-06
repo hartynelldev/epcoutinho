@@ -5,64 +5,62 @@ import GameElements.Entities.Enemy;
 import GameElements.Entities.Player;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
+import Config.GameConfig;
 import java.util.ArrayList;
-import java.awt.*;
 
 public class Enemy2 extends Enemy {
 
-    public Enemy2(double x, double y, long when, long now){
-        super(x, y, when,now + 500, 12.0);
-        VX = 0.42;
-        VY = 0.42;
-        angle = (3 * Math.PI) / 2;
-        RV = 0;
-        color= Color.CYAN;
+    //  CONSTRUTOR 
+    
+    public Enemy2(double x, double y, long when, long now) {
+        super(x, y, when, now + 500, GameConfig.getEnemy2Radius());
+        VX = GameConfig.getEnemy2VX();
+        VY = GameConfig.getEnemy2VY();
+        angle = GameConfig.getEnemy2Angle();
+        RV = GameConfig.getEnemy2RV();
+        color = GameConfig.getColorEnemy2();
         setState(EntityState.INACTIVE);
     }
 
-
-
+    //  MÉTODOS PÚBLICOS 
+    
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
-
         hasLife(currentTime);
-        if(hitTimeEnd(currentTime)){
-            color = Color.BLUE;
+        if (hitTimeEnd(currentTime)) {
+            color = GameConfig.getColorEnemy2Hit();
         }
 
         // checar se ainda esta explodindo
+        if (handleExploding(currentTime)) return;
 
-        if(handleExploding(currentTime)) return;
-
-        if(!isActive()) return;
-        if(handleSaiuDaTela()) return;
+        if (!isActive()) return;
+        if (handleSaiuDaTela()) return;
 
         double previousY = getY();
 
         updatePosition(delta, currentTime);
         
-        double threshold = GameLib.HEIGHT * 0.30;
+        double threshold = GameConfig.getEnemy2ThresholdY();
         
-        if(previousY < threshold && getY() >= threshold) {
-            
-            if(getX() < GameLib.WIDTH / 2) setRV(0.003);
-            else setRV(-0.003);
+        if (previousY < threshold && getY() >= threshold) {
+            if (getX() < GameLib.WIDTH / 2) setRV(GameConfig.getEnemy2RVChange());
+            else setRV(-GameConfig.getEnemy2RVChange());
         }
 
         shoot(enemy_Projectiles);
-    
     }
 
-    public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles){
+    public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles) {
         // "IA" de disparo do inimigo
         boolean shootNow = false;
     
-        if(getRV() > 0 && Math.abs(getAngle() - 3 * Math.PI) < 0.05){
+        if (getRV() > 0 && Math.abs(getAngle() - 3 * Math.PI) < 0.05) {
             setRV(0.0);
             setAngle(3 * Math.PI);
             shootNow = true;
         }
     
-        if(getRV() < 0 && Math.abs(getAngle()) < 0.05){
+        if (getRV() < 0 && Math.abs(getAngle()) < 0.05) {
             setRV(0.0);
             setAngle(0.0);
             shootNow = true;
@@ -79,8 +77,8 @@ public class Enemy2 extends Enemy {
     
                     proj.setX(getX());
                     proj.setY(getY());
-                    proj.setVX(vx * 0.30);
-                    proj.setVY(vy * 0.30);
+                    proj.setVX(vx * GameConfig.getEnemy2ProjectileSpeed());
+                    proj.setVY(vy * GameConfig.getEnemy2ProjectileSpeed());
                     proj.setState(EntityState.ACTIVE);
                     shots++;
                 }
@@ -88,18 +86,15 @@ public class Enemy2 extends Enemy {
         }
     }
 
-
-    public void draw(long now){
-        if(getState() == EntityState.EXPLODING){
+    public void draw(long now) {
+        if (getState() == EntityState.EXPLODING) {
             double alpha = (now - explosionStart) / (explosionEnd - explosionStart);
             GameLib.drawExplosion(getX(), getY(), alpha);
         }
-        if(getState() == EntityState.ACTIVE){
-            GameLib.setColor(Color.MAGENTA);
+        if (getState() == EntityState.ACTIVE) {
+            GameLib.setColor(GameConfig.getColorEnemy2Draw());
             GameLib.drawDiamond(getX(), getY(), getRadius());
         }
     }
-    
-
 }
 

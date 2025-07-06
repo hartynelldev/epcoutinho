@@ -1,27 +1,38 @@
 package GameElements;
-import Engine.GameLib;
 
+import Engine.GameLib;
+import Config.GameConfig;
 import java.awt.*;
 
+public class Star extends GameElement {
+    
+    //  ATRIBUTOS 
+    
+    protected double count;
 
-public class Star extends GameElement{
-    protected double count = 0.0;
-
-    public Star(double speed, Color cor ){
-        super(Math.random() * GameLib.WIDTH,Math.random() * GameLib.HEIGHT, 0);
-        VX = 0;
+    //  CONSTRUTOR 
+    
+    public Star(double speed, Color cor) {
+        super(Math.random() * GameLib.WIDTH, Math.random() * GameLib.HEIGHT, 0);
+        VX = GameConfig.getStarVX();
         VY = speed;
         color = cor;
+        count = GameConfig.getStarCount();
     }
 
-    public void draw(){
-        GameLib.fillRect(getX(), (getY() + count) % GameLib.HEIGHT, 2, 2);
+    // MÉTODOS PÚBLICOS 
+    
+    public void draw() {
+        GameLib.fillRect(getX(), (getY() + count) % GameLib.HEIGHT, GameConfig.getStarSize(), GameConfig.getStarSize());
     }
 
-    public void setCount(double value){
+    // GETTERS E SETTERS 
+    
+    public void setCount(double value) {
         count = value;
     }
-    public double getCount(){
+    
+    public double getCount() {
         return count;
     }
 }
@@ -39,7 +50,6 @@ double [] background2_X = new double[50];
 double [] background2_Y = new double[50];
 double background2_speed = 0.045;
 double background2_count = 0.0;
-
 
  */
 

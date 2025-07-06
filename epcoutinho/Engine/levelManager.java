@@ -1,25 +1,27 @@
 package Engine;
 
-import Entities.EnemyModels.Enemy1;
-import Entities.EnemyModels.Enemy2;
-import Entities.EnemyModels.Bosses.Boss1;
-import Entities.EnemyModels.Bosses.Boss2;
-import Entities.PowerUps.Powerup1;
-import Entities.PowerUps.Powerup2;
-import Entities.Player;
-import Entities.ProjectileModels.ProjectileEnemy;
+import GameElements.Entities.Enemy;
+import GameElements.Entities.Powerup;
+import GameElements.Entities.EnemyModels.Boss;
+import GameElements.Entities.EnemyModels.Enemy1;
+import GameElements.Entities.EnemyModels.Enemy2;
+import GameElements.Entities.EnemyModels.Bosses.Boss1;
+import GameElements.Entities.EnemyModels.Bosses.Boss2;
+import GameElements.Entities.PowerUps.Powerup1;
+import GameElements.Entities.PowerUps.Powerup2;
+import GameElements.Entities.Player;
+import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import java.util.ArrayList;
-import java.util.List;
 
-public class LevelManager {
+public class levelManager {
 
-    private List<Enemy> enemies;
-    private List<Powerup> powerups;
+    private ArrayList<Enemy> enemies;
+    private ArrayList<Powerup> powerups;
+    private ArrayList<ProjectileEnemy> projectiles;
     private Boss boss;
     private Player player;
-    private List<ProjectileEnemy> projectiles;
 
-    public LevelManager(Player player) {
+    public levelManager(Player player) {
         this.player = player;
         this.enemies = new ArrayList<>();
         this.powerups = new ArrayList<>();
@@ -27,16 +29,16 @@ public class LevelManager {
     }
 
     public void loadLevel(String levelData) {
-        // Parse o arquivo de dados do nível (ex: fase1.txt)
-        // Para cada linha, crie os objetos correspondentes
         String[] lines = levelData.split("\n");
         for (String line : lines) {
+            line = line.trim();
+            if (line.isEmpty() || line.startsWith("#")) continue; // pula linhas vazias ou comentários
             String[] parts = line.split(" ");
             String type = parts[0];
             int id = Integer.parseInt(parts[1]);
             double x = Double.parseDouble(parts[2]);
             double y = Double.parseDouble(parts[3]);
-            long when = Long.parseLong(parts[4]);
+            long when = Long.parseLong(parts[3].trim());
 
             switch (type) {
                 case "INIMIGO":
@@ -67,26 +69,30 @@ public class LevelManager {
     }
 
     public void update(long delta) {
+        long now = System.currentTimeMillis();
         for (Enemy enemy : enemies) {
-            enemy.update(delta, player, projectiles, System.currentTimeMillis());
+            enemy.update(delta, player, projectiles, now);
         }
         if (boss != null) {
-            boss.update(delta, player, projectiles, System.currentTimeMillis());
+            boss.spawn(now);
+            boss.update(delta, player, projectiles, now);
         }
         for (Powerup powerup : powerups) {
-            powerup.update(delta, player, System.currentTimeMillis());
+            powerup.update(delta, player, now);
         }
     }
 
     public void draw() {
+        long now = System.currentTimeMillis();
         for (Enemy enemy : enemies) {
-            enemy.draw(System.currentTimeMillis());
+            enemy.draw(now);
         }
         if (boss != null) {
-            boss.draw(System.currentTimeMillis());
+            boss.spawn(now);
+            boss.draw(now);
         }
-        for (Powerup powerup : owerups) {
-            powerup.draw(System.currentTimeMillis());
+        for (Powerup powerup : powerups) {
+            powerup.draw(now);
         }
     }
 

@@ -1,49 +1,57 @@
 package GameElements;
 
-
 import Manager.EntityState;
-
+import Config.GameConfig;
 import java.awt.Color;
 import java.util.ArrayList;
 
-
-
 public abstract class GameElement {
 
-	protected EntityState state = EntityState.INACTIVE;				    // estado
-	protected double radius = 12.0;					// raio (tamanho aproximado)
+    //  ATRIBUTOS 
+    
+    // Estado e propriedades básicas
+    protected EntityState state = EntityState.INACTIVE;
+    protected double radius;
+    protected Color color;
+    
+    // Posição
     private double x;
     private double y;
-
-    protected double angle;     				    // ângulos (indicam direção do movimento)
-
+    
+    // Movimento e orientação
+    protected double angle;
     protected double RV;                            // velocidades de rotação
-    protected double VX = 0.25;						// velocidade no eixo x
-	protected double VY = 0.25;						// velocidade no eixo y
+    protected double VX;                            // velocidade no eixo x
+    protected double VY;                            // velocidade no eixo y
 
-    protected Color color;
-
-    public GameElement(double x, double y, double radius){
-        // contrutor deixará elemento INATIVO!
+    //  CONSTRUTOR 
+    
+    public GameElement(double x, double y, double radius) {
+        // construtor deixará elemento INATIVO!
         this.x = x;
         this.y = y;
         this.radius = radius;
+        
+        // Inicializa com valores padrão da configuração
+        this.VX = GameConfig.getGameElementDefaultVX();
+        this.VY = GameConfig.getGameElementDefaultVY();
     }
 
-
-    public void destroy(ArrayList<GameElement> object, int i){
-        //futuras isntalaões do metodo que vai destruir um inimigo
+    //  MÉTODOS PÚBLICOS 
+    
+    public void destroy(ArrayList<GameElement> object, int i) {
+        // futuras instalações do método que vai destruir um inimigo
         object.remove(i);
     }
 
     public boolean isActive() {
-        if(state == EntityState.ACTIVE) {
-            return true;
-        }
-        return false;
+        return state == EntityState.ACTIVE;
     }
 
-	public EntityState getState() {
+    //  GETTERS E SETTERS 
+    
+    // Estado
+    public EntityState getState() {
         return state;
     }
     
@@ -51,15 +59,8 @@ public abstract class GameElement {
         this.state = state;
     }
 
-    public double getRadius(){return radius;}
-
-    
-    public void setColor(Color color){
-        this.color = color;
-    }
-    public Color getColor(){return color;}
-
-        public double getX() {
+    // Posição
+    public double getX() {
         return x;
     }
 
@@ -75,37 +76,57 @@ public abstract class GameElement {
         this.y = y;
     }
 
-    // getter de angulo
+    // Raio
+    public double getRadius() {
+        return radius;
+    }
+    
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    // Ângulo
     public double getAngle() {
         return angle;
     }
-    // setter de angulo
+    
     public void setAngle(double angle) {
         this.angle = angle;
     }
 
+    // Velocidades
     public double getVX() {
         return this.VX;
     }
+    
     public double setVX(double vX) {
         this.VX = vX;
         return VX;
     }
 
-
     public double getVY() {
         return this.VY;
     }
+    
     public double setVY(double vY) {
         this.VY = vY;
         return this.VY;
     }
+    
     public double getRV() {
         return this.RV;
     }
+    
     public void setRV(double rV) {
         this.RV = rV;
     }
 
-    public void setRadius(double radius){this.radius = radius;}
+    // Cor
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    
+    public Color getColor() {
+        return color;
+    }
 }

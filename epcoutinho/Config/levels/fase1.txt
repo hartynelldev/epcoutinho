@@ -1,0 +1,22 @@
+# ===== FASE 1 - NÍVEL INICIANTE =====
+# Formato: TIPO ID X Y TEMPO_MS
+# TIPOS: INIMIGO (1=Enemy1, 2=Enemy2), CHEFE (1=Boss1, 2=Boss2), POWERUP (1=Powerup1, 2=Powerup2)
+
+# Primeira onda de inimigos
+INIMIGO 1 100 50 1000
+INIMIGO 1 200 50 1500
+INIMIGO 1 300 50 2000
+
+# Powerup para ajudar o jogador
+POWERUP 1 240 200 3000
+
+# Segunda onda de inimigos
+INIMIGO 1 150 50 4000
+INIMIGO 1 250 50 4500
+INIMIGO 2 100 50 5000
+
+# Boss da fase
+CHEFE 1 240 150 8000
+
+# Powerup final
+POWERUP 2 240 200 10000
