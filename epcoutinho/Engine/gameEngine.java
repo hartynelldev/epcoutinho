@@ -36,14 +36,10 @@ public class gameEngine {
 	private ArrayList<ProjectileEnemy> enemy_ProjectilesBoss;
     private BackGround backGround;
 
-	double enemy2_spawnX;
-	int enemy2_count;
 	SpawnManager spawnManager;
 
-	//teste de boss
-	private Boss2 boss2;
-	private Boss1 boss1;
-	private boolean bossActive;
+	// Boss gerenciado pelo SpawnManager
+	private Boss currentBoss;
 
 	boolean running;
 
@@ -61,41 +57,31 @@ public class gameEngine {
         player = new Player(spawnManager.getPlayerHP());
 
         /* variáveis dos projéteis disparados pelo player */
-        playerProjectiles = new ArrayList<>(10);
+        playerProjectiles = new ArrayList<>();
 
         /* variáveis dos inimigos tipo 1 */
-        enemy1List = new ArrayList<>(10);
+        enemy1List = new ArrayList<>();
 
         /* variáveis dos inimigos tipo 2 */
-        enemy2List = new ArrayList<>(10);
-        enemy2_spawnX = GameLib.WIDTH * 0.20;
-        enemy2_count = 5;
+        enemy2List = new ArrayList<>();
 
         /* variáveis dos projéteis lançados pelos inimigos */
-        enemy_Projectiles = new ArrayList<>(200);
+        enemy_Projectiles = new ArrayList<>();
 
 		/* variáveis dos powerups */
-		powerups1 = new ArrayList<>(2);
+		powerups1 = new ArrayList<>();
 		
-		powerups2 = new ArrayList<>(2);
-		enemy_ProjectilesBoss = new ArrayList<>(200);
+		powerups2 = new ArrayList<>();
+		enemy_ProjectilesBoss = new ArrayList<>();
 
         /* estrelas que formam o fundo de primeiro plano */
         backGround = new BackGround(20,50);
 
-		/*Tesste de boss*/
-		boss2 = new Boss2(GameLib.WIDTH/2,0,startTime, startTime, 5);
-		boss1 = new Boss1(GameLib.WIDTH/2,0,startTime, startTime, 5);
-		bossActive = false;
+		/* Boss será gerenciado pelo SpawnManager */
+		currentBoss = null;
 
-        // Inicializações
-        for(int i = 0; i < 10; i++) playerProjectiles.add(new ProjectilePlayer(0,0,0,0,0));
-        for(int i = 0; i < 200; i++) enemy_Projectiles.add(new ProjectileEnemy(0,0,0,0,0));
-		for(int i = 0; i < 200; i++) enemy_ProjectilesBoss.add(new ProjectileEnemy(0,0,0,0,0));
-        for(int i = 0; i < 10; i++) enemy1List.add(new Enemy1(0,0,startTime, startTime));
-		for(int i = 0; i < 10; i++) enemy2List.add(new Enemy2(enemy2_spawnX,0,startTime, startTime));
-        for(int i = 0; i < 2; i++) powerups1.add(new Powerup1((Math.random()*GameLib.WIDTH-20)+10,0,startTime, startTime));
-        for(int i = 0; i < 2; i++) powerups2.add(new Powerup2((Math.random()*GameLib.WIDTH-20)+10,0,startTime, startTime));
+        // Inicializações - apenas projéteis do player (criados dinamicamente quando necessário)
+        // As outras entidades serão criadas dinamicamente pelo SpawnManager
     }
 
 
@@ -172,42 +158,25 @@ public class gameEngine {
 			powerups.addAll(powerups1);
 			powerups.addAll(powerups2);
 
+			// Atualiza o boss atual do SpawnManager
+			currentBoss = spawnManager.getCurrentBoss();
+			
 			// Determina qual boss está ativo
 			Boss activeBoss = null;
-			if (bossActive) {
-				if (boss1 != null && boss1.getState() == EntityState.ACTIVE) {
-					activeBoss = boss1;
-				} else if (boss2 != null && boss2.getState() == EntityState.ACTIVE) {
-					activeBoss = boss2;
-				}
+			if (spawnManager.isBossActive()) {
+				activeBoss = currentBoss;
 			}
 
 			running = EntityManager.updateEntities(delta, currentTime, player,playerProjectiles,enemies, activeBoss, enemy_Projectiles, enemy_ProjectilesBoss, powerups);
 
+			// Limpa entidades inativas
+			EntityManager.cleanupInactiveEntities(enemies, enemy_Projectiles, enemy_ProjectilesBoss, powerups);
 			
-			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
+			/* verificando se novos inimigos devem ser "lançados" */
 			spawnManager.shouldSpawn(currentTime, entities);
 			
-			// Verifica se há um boss para spawnar
-			PhaseConfig.SpawnEvent bossEvent = spawnManager.getCurrentBossEvent();
-			if (bossEvent != null && !bossActive) {
-				if (bossEvent.enemyType == 1) {
-					boss1 = new Boss1(bossEvent.x, bossEvent.y, currentTime, currentTime, bossEvent.bossHP);
-					bossActive = true;
-				} else if (bossEvent.enemyType == 2) {
-					boss2 = new Boss2(bossEvent.x, bossEvent.y, currentTime, currentTime, bossEvent.bossHP);
-					bossActive = true;
-				}
-				spawnManager.advanceBossEvent();
-			}
-			
-			// Verifica se o boss morreu para resetar o estado
-			if (bossActive) {
-				if ((boss1 != null && boss1.getState() == EntityState.INACTIVE) || 
-					(boss2 != null && boss2.getState() == EntityState.INACTIVE)) {
-					bossActive = false;
-				}
-			}
+			// Verifica o estado do boss
+			spawnManager.checkBossState();
 	
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */
@@ -219,12 +188,8 @@ public class gameEngine {
 			/*******************/
 			// Determina qual boss renderizar
 			Boss bossToRender = null;
-			if (bossActive) {
-				if (boss1 != null && boss1.getState() == EntityState.ACTIVE) {
-					bossToRender = boss1;
-				} else if (boss2 != null && boss2.getState() == EntityState.ACTIVE) {
-					bossToRender = boss2;
-				}
+			if (spawnManager.isBossActive()) {
+				bossToRender = currentBoss;
 			}
 			
 			render(

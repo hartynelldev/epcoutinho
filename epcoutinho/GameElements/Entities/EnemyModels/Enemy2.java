@@ -27,19 +27,18 @@ public class Enemy2 extends Enemy {
 
     //  MÉTODOS PÚBLICOS
 
-    @Override
+/*     @Override
     public long spawn(long currentTime){ 
         return currentTime + 120;
-    }
+    } */
 
-    public void spawn(double x, double y) {
-        this.setX(x);
-        this.setY(y);
+    public void spawn(long currentTime) {
         this.setVY(0.42);
         this.setAngle((3 * Math.PI) / 2);
         this.setRV(0.0);
         this.setState(EntityState.ACTIVE);
-        this.setExplosionEnd(0); // ajuste se necessário
+        this.setExplosionEnd(0);
+        return;
     }
     
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
@@ -86,20 +85,17 @@ public class Enemy2 extends Enemy {
     
         if (shootNow) {
             double[] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
-            int shots = 0;
-            for (ProjectileEnemy proj : enemy_Projectiles) {
-                if (!proj.isActive() && shots < angles.length) {
-                    double a = angles[shots] + Math.random() * Math.PI/6 - Math.PI/12;
-                    double vx = Math.cos(a);
-                    double vy = Math.sin(a);
+            for (int i = 0; i < angles.length; i++) {
+                double a = angles[i] + Math.random() * Math.PI/6 - Math.PI/12;
+                double vx = Math.cos(a);
+                double vy = Math.sin(a);
     
-                    proj.setX(getX());
-                    proj.setY(getY());
-                    proj.setVX(vx * GameConfig.getEnemy2ProjectileSpeed());
-                    proj.setVY(vy * GameConfig.getEnemy2ProjectileSpeed());
-                    proj.setState(EntityState.ACTIVE);
-                    shots++;
-                }
+                // Cria um novo projétil do inimigo
+                ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), 2.0, 
+                    vx * GameConfig.getEnemy2ProjectileSpeed(), 
+                    vy * GameConfig.getEnemy2ProjectileSpeed());
+                newProj.setState(EntityState.ACTIVE);
+                enemy_Projectiles.add(newProj);
             }
         }
     }

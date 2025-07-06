@@ -5,6 +5,7 @@ import Engine.ConfigReaders.GameConfig;
 import GameElements.Entity;
 import GameElements.Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
+import GameElements.LifeBar;
 
 import java.util.ArrayList;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class Player extends Entity {
     protected long powerUpEnd = -1;
     protected int shieldState = 0;
     protected double baseRadius;
+    protected LifeBar lifeBar;
 
     //  CONSTRUTOR 
     
@@ -41,16 +43,23 @@ public class Player extends Entity {
         HP = life;
         super.setState(EntityState.ACTIVE);
         super.explosionTime = GameConfig.getEntityPlayerExplosionTime();
+
+        lifeBar = new LifeBar(life / 2); // LifeBar menor (metade do tamanho)
+        // Posiciona a LifeBar no canto esquerdo inferior da tela
+        lifeBar.setX(40); // 20 pixels da borda esquerda
+        lifeBar.setY(GameLib.HEIGHT - 30); // 30 pixels acima da borda inferior
     }
 
     //  MÉTODOS PÚBLICOS 
     
-    public boolean update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles) {
+    public boolean update(long delta, long now, ArrayList<ProjectilePlayer> playerProjectiles, long currentTime) {
         hasLife(now);
         if (hitTimeEnd(now)) {
             if (powerUpEnd == -1) color = GameConfig.getColorPlayer();
             else color = GameConfig.getColorPlayerPowerup();
         }
+
+        lifeBar.update(delta, currentTime, HP);
 
         if (powerUpEnd >= 0 && now > powerUpEnd) {
             powerUpEnd = -1;
@@ -70,17 +79,11 @@ public class Player extends Entity {
 
             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
                 if (now > nextShot && getState() != EntityState.INACTIVE) {
-                    for (ProjectilePlayer proj : playerProjectiles) {
-                        if (!proj.isActive()) {
-                            proj.setX(getX());
-                            proj.setY(getY() - 2 * getRadius());
-                            proj.setVX(0.0);
-                            proj.setVY(-1.0);
-                            proj.setState(EntityState.ACTIVE);
-                            nextShot = now + playerShootingSpeed;
-                            break;
-                        }
-                    }
+                    // Cria um novo projétil do player
+                    ProjectilePlayer newProj = new ProjectilePlayer(getX(), getY() - 2 * getRadius(), 2.0, 0.0, -1.0);
+                    newProj.setState(EntityState.ACTIVE);
+                    playerProjectiles.add(newProj);
+                    nextShot = now + playerShootingSpeed;
                 }
             }
 
@@ -119,6 +122,8 @@ public class Player extends Entity {
             GameLib.setColor(color);
             GameLib.drawPlayer(getX(), getY(), radius - 5 * shieldState);
         }
+
+        lifeBar.draw();
     }
 
     public void hit(int damage, long currentTime) {

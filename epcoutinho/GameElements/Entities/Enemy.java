@@ -39,7 +39,7 @@ public abstract class Enemy extends Entity {
     }
 
     // Deve retornar novo spawnTime para próximo inimigo
-    public abstract long spawn(long currentTime);
+    public abstract void spawn(long currentTime);
 /*     {
         if (currentTime > this.spawn) {
             setState(EntityState.ACTIVE);

@@ -87,6 +87,11 @@ public class PhaseConfig {
                         double x = Double.parseDouble(parts[4]);
                         double y = Double.parseDouble(parts[5]);
                         spawnEvents.add(new SpawnEvent("CHEFE", enemyType, bossHP, when, x, y));
+                    } else if (type.equals("POWERUP")) {
+                        long when = Long.parseLong(parts[2]);
+                        double x = Double.parseDouble(parts[3]);
+                        double y = Double.parseDouble(parts[4]);
+                        spawnEvents.add(new SpawnEvent("POWERUP", enemyType, 0, when, x, y));
                     }
                 }
             }

@@ -29,8 +29,8 @@ public class Boss2 extends Boss {
     }
 
     // ===== MÉTODOS PÚBLICOS =====
-    public long spawn(long currentTime){
-        return currentTime + 1200;
+    public void spawn(long currentTime){
+        return;
     }
     
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
@@ -75,6 +75,23 @@ public class Boss2 extends Boss {
 
             if (isSuperAttack(now)) {
                 // SUPER DISPARO: múltiplos projéteis em leque
+                // Cria múltiplos projéteis para o super ataque
+                int superShots = GameConfig.getBoss2ShotsCount() * 2; // Mais projéteis no super ataque
+                double anguloBase = getAngle();
+                double spread = GameConfig.getBoss2AngleSpread() * 1.5; // Spread maior no super ataque
+                double passo = spread / (superShots - 1);
+
+                for (int i = 0; i < superShots; i++) {
+                    double angulo = anguloBase - spread / 2 + i * passo;
+                    
+                    // Cria um novo projétil do boss (super ataque)
+                    ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), GameConfig.getBoss2ProjectileRadius() * 1.5,
+                        Math.cos(angulo) * GameConfig.getBoss2ProjectileSpeed() * 1.2,
+                        Math.sin(angulo) * GameConfig.getBoss2ProjectileSpeed() * 1.2 * (-1.0));
+                    newProj.setState(EntityState.ACTIVE);
+                    enemy_Projectiles.add(newProj);
+                }
+                
                 setNextShot(now + GameConfig.getBoss2SuperAttackCooldown()); // cooldown do super disparo
             } else {
                 // DISPARO NORMAL
@@ -84,20 +101,17 @@ public class Boss2 extends Boss {
                 double passo = spread / (disparos - 1);
 
                 for (int i = 0; i < disparos; i++) {
-                    for (ProjectileEnemy proj : enemy_Projectiles) {
-                        if (!proj.isActive()) {
-                            double angulo = anguloBase - spread / 2 + i * passo;
-                            proj.setX(getX());
-                            proj.setY(getY());
-                            proj.setVX(Math.cos(angulo) * GameConfig.getBoss2ProjectileSpeed());
-                            proj.setVY(Math.sin(angulo) * GameConfig.getBoss2ProjectileSpeed() * (-1.0));
-                            proj.setRadius(GameConfig.getBoss2ProjectileRadius());
-                            proj.setState(EntityState.ACTIVE);
-                            setNextShot((long) (now + GameConfig.getBoss2NormalShotCooldown() + Math.random() * GameConfig.getBoss2NormalShotRandom()));
-                            break;
-                        }
-                    }
+                    double angulo = anguloBase - spread / 2 + i * passo;
+                    
+                    // Cria um novo projétil do boss
+                    ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), GameConfig.getBoss2ProjectileRadius(),
+                        Math.cos(angulo) * GameConfig.getBoss2ProjectileSpeed(),
+                        Math.sin(angulo) * GameConfig.getBoss2ProjectileSpeed() * (-1.0));
+                    newProj.setState(EntityState.ACTIVE);
+                    enemy_Projectiles.add(newProj);
                 }
+                
+                setNextShot((long) (now + GameConfig.getBoss2NormalShotCooldown() + Math.random() * GameConfig.getBoss2NormalShotRandom()));
             }
         }
     }

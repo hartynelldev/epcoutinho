@@ -33,8 +33,8 @@ public class Boss1 extends Boss {
 
     //  MÉTODOS PÚBLICOS 
 
-    public long spawn(long currentTime){
-        return currentTime + 1200;
+    public void spawn(long currentTime){
+        return;
     }
     
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
@@ -54,6 +54,13 @@ public class Boss1 extends Boss {
             VX = VX * (-1);
         }
 
+        // Agenda o próximo super ataque se o anterior terminou
+        if (currentTime > nextSuperAtack + superAtackDuration) {
+            long intervalo = GameConfig.getBoss1SuperAttackInterval() + (long) (Math.random() * GameConfig.getBoss1SuperAttackRandom());
+            nextSuperAtack = currentTime + intervalo;
+            System.out.println("Próximo super ataque do Boss1 agendado para: " + nextSuperAtack);
+        }
+
         shild(currentTime);
         lifeBar.update(delta, currentTime, HP);
         shoot(enemy_Projectiles, player, delta, currentTime);
@@ -61,54 +68,40 @@ public class Boss1 extends Boss {
     }
 
     public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles, Player player, long delta, long now) {
-        // Se o super ataque anterior terminou, agenda o próximo
-        if (now > nextSuperAtack + superAtackDuration) {
-            // Próximo super ataque entre 5 e 10 segundos a partir de agora
-            long intervalo = GameConfig.getBoss1SuperAttackInterval() + (long) (Math.random() * GameConfig.getBoss1SuperAttackRandom());
-            nextSuperAtack = now + intervalo;
-        }
-
         // Só dispara se for o momento certo e o Boss estiver acima do jogador
         if (now > getNextShot() && getY() < player.getY() && handlePocicionado()) {
             // Corrige movimentação se estiver parada ou errada
 
             if (isSuperAttack(now)) {
+                System.out.println("SUPER ATAQUE DO BOSS1 ATIVADO!");
                 // SUPER DISPARO: múltiplos projéteis em leque
                 if (VX == GameConfig.getBoss1VX() || VX == -GameConfig.getBoss1VX()) {
                     VX = VX * 2;
                 }
 
-                for (ProjectileEnemy proj : enemy_Projectiles) {
-                    if (!proj.isActive()) {
-                        proj.setX(getX());
-                        proj.setY(getY());
-                        proj.setVX(Math.cos(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed());
-                        proj.setVY(Math.sin(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed() * (-1.0));
-                        proj.setRadius(GameConfig.getBoss1SuperProjectileRadius());
-                        proj.setState(EntityState.ACTIVE);
-                        break;
-                    }
-                }
+                // Cria um novo projétil do boss (super ataque)
+                ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), GameConfig.getBoss1SuperProjectileRadius(),
+                    Math.cos(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed(),
+                    Math.sin(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed() * (-1.0));
+                newProj.setState(EntityState.ACTIVE);
+                enemy_Projectiles.add(newProj);
 
                 setNextShot(now + GameConfig.getBoss1SuperAttackCooldown()); // cooldown do super disparo
-            } else {
+            } /* else {
                 // DISPARO NORMAL
                 if ((VX != GameConfig.getBoss1VX() && VX != -GameConfig.getBoss1VX())) {
                     VX = VX / 2;
                 }
-                for (ProjectileEnemy proj : enemy_Projectiles) {
-                    if (!proj.isActive()) {
-                        proj.setX(getX());
-                        proj.setY(getY());
-                        proj.setVX(Math.cos(getAngle()) * GameConfig.getBoss1NormalProjectileSpeed());
-                        proj.setVY(Math.sin(getAngle()) * GameConfig.getBoss1NormalProjectileVY() * (-1.0));
-                        proj.setRadius(GameConfig.getBoss1NormalProjectileRadius());
-                        proj.setState(EntityState.ACTIVE);
-                        setNextShot((long) (now + GameConfig.getBoss1NormalShotCooldown() + Math.random() * GameConfig.getBoss1NormalShotRandom()));
-                        break;
-                    }
-                }
-            }
+                
+                // Cria um novo projétil do boss (disparo normal)
+                ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), GameConfig.getBoss1NormalProjectileRadius(),
+                    Math.cos(getAngle()) * GameConfig.getBoss1NormalProjectileSpeed(),
+                    Math.sin(getAngle()) * GameConfig.getBoss1NormalProjectileVY() * (-1.0));
+                newProj.setState(EntityState.ACTIVE);
+                enemy_Projectiles.add(newProj);
+                
+                setNextShot((long) (now + GameConfig.getBoss1NormalShotCooldown() + Math.random() * GameConfig.getBoss1NormalShotRandom()));
+            } */
         }
     }
 

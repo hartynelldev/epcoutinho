@@ -66,8 +66,8 @@ boss1.normalShotRandom=10
 boss1.superProjectileSpeed=0.8
 boss1.normalProjectileSpeed=0.45
 boss1.normalProjectileVY=0.70
-boss1.superProjectileRadius=20
-boss1.normalProjectileRadius=5
+boss1.superProjectileRadius=20.0
+boss1.normalProjectileRadius=5.0
 boss1.borderX=10.0
 boss1.borderWidth=480.0
 

@@ -45,7 +45,7 @@ public class Enemy1 extends Enemy {
     }
 
     // Mecânica de Spawn
-    public long spawn(long currentTime){
+    public void spawn(long currentTime){
         this.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
         this.setY(-10.0);
         this.setVX(0.0); // Set as needed
@@ -55,23 +55,18 @@ public class Enemy1 extends Enemy {
         this.setState(EntityState.ACTIVE);
         this.setNextShot(currentTime + 500);
 
-        // retorna novo spawnTime para próximo inimigo
-        return currentTime + 500;
+        return;
     }
 
     public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles, Player player, long delta, long now) {
         if (now > getNextShot() && getY() < player.getY()) {
-            for (ProjectileEnemy proj : enemy_Projectiles) {
-                if (!proj.isActive()) {
-                    proj.setX(getX());
-                    proj.setY(getY());
-                    proj.setVX(Math.cos(getAngle()) * GameConfig.getEnemy1ProjectileSpeed());
-                    proj.setVY(Math.sin(getAngle()) * GameConfig.getEnemy1ProjectileSpeed() * (-1.0));
-                    proj.setState(EntityState.ACTIVE);
-                    setNextShot((long) (now + GameConfig.getEnemy1ShotCooldown() + Math.random() * GameConfig.getEnemy1ShotRandom()));
-                    break;
-                }
-            }
+            // Cria um novo projétil do inimigo
+            double vx = Math.cos(getAngle()) * GameConfig.getEnemy1ProjectileSpeed();
+            double vy = Math.sin(getAngle()) * GameConfig.getEnemy1ProjectileSpeed() * (-1.0);
+            ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), 2.0, vx, vy);
+            newProj.setState(EntityState.ACTIVE);
+            enemy_Projectiles.add(newProj);
+            setNextShot((long) (now + GameConfig.getEnemy1ShotCooldown() + Math.random() * GameConfig.getEnemy1ShotRandom()));
         }
     }
 

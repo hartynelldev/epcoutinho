@@ -149,7 +149,7 @@ public class EntityManager {
 
 		//player
 		boolean running = true;
-		if(player.update(delta, currentTime,playerProjectiles)) running = false;
+		if(player.update(delta, currentTime,playerProjectiles,currentTime)) running = false;
 
     	// Atualiza projéteis do player
 		for (Projectile p : playerProjectiles) {
@@ -181,6 +181,38 @@ public class EntityManager {
 		}
 
 		return running;
+	}
+	
+	public static void cleanupInactiveEntities(ArrayList<Enemy> enemies, 
+											  ArrayList<ProjectileEnemy> enemyProjectiles,
+											  ArrayList<ProjectileEnemy> enemyProjectilesBoss,
+											  ArrayList<Powerup> powerups) {
+		// Remove inimigos inativos
+		enemies.removeIf(enemy -> enemy.getState() == EntityState.INACTIVE);
+		
+		// Remove projéteis inativos
+		enemyProjectiles.removeIf(proj -> proj.getState() == EntityState.INACTIVE);
+		enemyProjectilesBoss.removeIf(proj -> proj.getState() == EntityState.INACTIVE);
+		
+		// Remove powerups inativos
+		powerups.removeIf(powerup -> powerup.getState() == EntityState.INACTIVE);
+	}
+	
+	public static void cleanupInactiveEntities(ArrayList<Enemy> enemies, 
+											  ArrayList<ProjectileEnemy> enemyProjectiles,
+											  ArrayList<ProjectileEnemy> enemyProjectilesBoss,
+											  ArrayList<Powerup> powerups,
+											  ArrayList<ProjectilePlayer> playerProjectiles) {
+		// Remove inimigos inativos
+		enemies.removeIf(enemy -> enemy.getState() == EntityState.INACTIVE);
+		
+		// Remove projéteis inativos
+		enemyProjectiles.removeIf(proj -> proj.getState() == EntityState.INACTIVE);
+		enemyProjectilesBoss.removeIf(proj -> proj.getState() == EntityState.INACTIVE);
+		playerProjectiles.removeIf(proj -> proj.getState() == EntityState.INACTIVE);
+		
+		// Remove powerups inativos
+		powerups.removeIf(powerup -> powerup.getState() == EntityState.INACTIVE);
 	}
 
 	public static void processCollisions(long currentTime, Player player, Boss boss1,
