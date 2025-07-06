@@ -164,9 +164,9 @@ gameEngine.powerup1Count=2
 gameEngine.powerup2Count=2
 gameEngine.enemy2SpawnX=100.0
 
-# LEVEL MANAGER 
-levelManager.defaultLevelFile=Config/levels/fase1.txt
-levelManager.enemySpawnInterval=500
-levelManager.powerupSpawnInterval=500
-levelManager.bossSpawnDelay=5000
-levelManager.levelTransitionTime=10000 
+# PHASE CONFIG
+phaseConfig.defaultLevelFile=Config/levels/fase1.txt
+phaseConfig.enemySpawnInterval=500
+phaseConfig.powerupSpawnInterval=500
+phaseConfig.bossSpawnDelay=5000
+phaseConfig.levelTransitionTime=10000 

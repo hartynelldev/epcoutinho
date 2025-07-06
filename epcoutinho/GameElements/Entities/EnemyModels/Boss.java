@@ -2,7 +2,7 @@ package GameElements.Entities.EnemyModels;
 
 import GameElements.LifeBar;
 import GameElements.Entities.Enemy;
-import Config.GameConfig;
+import Engine.ConfigReaders.GameConfig;
 import Exceptions.HpExcption;
 
 // do enunciado:

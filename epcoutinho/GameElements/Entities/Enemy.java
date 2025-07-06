@@ -38,11 +38,13 @@ public abstract class Enemy extends Entity {
         return currentTime > nextShot && getY() < ent.getY() && getState() == EntityState.ACTIVE;
     }
 
-    public void spawn(long currentTime) {
+    // Deve retornar novo spawnTime para próximo inimigo
+    public abstract long spawn(long currentTime);
+/*     {
         if (currentTime > this.spawn) {
             setState(EntityState.ACTIVE);
         }
-    }
+    } */
 
     public void draw(long now) {
         if (getState() == EntityState.EXPLODING) {

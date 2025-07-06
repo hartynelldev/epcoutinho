@@ -1,7 +1,7 @@
 package GameElements;
 
 import Engine.GameLib;
-import Config.GameConfig;
+import Engine.ConfigReaders.GameConfig;
 
 public class LifeBar extends GameElement {
 

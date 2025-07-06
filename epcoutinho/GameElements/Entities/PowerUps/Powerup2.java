@@ -4,7 +4,7 @@ import Engine.GameLib;
 import GameElements.Entities.Player;
 import GameElements.Entities.Powerup;
 import Manager.EntityState;
-import Config.GameConfig;
+import Engine.ConfigReaders.GameConfig;
 import java.awt.*;
 
 public class Powerup2 extends Powerup {
@@ -46,6 +46,19 @@ public class Powerup2 extends Powerup {
         player.setShield();
         if (player.getVX() > GameConfig.getPowerup2MaxSpeed()) player.setVX(VX - GameConfig.getPowerup2SpeedDecrement());
         return duration;
+    }
+
+    public long spawn(long currentTime){
+        this.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
+		this.setY(-10.0);
+		this.setVX(0.0); // Set as needed
+		this.setVY(0.05 + Math.random() * 0.10);
+		this.setAngle((3 * Math.PI) / 2);
+		this.setRV(0.0);
+		this.spawn(currentTime+500, currentTime);
+
+        // retorna novo spawnTime para próximo powerUp
+        return currentTime + 500;
     }
 }
 

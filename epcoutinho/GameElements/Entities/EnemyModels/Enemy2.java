@@ -1,11 +1,14 @@
 package GameElements.Entities.EnemyModels;
 
 import Engine.GameLib;
+import Engine.ConfigReaders.GameConfig;
 import GameElements.Entities.Enemy;
 import GameElements.Entities.Player;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
-import Config.GameConfig;
+import Manager.SpawnManager;
+
+
 import java.util.ArrayList;
 
 public class Enemy2 extends Enemy {
@@ -22,7 +25,22 @@ public class Enemy2 extends Enemy {
         setState(EntityState.INACTIVE);
     }
 
-    //  MÉTODOS PÚBLICOS 
+    //  MÉTODOS PÚBLICOS
+
+    @Override
+    public long spawn(long currentTime){ 
+        return currentTime + 120;
+    }
+
+    public void spawn(double x, double y) {
+        this.setX(x);
+        this.setY(y);
+        this.setVY(0.42);
+        this.setAngle((3 * Math.PI) / 2);
+        this.setRV(0.0);
+        this.setState(EntityState.ACTIVE);
+        this.setExplosionEnd(0); // ajuste se necessário
+    }
     
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
         hasLife(currentTime);

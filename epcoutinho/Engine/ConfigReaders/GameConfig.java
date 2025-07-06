@@ -1,4 +1,4 @@
-package Config;
+package Engine.ConfigReaders;
 
 import java.awt.Color;
 import java.io.IOException;

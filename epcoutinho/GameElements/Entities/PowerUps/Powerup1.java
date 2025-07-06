@@ -4,7 +4,7 @@ import Engine.GameLib;
 import GameElements.Entities.Player;
 import GameElements.Entities.Powerup;
 import Manager.EntityState;
-import Config.GameConfig;
+import Engine.ConfigReaders.GameConfig;
 import java.awt.*;
 
 public class Powerup1 extends Powerup {
@@ -36,6 +36,19 @@ public class Powerup1 extends Powerup {
             GameLib.drawDiamond(getX(), getY(), radius);
             GameLib.drawCircle(getX(), getY(), radius - 7);
         }
+    }
+
+    public long spawn(long currentTime){
+        this.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
+		this.setY(-10.0);
+		this.setVX(0.0); // Set as needed
+		this.setVY(0.10 + Math.random() * 0.15);
+		this.setAngle((3 * Math.PI) / 2);
+		this.setRV(0.0);
+		this.spawn(currentTime+500, currentTime);
+
+        // retorna novo spawnTime para próximo powerUp
+        return currentTime + 500;
     }
 
     //  MÉTODOS PROTEGIDOS 

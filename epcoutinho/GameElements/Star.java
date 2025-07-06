@@ -1,7 +1,8 @@
 package GameElements;
 
 import Engine.GameLib;
-import Config.GameConfig;
+import Engine.ConfigReaders.GameConfig;
+
 import java.awt.*;
 
 public class Star extends GameElement {

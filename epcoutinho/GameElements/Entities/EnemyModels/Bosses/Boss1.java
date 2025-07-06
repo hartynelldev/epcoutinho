@@ -5,7 +5,7 @@ import GameElements.Entities.Player;
 import GameElements.Entities.EnemyModels.Boss;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
-import Config.GameConfig;
+import Engine.ConfigReaders.GameConfig;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -32,6 +32,10 @@ public class Boss1 extends Boss {
     }
 
     //  MÉTODOS PÚBLICOS 
+
+    public long spawn(long currentTime){
+        return currentTime + 1200;
+    }
     
     public void update(long delta, Player player, ArrayList<ProjectileEnemy> enemy_Projectiles, long currentTime) {
         hasLife(currentTime);

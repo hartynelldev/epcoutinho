@@ -1,11 +1,12 @@
 package GameElements.Entities.EnemyModels;
 
 import Engine.GameLib;
+import Engine.ConfigReaders.GameConfig;
 import GameElements.Entities.Enemy;
 import GameElements.Entities.Player;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import Manager.EntityState;
-import Config.GameConfig;
+
 import java.util.ArrayList;
 import java.awt.*;
 
@@ -41,6 +42,21 @@ public class Enemy1 extends Enemy {
 
         shoot(enemy_Projectiles, player, delta, currentTime);
         updatePosition(delta, currentTime);
+    }
+
+    // Mecânica de Spawn
+    public long spawn(long currentTime){
+        this.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
+        this.setY(-10.0);
+        this.setVX(0.0); // Set as needed
+        this.setVY(0.20 + Math.random() * 0.15);
+        this.setAngle((3 * Math.PI) / 2);
+        this.setRV(0.0);
+        this.setState(EntityState.ACTIVE);
+        this.setNextShot(currentTime + 500);
+
+        // retorna novo spawnTime para próximo inimigo
+        return currentTime + 500;
     }
 
     public void shoot(ArrayList<ProjectileEnemy> enemy_Projectiles, Player player, long delta, long now) {

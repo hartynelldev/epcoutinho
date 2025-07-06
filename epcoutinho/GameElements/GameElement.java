@@ -1,9 +1,11 @@
 package GameElements;
 
 import Manager.EntityState;
-import Config.GameConfig;
+
 import java.awt.Color;
 import java.util.ArrayList;
+
+import Engine.ConfigReaders.GameConfig;
 
 public abstract class GameElement {
 

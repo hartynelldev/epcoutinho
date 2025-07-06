@@ -1,10 +1,11 @@
 package GameElements.Entities;
 
 import Engine.GameLib;
+import Engine.ConfigReaders.GameConfig;
 import GameElements.Entity;
 import GameElements.Entities.ProjectileModels.ProjectilePlayer;
 import Manager.EntityState;
-import Config.GameConfig;
+
 import java.util.ArrayList;
 import java.awt.*;
 

@@ -1,9 +1,10 @@
 package GameElements.Entities;
 
 import java.awt.Color;
+
+import Engine.ConfigReaders.GameConfig;
 import GameElements.Entity;
 import Manager.EntityState;
-import Config.GameConfig;
 
 // Entidades que interagem no jogo
 public abstract class Powerup extends Entity {

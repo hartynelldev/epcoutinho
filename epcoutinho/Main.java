@@ -1,5 +1,5 @@
 import Engine.gameEngine;
-import Config.GameConfig;
+import Engine.ConfigReaders.*;
 
 /***********************************************************************/
 /*                                                                     */

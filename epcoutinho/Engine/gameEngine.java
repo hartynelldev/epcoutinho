@@ -1,12 +1,14 @@
 package Engine;
 
 import Manager.EntityState;
+import Manager.SpawnManager;
 
 import static Engine.SceneRenderer.render;
 import Manager.EntityManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import GameElements.Entity;
 import GameElements.Entities.*;
@@ -19,6 +21,7 @@ import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import GameElements.Entities.ProjectileModels.ProjectilePlayer;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class gameEngine {
 
@@ -32,16 +35,13 @@ public class gameEngine {
 	private ArrayList<Powerup2> powerups2;
 	private ArrayList<ProjectileEnemy> enemy_ProjectilesBoss;
     private BackGround backGround;
+
+	double enemy2_spawnX;
+	int enemy2_count;
+	SpawnManager spawnManager;
+
 	//teste de boss
 	private Boss2 boss2;
-
-    // Variáveis auxiliares
-    private long firstEnemy1;
-    private long firstEnemy2;
-	private long firstPowerup1;
-	private long firstPowerup2;
-    private double enemy2_spawnX;
-    private int enemy2_count;
 
 	boolean running;
 
@@ -58,13 +58,14 @@ public class gameEngine {
         /* variáveis dos projéteis disparados pelo player */
         playerProjectiles = new ArrayList<>(10);
 
+		// tempos de spawn iniciais
+		this.spawnManager = new SpawnManager(startTime);
+
         /* variáveis dos inimigos tipo 1 */
         enemy1List = new ArrayList<>(10);
-        firstEnemy1 = startTime + 2000; // Use o tempo atual aqui --Lembre que no arquivo os tempos de spaw são fixos  (definido em cada entrada)
 
         /* variáveis dos inimigos tipo 2 */
         enemy2List = new ArrayList<>(10);
-        firstEnemy2 = startTime + 7000; //--Lembre que no arquivo os tempos de spaw são fixos
         enemy2_spawnX = GameLib.WIDTH * 0.20;
         enemy2_count = 5;
 
@@ -73,16 +74,15 @@ public class gameEngine {
 
 		/* variáveis dos powerups */
 		powerups1 = new ArrayList<>(2);
-		firstPowerup1 = startTime + 4000;
+		
 		powerups2 = new ArrayList<>(2);
-		firstPowerup2 = startTime + 8000;
 		enemy_ProjectilesBoss = new ArrayList<>(200);
 
         /* estrelas que formam o fundo de primeiro plano */
         backGround = new BackGround(20,50);
 
 		/*Tesste de boss*/
-		boss2 = new Boss2(GameLib.WIDTH/2,0,firstEnemy1, startTime, 5);
+		boss2 = new Boss2(GameLib.WIDTH/2,0,spawnManager.firstEnemy1, startTime, 5);
 
         // Inicializações
         for(int i = 0; i < 10; i++) playerProjectiles.add(new ProjectilePlayer(0,0,0,0,0));
@@ -109,7 +109,7 @@ public class gameEngine {
 		inicializate();
 
 		List<List<? extends Entity>> entities = Arrays.asList(
-            playerProjectiles,
+            playerProjectiles, // 0
             enemy_Projectiles,
 			enemy_ProjectilesBoss,
             enemy1List,
@@ -169,86 +169,10 @@ public class gameEngine {
 			powerups.addAll(powerups2);
 
 			running = EntityManager.updateEntities(delta, currentTime, player,playerProjectiles,enemies, boss2, enemy_Projectiles, enemy_ProjectilesBoss, powerups);
+
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
-			//spaw() faz isso
-			if (currentTime > firstEnemy1) {
-				for (Enemy1 e1 : enemy1List) {
-					if (e1.getState() == EntityState.INACTIVE) {
-						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
-						e1.setY(-10.0);
-						e1.setVX(0.0); // Set as needed
-						e1.setVY(0.20 + Math.random() * 0.15);
-						e1.setAngle((3 * Math.PI) / 2);
-						e1.setRV(0.0);
-						e1.setState(EntityState.ACTIVE);
-						e1.setNextShot(currentTime + 500);
-						firstEnemy1 = currentTime + 500;
-						break; // Only activate one per tick
-					}
-				}
-			}
-			
-			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
-			if (currentTime > firstEnemy2) {
-				// Procura um inimigo inativo na lista
-				for (Enemy2 e2 : enemy2List) {
-					if (e2.getState() == EntityState.INACTIVE) {
-						e2.setX(enemy2_spawnX);
-						e2.setY(-10.0);
-						e2.setVY(0.42);
-						e2.setAngle((3 * Math.PI) / 2);
-						e2.setRV(0.0);
-						e2.setState(EntityState.ACTIVE);
-						e2.setExplosionEnd(0); // ajuste se necessário
-
-						enemy2_count++;
-
-						if (enemy2_count < 10) {
-							firstEnemy2 = currentTime + 120;
-						} else {
-							enemy2_count = 0;
-							enemy2_spawnX = Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8;
-							firstEnemy2 = (long) (currentTime + 3000 + Math.random() * 3000);
-						}
-						break; // só ativa um por vez
-					}
-				}
-			}
-
-			/* verificando se novos powerups devem ser lançados */
-			
-			if (currentTime > firstPowerup1) {
-				for (Powerup1 e1 : powerups1) {
-					if (e1.getState() == EntityState.INACTIVE) {
-						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
-						e1.setY(-10.0);
-						e1.setVX(0.0); // Set as needed
-						e1.setVY(0.10 + Math.random() * 0.15);
-						e1.setAngle((3 * Math.PI) / 2);
-						e1.setRV(0.0);
-						e1.spawn(currentTime+500, currentTime);
-						firstPowerup1 = currentTime + 500;
-						break; // Only activate one per tick
-					}
-				}
-			}
-
-			if (currentTime > firstPowerup2) {
-				for (Powerup2 e1 : powerups2) {
-					if (e1.getState() == EntityState.INACTIVE) {
-						e1.setX(Math.random() * (GameLib.WIDTH - 20.0) + 10.0);
-						e1.setY(-10.0);
-						e1.setVX(0.0); // Set as needed
-						e1.setVY(0.05 + Math.random() * 0.10);
-						e1.setAngle((3 * Math.PI) / 2);
-						e1.setRV(0.0);
-						e1.spawn(currentTime+500, currentTime);
-						firstPowerup1 = currentTime + 500;
-						break; // Only activate one per tick
-					}
-				}
-			}
+			spawnManager.shouldSpawn(currentTime, entities);
 	
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */

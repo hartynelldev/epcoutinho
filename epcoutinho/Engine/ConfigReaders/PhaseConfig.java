@@ -1,4 +1,4 @@
-package Engine;
+package Engine.ConfigReaders;
 
 import GameElements.Entities.Enemy;
 import GameElements.Entities.Powerup;
@@ -13,7 +13,7 @@ import GameElements.Entities.Player;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import java.util.ArrayList;
 
-public class levelManager {
+public class PhaseConfig {
 
     private ArrayList<Enemy> enemies;
     private ArrayList<Powerup> powerups;
@@ -21,13 +21,14 @@ public class levelManager {
     private Boss boss;
     private Player player;
 
-    public levelManager(Player player) {
+    public PhaseConfig(Player player) {
         this.player = player;
         this.enemies = new ArrayList<>();
         this.powerups = new ArrayList<>();
         this.projectiles = new ArrayList<>();
     }
 
+    // Leitor do level
     public void loadLevel(String levelData) {
         String[] lines = levelData.split("\n");
         for (String line : lines) {

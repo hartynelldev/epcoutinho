@@ -1,8 +1,9 @@
 package GameElements;
 
 import Engine.GameLib;
+import Engine.ConfigReaders.GameConfig;
 import Manager.EntityState;
-import Config.GameConfig;
+
 import java.awt.Color;
 
 // Entidades que interagem no jogo
