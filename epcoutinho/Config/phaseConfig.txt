@@ -1,4 +1,4 @@
-100
+10
 2
-fase1.txt
-fase2.txt
+epcoutinho/Config/levels/fase1.txt
+epcoutinho/Config/levels/fase2.txt 

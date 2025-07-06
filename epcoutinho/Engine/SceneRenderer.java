@@ -6,6 +6,7 @@ import GameElements.Entity;
 import GameElements.Entities.*;
 import GameElements.Entities.EnemyModels.Boss;
 import GameElements.Entities.EnemyModels.Bosses.Boss1;
+import Manager.EntityState;
 
 
 public class SceneRenderer {
@@ -27,7 +28,10 @@ public class SceneRenderer {
         // Desenhar player
         player.draw(currentTime);
 
-        boss.draw(currentTime);
+        // Desenhar boss se estiver ativo
+        if (boss != null && boss.getState() == EntityState.ACTIVE) {
+            boss.draw(currentTime);
+        }
 
         // Desenhar todas as entidades das listas
         for (List<? extends Entity> list : entityLists) {

@@ -175,8 +175,10 @@ public class EntityManager {
 		}
 
 
-		//Atualiza Boss1
-		boss1.update(delta, player, enemy_ProjectilesBoss, currentTime);
+		//Atualiza Boss
+		if (boss1 != null && boss1.getState() == EntityState.ACTIVE) {
+			boss1.update(delta, player, enemy_ProjectilesBoss, currentTime);
+		}
 
 		return running;
 	}
@@ -201,7 +203,9 @@ public class EntityManager {
 			for(Enemy e : enemies){
 				EntityManager.checkThenCollide(e, player, currentTime);
 			}
-			EntityManager.checkThenCollide(boss1,player,currentTime);
+			if (boss1 != null && boss1.getState() == EntityState.ACTIVE) {
+				EntityManager.checkThenCollide(boss1,player,currentTime);
+			}
 
 			// Colisões player - powerups
 			for(Powerup e : powerups){
@@ -214,7 +218,9 @@ public class EntityManager {
 			for(Enemy e1 : enemies){
 				EntityManager.checkThenCollide(p, e1, currentTime);
 			}
-			EntityManager.checkThenCollide(p,boss1,currentTime);
+			if (boss1 != null && boss1.getState() == EntityState.ACTIVE) {
+				EntityManager.checkThenCollide(p,boss1,currentTime);
+			}
 		}
 	}
 }
