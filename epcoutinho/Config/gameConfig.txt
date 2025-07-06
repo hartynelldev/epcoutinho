@@ -82,7 +82,7 @@ boss2.superAttackCooldown=300
 boss2.normalShotCooldown=400
 boss2.normalShotRandom=10
 boss2.projectileSpeed=0.5
-boss2.projectileRadius=8
+boss2.projectileRadius=8.0
 boss2.shotsCount=5
 boss2.angleSpread=0.7
 boss2.targetY=215.0
@@ -153,20 +153,3 @@ color.powerup2Magenta=MAGENTA
 color.projectilePlayer=GREEN
 color.projectileEnemy=RED
 color.hit=RED
-
-# GAME ENGINE
-gameEngine.playerProjectilesCount=10
-gameEngine.enemyProjectilesCount=200
-gameEngine.bossProjectilesCount=200
-gameEngine.enemy1Count=10
-gameEngine.enemy2Count=5
-gameEngine.powerup1Count=2
-gameEngine.powerup2Count=2
-gameEngine.enemy2SpawnX=100.0
-
-# PHASE CONFIG
-phaseConfig.defaultLevelFile=Config/levels/fase1.txt
-phaseConfig.enemySpawnInterval=500
-phaseConfig.powerupSpawnInterval=500
-phaseConfig.bossSpawnDelay=5000
-phaseConfig.levelTransitionTime=10000 

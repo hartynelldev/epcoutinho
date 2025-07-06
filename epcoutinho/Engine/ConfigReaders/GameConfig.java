@@ -592,37 +592,4 @@ public class GameConfig {
         return getColor("color.hit");
     }
 
-    // GAME ENGINE
-    
-    public static int getGameEnginePlayerProjectilesCount() {
-        return getInt("gameEngine.playerProjectilesCount");
-    }
-
-    public static int getGameEngineEnemyProjectilesCount() {
-        return getInt("gameEngine.enemyProjectilesCount");
-    }
-
-    public static int getGameEngineBossProjectilesCount() {
-        return getInt("gameEngine.bossProjectilesCount");
-    }
-
-    public static int getGameEngineEnemy1Count() {
-        return getInt("gameEngine.enemy1Count");
-    }
-
-    public static int getGameEngineEnemy2Count() {
-        return getInt("gameEngine.enemy2Count");
-    }
-
-    public static int getGameEnginePowerup1Count() {
-        return getInt("gameEngine.powerup1Count");
-    }
-
-    public static int getGameEnginePowerup2Count() {
-        return getInt("gameEngine.powerup2Count");
-    }
-
-    public static double getGameEngineEnemy2SpawnX() {
-        return getDouble("gameEngine.enemy2SpawnX");
-    }
 } 

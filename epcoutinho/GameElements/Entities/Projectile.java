@@ -16,7 +16,6 @@ public abstract class Projectile extends Entity {
         // Inimigo1 e Inimigo2: super(enemy.getX(), enemy.getY(), radius);
         VX = vx;
         VY = vy;
-        setRadius(2);
         // variações de VX e VY
         // Player: VX = vx; VY = vy;
         // Inimigo1: VX = Math.cos(enemy.getAngle()) * 0.45; VY = Math.sin(enemy.getAngle()) * 0.45 * (-1.0);

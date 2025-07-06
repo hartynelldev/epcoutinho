@@ -45,6 +45,7 @@ public class SpawnManager {
         this.bossActive = false;
         
         // Inicialização do controle Enemy2
+        // Necessário pois uma minhoca é composta por varias
         this.enemy2_spawnX = 100.0; // Posição inicial X
         this.enemy2_spawnY = -10.0; // Posição inicial Y
         this.enemy2_count = 0;
@@ -84,17 +85,11 @@ public class SpawnManager {
         // Verifica se a fase foi completada
         if (currentEventIndex >= spawnEvents.size()) {
             // Só passa para a próxima fase se não há boss ativo
-            if (!bossActive) {
-                // Aguarda um tempo antes de passar para a próxima fase
-                if (phaseTime > 1000) { // 1 segundos de transição
+            if (!bossActive || (currentBoss != null && currentBoss.getState() != EntityState.ACTIVE)) {
+                if (phaseTime > 5000) { // 2 segundos de transição
                     nextPhase(currentTime);
                 }
-            }else{
-                System.out.println("Aguardando o boss ser derrotado para passar para a próxima fase.");
             }
-        }else{
-            // Se ainda há eventos pendentes, não passa para a próxima fase
-            System.out.println("Ainda há eventos pendentes na fase " + currentPhase + ", aguardando...");
         }
         
         // Processa spawns de Enemy2 (cobrinha) independentemente dos eventos
@@ -125,7 +120,7 @@ public class SpawnManager {
             }
         } else if (event.type.equals("CHEFE")) {
             // Spawn de Boss
-            if (bossActive) {
+            if (bossActive && currentBoss != null && currentBoss.getState() == EntityState.ACTIVE) {
                 System.out.println("Boss já ativo, ignorando spawn de novo boss");
                 return; // Já há um boss ativo
             }

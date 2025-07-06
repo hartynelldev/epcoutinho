@@ -80,7 +80,8 @@ public class Player extends Entity {
             if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
                 if (now > nextShot && getState() != EntityState.INACTIVE) {
                     // Cria um novo projétil do player
-                    ProjectilePlayer newProj = new ProjectilePlayer(getX(), getY() - 2 * getRadius(), 2.0, 0.0, -1.0);
+                    ProjectilePlayer newProj = new ProjectilePlayer(getX(), getY() - 2 * getRadius(), 
+                        GameConfig.getProjectileDefaultRadius(), 0.0, -1.0);
                     newProj.setState(EntityState.ACTIVE);
                     playerProjectiles.add(newProj);
                     nextShot = now + playerShootingSpeed;

@@ -63,7 +63,7 @@ public class Enemy1 extends Enemy {
             // Cria um novo projétil do inimigo
             double vx = Math.cos(getAngle()) * GameConfig.getEnemy1ProjectileSpeed();
             double vy = Math.sin(getAngle()) * GameConfig.getEnemy1ProjectileSpeed() * (-1.0);
-            ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), 2.0, vx, vy);
+            ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), GameConfig.getProjectileDefaultRadius(), vx, vy);
             newProj.setState(EntityState.ACTIVE);
             enemy_Projectiles.add(newProj);
             setNextShot((long) (now + GameConfig.getEnemy1ShotCooldown() + Math.random() * GameConfig.getEnemy1ShotRandom()));

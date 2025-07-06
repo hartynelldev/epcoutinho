@@ -85,9 +85,20 @@ public class Boss1 extends Boss {
                     Math.sin(getAngle()) * GameConfig.getBoss1SuperProjectileSpeed() * (-1.0));
                 newProj.setState(EntityState.ACTIVE);
                 enemy_Projectiles.add(newProj);
+                
+                // Prints para todos os atributos do projétil
+                System.out.println("=== PROJÉTIL SUPER ATAQUE BOSS1 CRIADO ===");
+                System.out.println("Posição X: " + newProj.getX());
+                System.out.println("Posição Y: " + newProj.getY());
+                System.out.println("Raio: " + newProj.getRadius() + "deveria ter:" + GameConfig.getBoss1SuperProjectileRadius());
+                System.out.println("Velocidade X: " + newProj.getVX());
+                System.out.println("Velocidade Y: " + newProj.getVY());
+                System.out.println("Estado: " + newProj.getState());
+                System.out.println("Ângulo: " + getAngle());
+                System.out.println("==========================================");
 
                 setNextShot(now + GameConfig.getBoss1SuperAttackCooldown()); // cooldown do super disparo
-            } /* else {
+            } else {
                 // DISPARO NORMAL
                 if ((VX != GameConfig.getBoss1VX() && VX != -GameConfig.getBoss1VX())) {
                     VX = VX / 2;
@@ -101,7 +112,7 @@ public class Boss1 extends Boss {
                 enemy_Projectiles.add(newProj);
                 
                 setNextShot((long) (now + GameConfig.getBoss1NormalShotCooldown() + Math.random() * GameConfig.getBoss1NormalShotRandom()));
-            } */
+            }
         }
     }
 

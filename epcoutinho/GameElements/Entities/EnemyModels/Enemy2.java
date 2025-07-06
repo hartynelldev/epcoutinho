@@ -91,7 +91,7 @@ public class Enemy2 extends Enemy {
                 double vy = Math.sin(a);
     
                 // Cria um novo projétil do inimigo
-                ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), 2.0, 
+                ProjectileEnemy newProj = new ProjectileEnemy(getX(), getY(), GameConfig.getProjectileDefaultRadius(), 
                     vx * GameConfig.getEnemy2ProjectileSpeed(), 
                     vy * GameConfig.getEnemy2ProjectileSpeed());
                 newProj.setState(EntityState.ACTIVE);
