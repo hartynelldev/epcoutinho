@@ -5,6 +5,7 @@ import Engine.ConfigReaders.GameConfig;
 
 import java.awt.*;
 
+// estrelas que formam o fundo de primeiro plano
 public class Star extends GameElement {
     
     //  ATRIBUTOS 

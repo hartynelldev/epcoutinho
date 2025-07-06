@@ -87,7 +87,7 @@ public class Boss1 extends Boss {
                 enemy_Projectiles.add(newProj);
                 
                 // Prints para todos os atributos do projétil
-                System.out.println("=== PROJÉTIL SUPER ATAQUE BOSS1 CRIADO ===");
+/*                 System.out.println("=== PROJÉTIL SUPER ATAQUE BOSS1 CRIADO ===");
                 System.out.println("Posição X: " + newProj.getX());
                 System.out.println("Posição Y: " + newProj.getY());
                 System.out.println("Raio: " + newProj.getRadius() + "deveria ter:" + GameConfig.getBoss1SuperProjectileRadius());
@@ -95,7 +95,7 @@ public class Boss1 extends Boss {
                 System.out.println("Velocidade Y: " + newProj.getVY());
                 System.out.println("Estado: " + newProj.getState());
                 System.out.println("Ângulo: " + getAngle());
-                System.out.println("==========================================");
+                System.out.println("=========================================="); */
 
                 setNextShot(now + GameConfig.getBoss1SuperAttackCooldown()); // cooldown do super disparo
             } else {

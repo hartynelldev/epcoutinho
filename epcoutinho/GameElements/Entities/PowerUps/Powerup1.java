@@ -7,6 +7,7 @@ import Manager.EntityState;
 import Engine.ConfigReaders.GameConfig;
 import java.awt.*;
 
+// Powerup 1: aumenta a velocidade do player
 public class Powerup1 extends Powerup {
 
     //  CONSTRUTOR 

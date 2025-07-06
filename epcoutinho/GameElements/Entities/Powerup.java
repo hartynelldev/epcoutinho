@@ -6,7 +6,7 @@ import Engine.ConfigReaders.GameConfig;
 import GameElements.Entity;
 import Manager.EntityState;
 
-// Entidades que interagem no jogo
+// Classe mãe dos powerups
 public abstract class Powerup extends Entity {
     
     //  ATRIBUTOS 

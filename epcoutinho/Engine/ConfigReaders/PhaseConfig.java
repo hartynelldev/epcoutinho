@@ -58,6 +58,7 @@ public class PhaseConfig {
         }
     }
     
+    // Carrega os eventos utilizados pelo SpawnManager 
     public List<SpawnEvent> loadPhaseEvents(int phaseIndex) {
         if (phaseIndex >= phaseFiles.size()) {
             return new ArrayList<>();

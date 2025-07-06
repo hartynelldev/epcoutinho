@@ -13,6 +13,7 @@ import GameElements.Entities.PowerUps.Powerup1;
 import GameElements.Entities.ProjectileModels.ProjectileEnemy;
 import GameElements.Entities.ProjectileModels.ProjectilePlayer;
 
+// Gerencia atualizações (.update)e colisões de entidades	
 public class EntityManager {
 
     public static double distance(GameElement e1, GameElement e2) {

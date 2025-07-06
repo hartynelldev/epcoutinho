@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Engine.ConfigReaders.GameConfig;
 
+// Classe mãe das entidades (interagem) + elementos do jogo
 public abstract class GameElement {
 
     //  ATRIBUTOS 

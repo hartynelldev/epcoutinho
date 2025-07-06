@@ -6,7 +6,7 @@ import Manager.EntityState;
 
 import java.awt.Color;
 
-// Entidades que interagem no jogo
+// Entidades são elementos que interagem no jogo
 public abstract class Entity extends GameElement {
     
     //  ATRIBUTOS 

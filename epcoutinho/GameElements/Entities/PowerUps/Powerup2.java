@@ -7,6 +7,7 @@ import Manager.EntityState;
 import Engine.ConfigReaders.GameConfig;
 import java.awt.*;
 
+// Powerup 2: cria um escudo temporário que deixa entidade INVULNERÁVEL
 public class Powerup2 extends Powerup {
 
     //  CONSTRUTOR 

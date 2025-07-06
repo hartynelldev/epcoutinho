@@ -4,6 +4,7 @@ import Engine.GameLib;
 import GameElements.Entity;
 import Manager.EntityState;
 
+// Classe mãe dos projectiles	
 public abstract class Projectile extends Entity {
     // disparos (player ou inimigos)
 

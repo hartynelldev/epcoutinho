@@ -8,7 +8,7 @@ import GameElements.Entities.EnemyModels.Boss;
 import GameElements.Entities.EnemyModels.Bosses.Boss1;
 import Manager.EntityState;
 
-
+// Desenha (chama o .draw) a cena do jogo
 public class SceneRenderer {
 
     public SceneRenderer() {

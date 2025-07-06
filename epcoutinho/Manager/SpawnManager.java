@@ -86,14 +86,15 @@ public class SpawnManager {
         if (currentEventIndex >= spawnEvents.size()) {
             // Só passa para a próxima fase se não há boss ativo
             if (!bossActive || (currentBoss != null && currentBoss.getState() != EntityState.ACTIVE)) {
-                if (phaseTime > 5000) { // 2 segundos de transição
+                // segundos de transição entre fases!
+                if (phaseTime > 5000) { 
                     nextPhase(currentTime);
                 }
             }
         }
         
-        // Processa spawns de Enemy2 (cobrinha) independentemente dos eventos
-        // Só processa se a cobrinha estiver ativa
+        // Processa spawns de Enemy2 (cobrinha) independentemente dos eventos (necessário pois uma minhoca é composta por varios Enemy2)
+        // Só processa se a cobreinha estiver ativa
         processEnemy2Spawn(currentTime, entities);
     }
     
@@ -109,29 +110,32 @@ public class SpawnManager {
                 newEnemy1.spawn(currentTime);
                 ((ArrayList<Enemy1>) entities.get(3)).add(newEnemy1);
                 System.out.println("Enemy1 spawnado na posição (" + event.x + ", " + event.y + ")");
-            } else if (event.enemyType == 2) {
+            }
+            else if (event.enemyType == 2) {
                 // Para Enemy2, ativa a cobrinha no tempo especificado pelo evento
-                enemy2_spawnX = event.x; // Usa a posição X do evento como ponto inicial
-                enemy2_spawnY = event.y; // Usa a posição Y do evento como ponto inicial
+                enemy2_spawnX = event.x; // Usa a posição X e Y do .txt como ponto inicial
+                enemy2_spawnY = event.y; 
                 nextEnemy2Spawn = currentTime; // Começa imediatamente
                 enemy2SnakeActive = true;
                 enemy2_count = 0; // Reset do contador para nova cobrinha
                 System.out.println("Cobrinha Enemy2 ativada na posição (" + event.x + ", " + event.y + ")");
             }
-        } else if (event.type.equals("CHEFE")) {
+        }
+        else if (event.type.equals("CHEFE")) {
             // Spawn de Boss
             if (bossActive && currentBoss != null && currentBoss.getState() == EntityState.ACTIVE) {
                 System.out.println("Boss já ativo, ignorando spawn de novo boss");
-                return; // Já há um boss ativo
+                return; 
             }
-            
+
             if (event.enemyType == 1) {
                 currentBoss = new Boss1(event.x, event.y, currentTime, currentTime, event.bossHP);
-                boss1=true;
+                boss1=true; // Flag temporária
                 System.out.println("Boss1 spawnado com HP: " + event.bossHP);
+
             } else if (event.enemyType == 2) {
                 currentBoss = new Boss2(event.x, event.y, currentTime, currentTime, event.bossHP);
-                boss2=true;
+                boss2=true; // Flag temporária
                 System.out.println("Boss2 spawnado com HP: " + event.bossHP);
             }
             
@@ -140,13 +144,16 @@ public class SpawnManager {
             }
         } else if (event.type.equals("POWERUP")) {
             // Spawn de Powerup
+            
             if (event.enemyType == 1) {
                 // Cria um novo Powerup1
                 Powerup1 newPowerup1 = new Powerup1(event.x, event.y, currentTime, currentTime);
                 newPowerup1.spawn(currentTime);
                 ((ArrayList<Powerup1>) entities.get(5)).add(newPowerup1);
                 System.out.println("Powerup1 spawnado na posição (" + event.x + ", " + event.y + ")");
-            } else if (event.enemyType == 2) {
+            }
+
+            else if (event.enemyType == 2) {
                 // Cria um novo Powerup2
                 Powerup2 newPowerup2 = new Powerup2(event.x, event.y, currentTime, currentTime);
                 newPowerup2.spawn(currentTime);
@@ -191,8 +198,9 @@ public class SpawnManager {
     
     public void checkBossState() {
 
-        if (bossActive && currentBoss != null && currentBoss.getState() == EntityState.EXPLODING) {
+        if (bossActive && currentBoss != null && (currentBoss.getState() == EntityState.EXPLODING || currentBoss.getState() == EntityState.INACTIVE)) {
 
+            // Flags temporárias
             if(boss1) boss1 = false;
             if(boss2) boss2 = false;
 
