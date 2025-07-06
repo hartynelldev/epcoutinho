@@ -39,7 +39,7 @@ public class PhaseConfig {
     private void loadPhaseConfig() {
         if (initialized) return;
         
-        try (BufferedReader reader = new BufferedReader(new FileReader("epcoutinho/Config/phaseConfig.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Config/phaseConfig.txt"))) {
             this.playerHP = Integer.parseInt(reader.readLine().trim());
             this.numberOfPhases = Integer.parseInt(reader.readLine().trim());
             
@@ -52,8 +52,8 @@ public class PhaseConfig {
             // Configuração padrão em caso de erro
             this.playerHP = 10;
             this.numberOfPhases = 2;
-            this.phaseFiles.add("epcoutinho/Config/levels/fase1.txt");
-            this.phaseFiles.add("epcoutinho/Config/levels/fase2.txt");
+            this.phaseFiles.add("Config/levels/fase1.txt");
+            this.phaseFiles.add("Config/levels/fase2.txt");
             initialized = true;
         }
     }

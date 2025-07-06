@@ -8,7 +8,7 @@ public class LifeBar extends GameElement {
     //  CONSTRUTOR 
     
     public LifeBar(int hp) {
-        super(GameLib.WIDTH / 2, 0, hp);
+        super(GameLib.WIDTH / 2, 0, hp/4);
         VY = GameConfig.getLifeBarVY();
         angle = GameConfig.getLifeBarAngle();
     }

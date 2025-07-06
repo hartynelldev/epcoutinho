@@ -7,7 +7,7 @@ Este é um jogo de tiro espacial (shoot 'em up) desenvolvido em Java, onde o jog
 ## Estrutura do Projeto
 
 ```
-epcoutinho/
+game/
 ├── Config/                    # Arquivos de configuração (.txt, alteráveis)
 │   ├── gameConfig.txt        # Configurações gerais do jogo
 │   ├── phaseConfig.txt       # Configuração de fases
@@ -244,12 +244,12 @@ Para modificar o jogo, edite:
 
 ### Compilação
 ```bash
-javac -cp . epcoutinho/*.java epcoutinho/*/*.java epcoutinho/*/*/*.java
+javac -cp . game/*.java game/*/*.java game/*/*/*.java
 ```
 
 ### Execução
 ```bash
-java epcoutinho.Main
+java game.Main
 ```
 
 ## Extensibilidade
