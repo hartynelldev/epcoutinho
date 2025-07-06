@@ -69,7 +69,7 @@ public class PhaseConfig {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty() || line.startsWith("#")) continue;   // ignora linhas vazias e comentários com '#'
                 
                 String[] parts = line.split(" ");
                 if (parts.length >= 5) {
