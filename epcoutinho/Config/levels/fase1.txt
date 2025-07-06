@@ -1,7 +1,7 @@
 # As entidades devem estar postas neste arquivo de ordem cronológica.
 # INIMIGO <TIPO> <QUANDO> <POSIÇÃO INICIAL X> <POSIÇÃO INICIAL Y>
 #---------------------------------------------------------------------#
-INIMIGO 2 1500 120 50
+INIMIGO 1 1500 120 50
 INIMIGO 1 2500 180 50
 INIMIGO 1 2500 180 50
 INIMIGO 1 2500 180 50
@@ -12,4 +12,4 @@ INIMIGO 2 5500 60 50
 POWERUP 2 6000 200 50
 
 # CHEFE <TIPO> <HP> <QUANDO> <POSIÇÃO INICIAL X> <POSIÇÃO INICIAL Y>
-CHEFE 1 10 8000 200 50
+CHEFE 1 10 20000 200 50

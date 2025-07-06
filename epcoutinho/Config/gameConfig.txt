@@ -11,7 +11,7 @@ entity.defaultExplosionTime=500
 entity.playerExplosionTime=2000
 
 # PLAYER
-player.shootingSpeed=200
+player.shootingSpeed=150
 player.baseRadius=12.0
 player.shieldRadiusIncrement=6
 player.initialX=240.0

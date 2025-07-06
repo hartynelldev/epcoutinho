@@ -33,7 +33,7 @@ epcoutinho/
 │       ├── Projectile.java   # Classe base para projéteis
 │       ├── Powerup.java      # Classe base para powerups
 │       ├── EnemyModels/      # Tipos de inimigos (classes próprias)
-│       │   ├── Enemy1.java   # Bolinha que atira
+│       │   ├── Enemy1.java   # Inimigo simples
 │       │   ├── Enemy2.java   # Cobrinha
 │       │   ├── Boss.java     # Classe base para bosses
 │       │   └── Bosses/       # Tipos de boss (classes próprias)
@@ -122,29 +122,6 @@ epcoutinho/
   - Método de controle especial para Enemy2 (cobrinha)
 
 ### 4. Elementos do Jogo (GameElements)
-
-#### Hierarquia de Classes
-
-```
-GameElement (base)
-├── Entity (entidades interativas)
-│   ├── Player (jogador)
-│   ├── Enemy (inimigos)
-│   │   ├── Enemy1 (inimigo simples)
-│   │   ├── Enemy2 (cobrinha)
-│   │   └── Boss (bosses)
-│   │       ├── Boss1 (boss de aparência "player")
-│   │       └── Boss2 (boss cubo doido)
-│   ├── Projectile (projéteis)
-│   │   ├── ProjectilePlayer
-│   │   └── ProjectileEnemy
-│   └── Powerup (powerups)
-│       ├── Powerup1 (velocidade)
-│       └── Powerup2 (escudo)
-├── LifeBar (barra de vida)
-├── Star (estrelas de fundo)
-└── BackGround (fundo animado)
-```
 
 ## Mecânicas do Jogo
 
