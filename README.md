@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Este é um jogo de tiro espacial (shoot 'em up) desenvolvido em Java, onde o jogador controla uma nave espacial e deve enfrentar inimigos, bosses e coletar powerups através de múltiplas fases. O projeto utiliza uma arquitetura modular com sistema de configuração baseado em arquivos de texto.
+Este é um jogo de tiro espacial (shoot 'em up) desenvolvido em Java para disciplina ACH2003 - Computação Orientada a Objetos (2025) na EACH-USP, onde o jogador controla uma nave espacial e deve enfrentar inimigos, bosses e coletar powerups através de múltiplas fases. O projeto utiliza uma arquitetura modular com sistema de configuração baseado em arquivos de texto.
 
 ## Estrutura do Projeto
 
